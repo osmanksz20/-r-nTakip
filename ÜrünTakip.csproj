@@ -55,6 +55,30 @@
     <Compile Include="Views\StokIslemleriUC.Designer.cs">
       <DependentUpon>StokIslemleriUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\VeresiyeDefterUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\VeresiyeDefterUC.Designer.cs">
+      <DependentUpon>VeresiyeDefterUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EFaturaUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EFaturaUC.Designer.cs">
+      <DependentUpon>EFaturaUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RaporlarUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\RaporlarUC.Designer.cs">
+      <DependentUpon>RaporlarUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AyarlarUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AyarlarUC.Designer.cs">
+      <DependentUpon>AyarlarUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Migrations\20260413083443_InitialCreate.cs" />
     <Compile Include="Migrations\20260413083443_InitialCreate.Designer.cs">
@@ -63,6 +87,9 @@
     <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Sale.cs" />
+    <Compile Include="Models\SaleItem.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

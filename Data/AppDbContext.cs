@@ -7,12 +7,14 @@ namespace ÜrünTakip.Data
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleItem> SaleItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // TODO: Kendi yerel PostgreSQL bilgilerinize göre burayı düzenleyiniz.
                 optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=UrunTakipDB;Username=postgres;Password=123456");
             }
         }
@@ -21,10 +23,31 @@ namespace ÜrünTakip.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Barcode alanı için Unique Index oluşturulması
+            // Barcode alanı için Unique Index
             modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Barcode)
                 .IsUnique();
+
+            // Sale -> Customer ilişkisi (opsiyonel)
+            modelBuilder.Entity<Sale>()
+                .HasOne(s => s.Customer)
+                .WithMany(c => c.Sales)
+                .HasForeignKey(s => s.CustomerId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // SaleItem -> Sale ilişkisi
+            modelBuilder.Entity<SaleItem>()
+                .HasOne(si => si.Sale)
+                .WithMany(s => s.Items)
+                .HasForeignKey(si => si.SaleId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // SaleItem -> Product ilişkisi
+            modelBuilder.Entity<SaleItem>()
+                .HasOne(si => si.Product)
+                .WithMany()
+                .HasForeignKey(si => si.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

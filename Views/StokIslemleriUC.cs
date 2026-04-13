@@ -249,7 +249,8 @@ namespace ÜrünTakip.Views
             if (e.RowIndex >= 0)
             {
                 var row = dgvProducts.Rows[e.RowIndex];
-                int pId = Convert.ToInt32(row.Cells[0].Value);
+                // Sütun adıyla Id'yi bul (gizli sütunlarda index kayması olmaz)
+                int pId = Convert.ToInt32(row.Cells["colId"].Value);
                 _selectedProductId = pId;
                 
                 using (var db = new AppDbContext())
@@ -260,7 +261,7 @@ namespace ÜrünTakip.Views
                         txtBarcode.Text = p.Barcode;
                         txtProductName.Text = p.Name;
                         cmbCategories.SelectedValue = p.CategoryId;
-                        dtpEntryDate.Value = p.EntryDate.ToLocalTime();
+                        try { dtpEntryDate.Value = p.EntryDate.ToLocalTime(); } catch { dtpEntryDate.Value = DateTime.Now; }
                         numPurchasePrice.Value = p.PurchasePrice;
                         numSalePrice.Value = p.SalePrice;
                         numVatRate.Value = p.VatRate;

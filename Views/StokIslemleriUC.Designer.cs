@@ -157,16 +157,17 @@ namespace ÜrünTakip.Views
             this.dgvProducts.AllowUserToAddRows = false;
             this.dgvProducts.AllowUserToDeleteRows = false;
             this.dgvProducts.ReadOnly = true;
+            this.dgvProducts.AutoGenerateColumns = false;
             this.dgvProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProducts.BackgroundColor = System.Drawing.Color.White;
             this.dgvProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
                 this.colId, this.colBarcode, this.colName, this.colCat, this.colStock, this.colPrice});
             
-            this.colId.DataPropertyName = "Id"; this.colId.HeaderText = "ID"; this.colId.Visible = false;
+            this.colId.Name = "colId"; this.colId.DataPropertyName = "Id"; this.colId.HeaderText = "ID"; this.colId.Visible = false;
             this.colBarcode.DataPropertyName = "Barcode"; this.colBarcode.HeaderText = "Barkod";
             this.colName.DataPropertyName = "Name"; this.colName.HeaderText = "Ürün Adı";
-            this.colCat.HeaderText = "Kategori";
+            this.colCat.DataPropertyName = "Kategori"; this.colCat.HeaderText = "Kategori";
             this.colStock.DataPropertyName = "CurrentStock"; this.colStock.HeaderText = "Stok";
             this.colPrice.DataPropertyName = "SalePrice"; this.colPrice.HeaderText = "Satış Fiyatı";
 
