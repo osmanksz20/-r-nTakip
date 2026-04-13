@@ -13,8 +13,8 @@ namespace ÜrünTakip.Models
         public decimal TotalAmount { get; set; }
         public decimal VatTotal { get; set; }
 
-        /// <summary>Nakit, Kart, Veresiye, NakitKart</summary>
-        [MaxLength(20)]
+        /// <summary>Nakit, Kart, Veresiye, Nakit&Kart (Detaylı)</summary>
+        [MaxLength(100)]
         public string PaymentType { get; set; }
 
         /// <summary>Veresiye satışlarda müşteri Id</summary>

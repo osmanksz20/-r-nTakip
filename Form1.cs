@@ -70,7 +70,7 @@ namespace ÜrünTakip
             {
                 case Keys.F11: CompleteSale("Nakit"); e.Handled = true; break;
                 case Keys.F12: CompleteSale("Kart"); e.Handled = true; break;
-                case Keys.F10: CompleteSale("NakitKart"); e.Handled = true; break;
+                case Keys.F10: CompleteSaleNakitKart(); e.Handled = true; break;
                 case Keys.F8: CompleteSaleVeresiye(); e.Handled = true; break;
                 case Keys.F5: CompleteSale("Diğer"); e.Handled = true; break;
             }
@@ -119,14 +119,19 @@ namespace ÜrünTakip
             btn200TL.Click += (s, e) => AddBanknote(200);
 
             // Alınan para elle yazıldığında para üstü hesapla
-            txtAlinan.TextChanged += (s, e) => CalculateChange();
+            txtAlinan.TextChanged += AlinanTextChanged;
 
             // Satış butonları
             btnNakit.Click += (s, e) => CompleteSale("Nakit");
             btnKrediKarti.Click += (s, e) => CompleteSale("Kart");
-            btnNakitKart.Click += (s, e) => CompleteSale("NakitKart");
+            btnNakitKart.Click += (s, e) => CompleteSaleNakitKart();
             btnVeresiye.Click += (s, e) => CompleteSaleVeresiye();
             btnDiger.Click += (s, e) => CompleteSale("Diğer");
+        }
+
+        private void AlinanTextChanged(object sender, EventArgs e)
+        {
+            CalculateChange();
         }
 
         // ————————————————— SAYFA GEÇİŞLERİ —————————————————
@@ -486,9 +491,56 @@ namespace ÜrünTakip
             _cart.Clear();
             _cartTotal = 0;
             RefreshCartGrid();
+            // TextChanged event'ini geçici olarak devre dışı bırak, yoksa sıfırlamada kendini tekrar hesaplar
+            txtAlinan.TextChanged -= AlinanTextChanged;
             txtAlinan.Text = "0,00";
             txtParaUstu.Text = "0,00";
+            txtParaUstu.ForeColor = Color.Red;
+            txtAlinan.TextChanged += AlinanTextChanged;
             lblSelectedProduct.Text = "  Seçili Ürün: - | Stok: -";
+        }
+
+        private void CompleteSaleNakitKart()
+        {
+            if (_cart.Count == 0) { MessageBox.Show("Sepet boş!"); return; }
+
+            Form splitForm = new Form()
+            {
+                Width = 420, Height = 250, Text = "Nakit & Kart Ödeme Bölüştürme",
+                StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog
+            };
+            Label lblTotal = new Label() { Text = $"Toplam Tutar: {_cartTotal:C2}", Left = 20, Top = 15, Width = 360, Height = 30, Font = new Font("Segoe UI", 14F, FontStyle.Bold) };
+            Label lblNakit = new Label() { Text = "Nakit (₺):", Left = 20, Top = 60, Width = 100, Height = 25, Font = new Font("Segoe UI", 11F) };
+            NumericUpDown numNakit = new NumericUpDown() { Left = 130, Top = 58, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Segoe UI", 14F) };
+            Label lblKart = new Label() { Text = "Kart (₺):", Left = 20, Top = 100, Width = 100, Height = 25, Font = new Font("Segoe UI", 11F) };
+            NumericUpDown numKart = new NumericUpDown() { Left = 130, Top = 98, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Segoe UI", 14F) };
+            Label lblWarning = new Label() { Text = "", Left = 20, Top = 140, Width = 360, Height = 20, ForeColor = Color.Red, Font = new Font("Segoe UI", 9F) };
+            Button ok = new Button() { Text = "ÖDEMEYİ TAMAMLA", Left = 130, Top = 165, Width = 250, Height = 40, BackColor = Color.DarkOrange, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+
+            numNakit.ValueChanged += (s2, e2) => {
+                numKart.Value = Math.Max(0, _cartTotal - numNakit.Value);
+                decimal total = numNakit.Value + numKart.Value;
+                lblWarning.Text = total != _cartTotal ? $"Ödeme toplamı tutarla eşleşmiyor! (Fark: {_cartTotal - total:C2})" : "";
+            };
+            numKart.ValueChanged += (s2, e2) => {
+                decimal total = numNakit.Value + numKart.Value;
+                lblWarning.Text = total != _cartTotal ? $"Ödeme toplamı tutarla eşleşmiyor! (Fark: {_cartTotal - total:C2})" : "";
+            };
+
+            ok.Click += (s2, e2) => {
+                if (numNakit.Value + numKart.Value >= _cartTotal)
+                    splitForm.DialogResult = DialogResult.OK;
+                else
+                    MessageBox.Show("Ödeme toplamı tutarı karşılamalıdır!");
+            };
+
+            splitForm.Controls.AddRange(new Control[] { lblTotal, lblNakit, numNakit, lblKart, numKart, lblWarning, ok });
+
+            if (splitForm.ShowDialog() == DialogResult.OK)
+            {
+                string payDetail = $"Nakit&Kart (Nakit:{numNakit.Value:N2} + Kart:{numKart.Value:N2})";
+                CompleteSale(payDetail);
+            }
         }
 
         private void ShowReceipt(Sale sale, List<CartItem> items)
