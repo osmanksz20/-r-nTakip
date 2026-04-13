@@ -49,6 +49,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\StokIslemleriUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StokIslemleriUC.Designer.cs">
+      <DependentUpon>StokIslemleriUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Migrations\20260413083443_InitialCreate.cs" />
     <Compile Include="Migrations\20260413083443_InitialCreate.Designer.cs">

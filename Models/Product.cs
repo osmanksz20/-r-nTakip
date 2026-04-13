@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,8 @@ namespace ÜrünTakip.Models
         
         [Required, MaxLength(200)]
         public string Name { get; set; }
+        
+        public DateTime EntryDate { get; set; } = DateTime.UtcNow;
         
         public int CategoryId { get; set; }
         public Category Category { get; set; }

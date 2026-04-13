@@ -3,14 +3,24 @@ using System.Drawing;
 using System.Windows.Forms;
 using ÜrünTakip.Data;
 using ÜrünTakip.Models;
+using ÜrünTakip.Views;
+using Microsoft.EntityFrameworkCore;
 
 namespace ÜrünTakip
 {
     public partial class Form1 : Form
     {
+        private StokIslemleriUC stokUC;
+
         public Form1()
         {
             InitializeComponent();
+            
+            stokUC = new StokIslemleriUC();
+            stokUC.Dock = DockStyle.Fill;
+            stokUC.Visible = false;
+            pnlDynamicContent.Controls.Add(stokUC);
+
             SetupCustomEvents();
         }
 
@@ -66,7 +76,17 @@ namespace ÜrünTakip
                 flpFooter.Visible = false;
                 pnlDynamicContent.Visible = true;
                 
-                lblDynamicContentTitle.Text = sayfaAdi.ToUpper() + "\n(Bu sayfa yapım aşamasında)";
+                if (sayfaAdi == "Stok İşlemleri")
+                {
+                    lblDynamicContentTitle.Visible = false;
+                    stokUC.Visible = true;
+                }
+                else
+                {
+                    lblDynamicContentTitle.Visible = true;
+                    stokUC.Visible = false;
+                    lblDynamicContentTitle.Text = sayfaAdi.ToUpper() + "\n(Bu sayfa yapım aşamasında)";
+                }
                 
                 lblTotalTitle.Text = "BÖLÜM:";
                 lblTotalValue.Text = sayfaAdi;
