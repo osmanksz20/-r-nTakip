@@ -49,11 +49,18 @@ namespace ÜrünTakip.Views
                     lblDebtInfo.Text = $"Toplam Borç: {c.TotalDebt:C2}";
                 }
                 // Veresiye geçmişi
-                var history = db.Sales.Where(s => s.CustomerId == id && s.PaymentType == "Veresiye")
+                var historySales = db.Sales.Where(s => s.CustomerId == id && s.PaymentType == "Veresiye")
                     .OrderByDescending(s => s.SaleDate)
-                    .Select(s => new { s.Id, Tarih = s.SaleDate, Tutar = s.TotalAmount, Kasiyer = s.CashierName })
-                    .ToList();
-                dgvHistory.DataSource = history;
+                    .ToList(); // Veriyi önce çekiyoruz
+                
+                var historyProjection = historySales.Select(s => new { 
+                    s.Id, 
+                    Tarih = s.SaleDate.ToString("dd.MM.yyyy HH:mm:ss"), // Milisaniyeler kaldırıldı
+                    Tutar = s.TotalAmount, 
+                    Kasiyer = s.CashierName 
+                }).ToList();
+                
+                dgvHistory.DataSource = historyProjection;
             }
         }
 

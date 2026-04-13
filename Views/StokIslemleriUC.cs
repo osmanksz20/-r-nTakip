@@ -147,7 +147,7 @@ namespace ÜrünTakip.Views
                         Barcode = txtBarcode.Text,
                         Name = txtProductName.Text,
                         CategoryId = (int)cmbCategories.SelectedValue,
-                        EntryDate = dtpEntryDate.Value.ToUniversalTime(), // Postgres prefers UTC
+                        EntryDate = dtpEntryDate.Value, // Artık doğrudan yerel saat kaydediliyor
                         PurchasePrice = numPurchasePrice.Value,
                         SalePrice = numSalePrice.Value,
                         VatRate = (int)numVatRate.Value,
@@ -182,7 +182,7 @@ namespace ÜrünTakip.Views
                         p.Barcode = txtBarcode.Text;
                         p.Name = txtProductName.Text;
                         p.CategoryId = (int)cmbCategories.SelectedValue;
-                        p.EntryDate = dtpEntryDate.Value.ToUniversalTime();
+                        p.EntryDate = dtpEntryDate.Value;
                         p.PurchasePrice = numPurchasePrice.Value;
                         p.SalePrice = numSalePrice.Value;
                         p.VatRate = (int)numVatRate.Value;
@@ -292,7 +292,7 @@ namespace ÜrünTakip.Views
                         txtBarcode.Text = p.Barcode;
                         txtProductName.Text = p.Name;
                         cmbCategories.SelectedValue = p.CategoryId;
-                        try { dtpEntryDate.Value = p.EntryDate.ToLocalTime(); } catch { dtpEntryDate.Value = DateTime.Now; }
+                        try { dtpEntryDate.Value = p.EntryDate; } catch { dtpEntryDate.Value = DateTime.Now; }
                         numPurchasePrice.Value = p.PurchasePrice;
                         numSalePrice.Value = p.SalePrice;
                         numVatRate.Value = p.VatRate;

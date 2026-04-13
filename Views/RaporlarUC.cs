@@ -19,11 +19,11 @@ namespace ÜrünTakip.Views
         {
             using (var db = new AppDbContext())
             {
-                var dateUtc = dtpReportDate.Value.Date.ToUniversalTime();
-                var nextDayUtc = dateUtc.AddDays(1);
+                var startDate = dtpReportDate.Value.Date;
+                var endDate = startDate.AddDays(1);
 
                 // Günlük satış özeti
-                var dailySales = db.Sales.Where(s => s.SaleDate >= dateUtc && s.SaleDate < nextDayUtc).ToList();
+                var dailySales = db.Sales.Where(s => s.SaleDate >= startDate && s.SaleDate < endDate).ToList();
                 decimal totalCiro = dailySales.Sum(s => s.TotalAmount);
                 decimal totalVat = dailySales.Sum(s => s.VatTotal);
                 int saleCount = dailySales.Count;

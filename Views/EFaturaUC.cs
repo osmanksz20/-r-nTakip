@@ -21,21 +21,24 @@ namespace ÜrünTakip.Views
         {
             using (var db = new AppDbContext())
             {
-                var startUtc = dtpStart.Value.Date.ToUniversalTime();
-                var endUtc = dtpEnd.Value.Date.AddDays(1).ToUniversalTime();
-                var list = db.Sales
-                    .Where(s => s.SaleDate >= startUtc && s.SaleDate < endUtc)
+                var startDate = dtpStart.Value.Date;
+                var endDate = dtpEnd.Value.Date.AddDays(1);
+                var salesList = db.Sales
+                    .Where(s => s.SaleDate >= startDate && s.SaleDate < endDate)
                     .OrderByDescending(s => s.SaleDate)
-                    .Select(s => new
-                    {
-                        s.Id,
-                        Tarih = s.SaleDate,
-                        Tutar = s.TotalAmount,
-                        KDV = s.VatTotal,
-                        Ödeme = s.PaymentType,
-                        Kasiyer = s.CashierName
-                    }).ToList();
-                dgvSales.DataSource = list;
+                    .ToList(); // Önce veriyi çekiyoruz
+
+                var projection = salesList.Select(s => new
+                {
+                    s.Id,
+                    Tarih = s.SaleDate.ToString("dd.MM.yyyy HH:mm:ss"), // Milisaniyeler kaldırıldı
+                    Tutar = s.TotalAmount,
+                    KDV = s.VatTotal,
+                    Ödeme = s.PaymentType,
+                    Kasiyer = s.CashierName
+                }).ToList();
+
+                dgvSales.DataSource = projection;
             }
         }
 

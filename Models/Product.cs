@@ -14,7 +14,7 @@ namespace ÜrünTakip.Models
         [Required, MaxLength(200)]
         public string Name { get; set; }
         
-        public DateTime EntryDate { get; set; } = DateTime.UtcNow;
+        public DateTime EntryDate { get; set; } = DateTime.Now;
         
         public int CategoryId { get; set; }
         public Category Category { get; set; }

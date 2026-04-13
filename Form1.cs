@@ -362,7 +362,7 @@ namespace ÜrünTakip
                     // Satış kaydı oluştur
                     var sale = new Sale
                     {
-                        SaleDate = DateTime.UtcNow,
+                        SaleDate = DateTime.Now,
                         TotalAmount = _cartTotal,
                         VatTotal = vatTotal,
                         PaymentType = paymentType,
@@ -447,7 +447,7 @@ namespace ÜrünTakip
 
                         var sale = new Sale
                         {
-                            SaleDate = DateTime.UtcNow,
+                            SaleDate = DateTime.Now,
                             TotalAmount = _cartTotal,
                             VatTotal = vatTotal,
                             PaymentType = "Veresiye",
@@ -550,7 +550,7 @@ namespace ÜrünTakip
             receipt += $"      {storeName}\n";
             receipt += "═══════════════════════════\n";
             receipt += $"Fiş No : {sale.Id}\n";
-            receipt += $"Tarih  : {DateTime.Now:dd.MM.yyyy HH:mm}\n";
+            receipt += $"Tarih  : {sale.SaleDate.ToLocalTime():dd.MM.yyyy HH:mm}\n";
             receipt += $"Kasiyer: {sale.CashierName}\n";
             receipt += "───────────────────────────\n";
             foreach (var item in items)
