@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using ÜrünTakip.Models;
 
@@ -15,7 +16,11 @@ namespace ÜrünTakip.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=UrunTakipDB;Username=postgres;Password=123456");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=UrunTakipDB;Username=postgres;Password=123456", 
+                    builder => builder.EnableRetryOnFailure(
+                        maxRetryCount: 3,
+                        maxRetryDelay: TimeSpan.FromSeconds(5),
+                        errorCodesToAdd: null));
             }
         }
 
