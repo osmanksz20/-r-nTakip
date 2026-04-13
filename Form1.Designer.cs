@@ -34,6 +34,10 @@ namespace ÜrünTakip
             this.lblTotalTitle = new System.Windows.Forms.Label();
             this.lblTotalValue = new System.Windows.Forms.Label();
             
+            this.pnlDynamicContent = new System.Windows.Forms.Panel();
+            this.lblDynamicContentTitle = new System.Windows.Forms.Label();
+
+            
             this.tlpMiddle = new System.Windows.Forms.TableLayoutPanel();
             this.pnlSales = new System.Windows.Forms.Panel();
             this.flpTabs = new System.Windows.Forms.FlowLayoutPanel();
@@ -138,6 +142,8 @@ namespace ÜrünTakip
             this.tlpContent.Controls.Add(this.pnlHeader, 0, 0);
             this.tlpContent.Controls.Add(this.tlpMiddle, 0, 1);
             this.tlpContent.Controls.Add(this.flpFooter, 0, 2);
+            this.tlpContent.Controls.Add(this.pnlDynamicContent, 0, 1);
+            this.tlpContent.SetRowSpan(this.pnlDynamicContent, 2);
             this.tlpContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpContent.Location = new System.Drawing.Point(200, 0);
             this.tlpContent.Margin = new System.Windows.Forms.Padding(0);
@@ -176,6 +182,19 @@ namespace ÜrünTakip
             this.lblTotalTitle.Width = 150;
             this.lblTotalTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTotalTitle.Text = "KASA TOPLAM:";
+
+            // pnlDynamicContent
+            this.pnlDynamicContent.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlDynamicContent.Controls.Add(this.lblDynamicContentTitle);
+            this.pnlDynamicContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDynamicContent.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlDynamicContent.Visible = false;
+
+            // lblDynamicContentTitle
+            this.lblDynamicContentTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDynamicContentTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDynamicContentTitle.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
+            this.lblDynamicContentTitle.ForeColor = System.Drawing.Color.LightGray;
 
             // tlpMiddle
             this.tlpMiddle.ColumnCount = 3;
@@ -393,6 +412,10 @@ namespace ÜrünTakip
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblTotalTitle;
         private System.Windows.Forms.Label lblTotalValue;
+
+        // Dynamic Panel for Sidebar Routing
+        private System.Windows.Forms.Panel pnlDynamicContent;
+        private System.Windows.Forms.Label lblDynamicContentTitle;
 
         // Sales Panel Controls
         private System.Windows.Forms.FlowLayoutPanel flpTabs;

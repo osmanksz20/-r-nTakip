@@ -38,6 +38,40 @@ namespace ÜrünTakip
             
             btnNakit.Click += (s, e) => MessageBox.Show("Nakit Tahsilat Ekranı", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             btnKrediKarti.Click += (s, e) => MessageBox.Show("Kredi Kartı POS Tahsilat Ekranı", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // TABS (Sidebar) Geçiş Olayları
+            btnKasa.Click += delegate { SayfaDegistir("Kasa"); };
+            btnStok.Click += delegate { SayfaDegistir("Stok İşlemleri"); };
+            btnVeresiyeDefteri.Click += delegate { SayfaDegistir("Veresiye Defteri"); };
+            btnEFatura.Click += delegate { SayfaDegistir("e-Fatura Modülü"); };
+            btnRaporlar.Click += delegate { SayfaDegistir("Genel Raporlar"); };
+            btnAyarlar.Click += delegate { SayfaDegistir("Sistem Ayarları"); };
+        }
+
+        private void SayfaDegistir(string sayfaAdi)
+        {
+            if (sayfaAdi == "Kasa")
+            {
+                pnlDynamicContent.Visible = false;
+                tlpMiddle.Visible = true;
+                flpFooter.Visible = true;
+                
+                lblTotalTitle.Text = "KASA TOPLAM:";
+                lblTotalValue.Text = "594,00 ₺";
+                lblTotalValue.ForeColor = Color.ForestGreen;
+            }
+            else
+            {
+                tlpMiddle.Visible = false;
+                flpFooter.Visible = false;
+                pnlDynamicContent.Visible = true;
+                
+                lblDynamicContentTitle.Text = sayfaAdi.ToUpper() + "\n(Bu sayfa yapım aşamasında)";
+                
+                lblTotalTitle.Text = "BÖLÜM:";
+                lblTotalValue.Text = sayfaAdi;
+                lblTotalValue.ForeColor = Color.SteelBlue;
+            }
         }
     }
 }
