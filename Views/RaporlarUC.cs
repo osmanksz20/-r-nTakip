@@ -19,8 +19,24 @@ namespace ÜrünTakip.Views
                 RefreshReport(); 
             };
             btnRefresh.Click += (s, e) => RefreshReport();
-            dtpReportStartDate.ValueChanged += (s, e) => RefreshReport();
-            dtpReportEndDate.ValueChanged += (s, e) => RefreshReport();
+            dtpReportStartDate.ValueChanged += (s, e) => {
+                if (dtpReportStartDate.Value > dtpReportEndDate.Value)
+                {
+                    MessageBox.Show("Başlangıç tarihi bitiş tarihinden büyük olamaz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dtpReportStartDate.Value = dtpReportEndDate.Value;
+                    return;
+                }
+                RefreshReport();
+            };
+            dtpReportEndDate.ValueChanged += (s, e) => {
+                if (dtpReportStartDate.Value > dtpReportEndDate.Value)
+                {
+                    MessageBox.Show("Başlangıç tarihi bitiş tarihinden büyük olamaz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dtpReportEndDate.Value = dtpReportStartDate.Value;
+                    return;
+                }
+                RefreshReport();
+            };
 
             btnMenuSummary.Click += (s, e) => ShowPanel(pnlSummary);
             btnMenuTop.Click += (s, e) => ShowPanel(pnlTopProducts);
@@ -70,6 +86,8 @@ namespace ÜrünTakip.Views
                 var saleIds = dailySales.Select(s => s.Id).ToList();
                 var saleItems = db.SaleItems.Where(si => saleIds.Contains(si.SaleId)).ToList();
                 decimal totalProfit = 0;
+                var profitBySaleId = new Dictionary<int, decimal>();
+                
                 foreach (var si in saleItems)
                 {
                     decimal costPrice = si.PurchasePriceAtSale;
@@ -79,7 +97,13 @@ namespace ÜrünTakip.Views
                         var product = db.Products.Find(si.ProductId);
                         if (product != null) costPrice = product.PurchasePrice;
                     }
-                    totalProfit += (si.UnitPrice - costPrice) * si.Quantity;
+                    decimal itemProfit = (si.UnitPrice - costPrice) * si.Quantity;
+                    totalProfit += itemProfit;
+                    
+                    if (profitBySaleId.ContainsKey(si.SaleId))
+                        profitBySaleId[si.SaleId] += itemProfit;
+                    else
+                        profitBySaleId[si.SaleId] = itemProfit;
                 }
                 lblDailyProfit.Text = $"Brüt Kâr: {totalProfit:C2}";
 
@@ -112,7 +136,8 @@ namespace ÜrünTakip.Views
                             .Where(si => si.SaleId == s.Id)
                             .Select(si => $"{si.ProductName} x{si.Quantity}")),
                         KDV = s.VatTotal.ToString("C2"),
-                        Toplam = s.TotalAmount.ToString("C2")
+                        Toplam = s.TotalAmount.ToString("C2"),
+                        Kâr = profitBySaleId.ContainsKey(s.Id) ? profitBySaleId[s.Id].ToString("C2") : 0.ToString("C2")
                     })
                     .ToList();
                 dgvDailySalesDetail.DataSource = salesDetail;
