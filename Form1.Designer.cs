@@ -338,7 +338,7 @@ namespace ÜrünTakip
             this.colTutar,
             this.colKdv,
             this.colSil});
-            this.dgvSales.Location = new System.Drawing.Point(10, 90);
+            this.dgvSales.Location = new System.Drawing.Point(10, 140);
             this.dgvSales.Name = "dgvSales";
             this.dgvSales.RowHeadersWidth = 51;
             this.dgvSales.RowTemplate.Height = 35;
@@ -392,42 +392,47 @@ namespace ÜrünTakip
             this.txtBarcode.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.txtBarcode.Location = new System.Drawing.Point(10, 50);
             this.txtBarcode.Name = "txtBarcode";
-            this.txtBarcode.Size = new System.Drawing.Size(180, 39);
+            this.txtBarcode.Size = new System.Drawing.Size(220, 39);
             this.txtBarcode.TabIndex = 1;
             this.txtBarcode.Text = "Barkod Okutunuz...";
             // 
             // cmbPersonnel
             // 
-            this.cmbPersonnel.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cmbPersonnel.Font = new System.Drawing.Font("Segoe UI", 14F);
             this.cmbPersonnel.Items.AddRange(new object[] {
-            "Ahmet Yılmaz"});
-            this.cmbPersonnel.Location = new System.Drawing.Point(200, 50);
+            "Onur ATİK"});
+            this.cmbPersonnel.Location = new System.Drawing.Point(250, 50);
             this.cmbPersonnel.Name = "cmbPersonnel";
-            this.cmbPersonnel.Size = new System.Drawing.Size(140, 36);
+            this.cmbPersonnel.Size = new System.Drawing.Size(230, 39);
             this.cmbPersonnel.TabIndex = 2;
             // 
             // txtKasaSearch
             // 
-            this.txtKasaSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtKasaSearch.Location = new System.Drawing.Point(350, 50);
+            this.txtKasaSearch.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.txtKasaSearch.Location = new System.Drawing.Point(10, 95);
             this.txtKasaSearch.Name = "txtKasaSearch";
-            this.txtKasaSearch.Size = new System.Drawing.Size(140, 34);
+            this.txtKasaSearch.Size = new System.Drawing.Size(470, 39);
             this.txtKasaSearch.TabIndex = 6;
             // 
             // dgvKasaSearch
             // 
             this.dgvKasaSearch.AllowUserToAddRows = false;
             this.dgvKasaSearch.AllowUserToDeleteRows = false;
+            this.dgvKasaSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvKasaSearch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvKasaSearch.BackgroundColor = System.Drawing.Color.White;
-            this.dgvKasaSearch.ColumnHeadersHeight = 29;
-            this.dgvKasaSearch.Location = new System.Drawing.Point(10, 84);
+            this.dgvKasaSearch.ColumnHeadersHeight = 35;
+            this.dgvKasaSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.dgvKasaSearch.Location = new System.Drawing.Point(10, 134);
             this.dgvKasaSearch.Name = "dgvKasaSearch";
             this.dgvKasaSearch.ReadOnly = true;
             this.dgvKasaSearch.RowHeadersVisible = false;
             this.dgvKasaSearch.RowHeadersWidth = 51;
+            this.dgvKasaSearch.RowTemplate.Height = 40;
             this.dgvKasaSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKasaSearch.Size = new System.Drawing.Size(480, 200);
+            this.dgvKasaSearch.Size = new System.Drawing.Size(470, 350);
             this.dgvKasaSearch.TabIndex = 10;
             this.dgvKasaSearch.Visible = false;
             // 

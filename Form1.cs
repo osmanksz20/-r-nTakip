@@ -261,7 +261,10 @@ namespace ÜrünTakip
 
                 switch (sayfaAdi)
                 {
-                    case "Stok İşlemleri": stokUC.Visible = true; break;
+                    case "Stok İşlemleri": 
+                        stokUC.RefreshData();
+                        stokUC.Visible = true; 
+                        break;
                     case "Veresiye Defteri": veresiyeUC.Visible = true; break;
                     case "e-Fatura": efaturaUC.Visible = true; break;
                     case "Raporlar": raporlarUC.Visible = true; break;
@@ -378,8 +381,15 @@ namespace ÜrünTakip
                     LineTotal = product.SalePrice
                 });
             }
-            decimal totalStock = product.Stock1 + product.Stock2;
-            lblSelectedProduct.Text = $"  Seçili: {product.Name} | Stok1: {product.Stock1:N0} ({product.PurchasePrice:N2}₺) | Stok2: {product.Stock2:N0} ({product.PurchasePrice2:N2}₺) | Toplam: {totalStock:N0}";
+            decimal currentCartQty = 0;
+            var addedItem = _cart.FirstOrDefault(c => c.ProductId == product.Id);
+            if (addedItem != null) currentCartQty = addedItem.Quantity;
+            
+            decimal totalStock = product.Stock1 + product.Stock2 - currentCartQty;
+            decimal remainingStok1 = product.Stock1 - currentCartQty;
+            if (remainingStok1 < 0) remainingStok1 = 0; // Görsel olarak o anki sepet düşümü
+            
+            lblSelectedProduct.Text = $"  Seçili: {product.Name} | Kalan Stok: {totalStock:N0} (Stok1: {remainingStok1:N0} , {product.PurchasePrice:N2}₺)";
             RefreshCartGrid();
         }
 
@@ -469,6 +479,18 @@ namespace ÜrünTakip
                 totalCost += remaining * product.PurchasePrice;
             }
 
+            // Müşteri Talebi: Alış fiyatı 1'in stoğu sıfırlandığında,
+            // alış fiyatı 2'nin fiyatı ve stoğu birinciye geçsin, ikincisi boşalsın.
+            if (product.Stock1 <= 0 && product.Stock2 > 0)
+            {
+                product.Stock1 += product.Stock2;
+                product.PurchasePrice = product.PurchasePrice2;
+                
+                // İkinci alış fiyatını ve stoğunu sıfırla
+                product.Stock2 = 0;
+                product.PurchasePrice2 = 0;
+            }
+
             // Toplam stoku güncelle
             product.CurrentStock = product.Stock1 + product.Stock2;
 
@@ -538,6 +560,7 @@ namespace ÜrünTakip
 
                 // Sepeti temizle
                 ClearCart();
+                LoadTouchGridProducts();
             }
             catch (Exception ex)
             {
@@ -620,6 +643,7 @@ namespace ÜrünTakip
                     }
                     MessageBox.Show($"Veresiye satış tamamlandı!\nToplam: {_cartTotal:C2}", "Başarılı");
                     ClearCart();
+                    LoadTouchGridProducts();
                 }
                 catch (Exception ex) { MessageBox.Show("Hata: " + ex.Message); }
             }

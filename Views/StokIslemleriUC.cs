@@ -73,6 +73,12 @@ namespace ÜrünTakip.Views
             }
         }
 
+        public void RefreshData()
+        {
+            LoadProducts(txtSearch.Text);
+            LoadCategories();
+        }
+
         private void LoadProducts(string searchTerm = "")
         {
             using (var db = new AppDbContext())
