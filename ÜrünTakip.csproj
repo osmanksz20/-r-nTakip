@@ -49,6 +49,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\20260414112023_AddDualPurchasePrice.cs" />
+    <Compile Include="Migrations\20260414112023_AddDualPurchasePrice.Designer.cs">
+      <DependentUpon>20260414112023_AddDualPurchasePrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20260414112201_AddPurchasePrice2AndStocks.cs" />
+    <Compile Include="Migrations\20260414112201_AddPurchasePrice2AndStocks.Designer.cs">
+      <DependentUpon>20260414112201_AddPurchasePrice2AndStocks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\StokIslemleriUC.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -23,6 +23,10 @@ namespace ÜrünTakip.Views
             numSalePrice.ValueChanged += CalculateKDV;
             numVatRate.ValueChanged += CalculateKDV;
             
+            // Toplam stok güncelleme
+            numStock.ValueChanged += UpdateTotalStockLabel;
+            numStock2.ValueChanged += UpdateTotalStockLabel;
+            
             btnGenBarcode.Click += BtnGenBarcode_Click;
             btnAddCategory.Click += BtnAddCategory_Click;
             
@@ -43,6 +47,13 @@ namespace ÜrünTakip.Views
             LoadCategories();
             LoadProducts();
             CalculateKDV(null, null);
+            UpdateTotalStockLabel(null, null);
+        }
+
+        private void UpdateTotalStockLabel(object sender, EventArgs e)
+        {
+            decimal total = numStock.Value + numStock2.Value;
+            lblTotalStock.Text = $"Toplam Stok: {total:N0}  (Stok1: {numStock.Value:N0} + Stok2: {numStock2.Value:N0})";
         }
 
         private void LoadCategories()
@@ -87,7 +98,7 @@ namespace ÜrünTakip.Views
                     p.Barcode,
                     Name = p.Name,
                     Kategori = p.Category != null ? p.Category.Name : "Yok",
-                    p.CurrentStock,
+                    CurrentStock = p.Stock1 + p.Stock2,
                     p.SalePrice
                 }).ToList();
                 
@@ -171,11 +182,14 @@ namespace ÜrünTakip.Views
                         Barcode = txtBarcode.Text,
                         Name = txtProductName.Text,
                         CategoryId = (int)cmbCategories.SelectedValue,
-                        EntryDate = dtpEntryDate.Value, // Artık doğrudan yerel saat kaydediliyor
+                        EntryDate = dtpEntryDate.Value,
                         PurchasePrice = numPurchasePrice.Value,
+                        PurchasePrice2 = numPurchasePrice2.Value,
                         SalePrice = numSalePrice.Value,
                         VatRate = (int)numVatRate.Value,
-                        CurrentStock = numStock.Value,
+                        Stock1 = numStock.Value,
+                        Stock2 = numStock2.Value,
+                        CurrentStock = numStock.Value + numStock2.Value,
                         IsActive = chkIsActive.Checked,
                         Attributes = "{}" // empty JSON
                     };
@@ -208,9 +222,12 @@ namespace ÜrünTakip.Views
                         p.CategoryId = (int)cmbCategories.SelectedValue;
                         p.EntryDate = dtpEntryDate.Value;
                         p.PurchasePrice = numPurchasePrice.Value;
+                        p.PurchasePrice2 = numPurchasePrice2.Value;
                         p.SalePrice = numSalePrice.Value;
                         p.VatRate = (int)numVatRate.Value;
-                        p.CurrentStock = numStock.Value;
+                        p.Stock1 = numStock.Value;
+                        p.Stock2 = numStock2.Value;
+                        p.CurrentStock = numStock.Value + numStock2.Value;
                         p.IsActive = chkIsActive.Checked;
                         
                         db.SaveChanges();
@@ -267,9 +284,11 @@ namespace ÜrünTakip.Views
             txtProductName.Clear();
             dtpEntryDate.Value = DateTime.Now;
             numPurchasePrice.Value = 0;
+            numPurchasePrice2.Value = 0;
             numSalePrice.Value = 0;
             numVatRate.Value = 18;
             numStock.Value = 0;
+            numStock2.Value = 0;
             chkIsActive.Checked = true;
         }
 
@@ -292,9 +311,11 @@ namespace ÜrünTakip.Views
                         cmbCategories.SelectedValue = p.CategoryId;
                         try { dtpEntryDate.Value = p.EntryDate; } catch { dtpEntryDate.Value = DateTime.Now; }
                         numPurchasePrice.Value = p.PurchasePrice;
+                        numPurchasePrice2.Value = p.PurchasePrice2;
                         numSalePrice.Value = p.SalePrice;
                         numVatRate.Value = p.VatRate;
-                        numStock.Value = p.CurrentStock;
+                        numStock.Value = p.Stock1;
+                        numStock2.Value = p.Stock2;
                         chkIsActive.Checked = p.IsActive;
                     }
                 }

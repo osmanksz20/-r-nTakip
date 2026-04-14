@@ -20,5 +20,8 @@ namespace ÜrünTakip.Models
         public decimal UnitPrice { get; set; }
         public int VatRate { get; set; }
         public decimal LineTotal { get; set; }
+
+        /// <summary>Satış anındaki maliyet fiyatı (ağırlıklı ortalama, kâr hesabı için)</summary>
+        public decimal PurchasePriceAtSale { get; set; }
     }
 }

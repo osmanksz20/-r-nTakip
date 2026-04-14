@@ -34,17 +34,20 @@ namespace ÜrünTakip.Views
                 lblDailyVat.Text = $"KDV Toplamı: {totalVat:C2}";
                 lblDailyCount.Text = $"Satış Adedi: {saleCount}";
 
-                // Brüt kâr hesabı (satış fiyatı - alış fiyatı farkı)
+                // Brüt kâr hesabı (satış anındaki maliyet fiyatı üzerinden)
                 var saleIds = dailySales.Select(s => s.Id).ToList();
                 var saleItems = db.SaleItems.Where(si => saleIds.Contains(si.SaleId)).ToList();
                 decimal totalProfit = 0;
                 foreach (var si in saleItems)
                 {
-                    var product = db.Products.Find(si.ProductId);
-                    if (product != null)
+                    decimal costPrice = si.PurchasePriceAtSale;
+                    // Eski satışlar için fallback (migration öncesi kayıtlar)
+                    if (costPrice == 0 && si.ProductId != null)
                     {
-                        totalProfit += (si.UnitPrice - product.PurchasePrice) * si.Quantity;
+                        var product = db.Products.Find(si.ProductId);
+                        if (product != null) costPrice = product.PurchasePrice;
                     }
+                    totalProfit += (si.UnitPrice - costPrice) * si.Quantity;
                 }
                 lblDailyProfit.Text = $"Brüt Kâr: {totalProfit:C2}";
 

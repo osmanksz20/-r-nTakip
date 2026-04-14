@@ -1,13 +1,11 @@
-C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ÜrünTakip.exe.config
-C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ÜrünTakip.exe
-C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ÜrünTakip.pdb
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.csproj.AssemblyReference.cache
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.Form1.resources
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.Properties.Resources.resources
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.csproj.GenerateResource.cache
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.csproj.CoreCompileInputs.cache
-C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.exe
-C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.pdb
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ÜrünTakip.exe.config
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ÜrünTakip.exe
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ÜrünTakip.pdb
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\Microsoft.Bcl.HashCode.dll
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\Microsoft.EntityFrameworkCore.dll
@@ -41,3 +39,5 @@ C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\System.ValueTuple.
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.csproj.SuggestedBindingRedirects.cache
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.exe.config
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.csproj.Up2Date
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.exe
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.pdb

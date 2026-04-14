@@ -19,11 +19,22 @@ namespace ÜrünTakip.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
+        /// <summary>1. Alış Fiyatı</summary>
         public decimal PurchasePrice { get; set; }
+        
+        /// <summary>2. Alış Fiyatı</summary>
+        public decimal PurchasePrice2 { get; set; }
+
         public decimal SalePrice { get; set; }
         public int VatRate { get; set; } // KDV (1, 8, 18, 20 vb.)
         
-        // Anlık gösterim için stok (Asıl stok her zaman hareketlerden hesaplanmalı)
+        /// <summary>1. Alış fiyatına ait stok miktarı</summary>
+        public decimal Stock1 { get; set; }
+        
+        /// <summary>2. Alış fiyatına ait stok miktarı</summary>
+        public decimal Stock2 { get; set; }
+
+        /// <summary>Toplam stok (Stock1 + Stock2). DB'ye yazılır, satışta güncellenir.</summary>
         public decimal CurrentStock { get; set; } 
 
         // PostgreSQL'in gücü: Dinamik özellikler!

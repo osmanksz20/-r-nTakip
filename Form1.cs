@@ -378,7 +378,8 @@ namespace ÜrünTakip
                     LineTotal = product.SalePrice
                 });
             }
-            lblSelectedProduct.Text = $"  Seçili Ürün: {product.Name} | Stok: {product.CurrentStock}";
+            decimal totalStock = product.Stock1 + product.Stock2;
+            lblSelectedProduct.Text = $"  Seçili: {product.Name} | Stok1: {product.Stock1:N0} ({product.PurchasePrice:N2}₺) | Stok2: {product.Stock2:N0} ({product.PurchasePrice2:N2}₺) | Toplam: {totalStock:N0}";
             RefreshCartGrid();
         }
 
@@ -437,6 +438,44 @@ namespace ÜrünTakip
 
         // ————————————————— SATIŞ TAMAMLAMA —————————————————
 
+        /// <summary>FIFO stok düşme: Önce Stock1, sonra Stock2 kullanılır</summary>
+        private decimal DeductStockFIFO(Product product, decimal quantity)
+        {
+            decimal remaining = quantity;
+            decimal totalCost = 0;
+
+            // Önce Stock1'den düş
+            if (product.Stock1 > 0 && remaining > 0)
+            {
+                decimal fromStock1 = Math.Min(remaining, product.Stock1);
+                product.Stock1 -= fromStock1;
+                totalCost += fromStock1 * product.PurchasePrice;
+                remaining -= fromStock1;
+            }
+
+            // Stock1 yetmediyse Stock2'den düş
+            if (remaining > 0 && product.Stock2 > 0)
+            {
+                decimal fromStock2 = Math.Min(remaining, product.Stock2);
+                product.Stock2 -= fromStock2;
+                totalCost += fromStock2 * product.PurchasePrice2;
+                remaining -= fromStock2;
+            }
+
+            // Her iki stok da yeterli değilse kalan negatife düşsün (Stock1'de)
+            if (remaining > 0)
+            {
+                product.Stock1 -= remaining;
+                totalCost += remaining * product.PurchasePrice;
+            }
+
+            // Toplam stoku güncelle
+            product.CurrentStock = product.Stock1 + product.Stock2;
+
+            // Ağırlıklı ortalama maliyet fiyatı
+            return quantity > 0 ? totalCost / quantity : 0;
+        }
+
         private void CompleteSale(string paymentType)
         {
             if (_cart.Count == 0) { MessageBox.Show("Sepet boş! Önce ürün ekleyin."); return; }
@@ -464,9 +503,16 @@ namespace ÜrünTakip
                     db.Sales.Add(sale);
                     db.SaveChanges();
 
-                    // Satış detay satırlarını kaydet ve stok düş
+                    // Satış detay satırlarını kaydet ve stok düş (FIFO)
                     foreach (var item in _cart)
                     {
+                        var product = db.Products.Find(item.ProductId);
+                        decimal purchasePriceAtSale = 0;
+                        if (product != null)
+                        {
+                            purchasePriceAtSale = DeductStockFIFO(product, item.Quantity);
+                        }
+
                         db.SaleItems.Add(new SaleItem
                         {
                             SaleId = sale.Id,
@@ -475,15 +521,9 @@ namespace ÜrünTakip
                             Quantity = item.Quantity,
                             UnitPrice = item.UnitPrice,
                             VatRate = item.VatRate,
-                            LineTotal = item.LineTotal
+                            LineTotal = item.LineTotal,
+                            PurchasePriceAtSale = purchasePriceAtSale
                         });
-
-                        // Stok düşür
-                        var product = db.Products.Find(item.ProductId);
-                        if (product != null)
-                        {
-                            product.CurrentStock -= item.Quantity;
-                        }
                     }
                     db.SaveChanges();
 
@@ -552,6 +592,13 @@ namespace ÜrünTakip
 
                         foreach (var item in _cart)
                         {
+                            var product = db.Products.Find(item.ProductId);
+                            decimal purchasePriceAtSale = 0;
+                            if (product != null)
+                            {
+                                purchasePriceAtSale = DeductStockFIFO(product, item.Quantity);
+                            }
+
                             db.SaleItems.Add(new SaleItem
                             {
                                 SaleId = sale.Id,
@@ -560,10 +607,9 @@ namespace ÜrünTakip
                                 Quantity = item.Quantity,
                                 UnitPrice = item.UnitPrice,
                                 VatRate = item.VatRate,
-                                LineTotal = item.LineTotal
+                                LineTotal = item.LineTotal,
+                                PurchasePriceAtSale = purchasePriceAtSale
                             });
-                            var product = db.Products.Find(item.ProductId);
-                            if (product != null) product.CurrentStock -= item.Quantity;
                         }
 
                         // Müşteri borcunu güncelle
