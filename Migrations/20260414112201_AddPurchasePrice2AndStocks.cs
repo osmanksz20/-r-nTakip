@@ -1,6 +1,6 @@
-ï»¿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ÃœrÃ¼nTakip.Migrations
+namespace ÜrünTakip.Migrations
 {
     public partial class AddPurchasePrice2AndStocks : Migration
     {

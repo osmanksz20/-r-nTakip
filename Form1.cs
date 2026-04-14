@@ -85,7 +85,7 @@ namespace ÜrünTakip
             btnCloseSearch.BackColor = Color.IndianRed;
             btnCloseSearch.ForeColor = Color.White;
             btnCloseSearch.FlatStyle = FlatStyle.Flat;
-            btnCloseSearch.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnCloseSearch.Font = new Font("Open Sans", 12F, FontStyle.Bold);
             btnCloseSearch.Size = new Size(110, 40);
             btnCloseSearch.Visible = false;
             this.Controls.Add(btnCloseSearch);
@@ -636,7 +636,7 @@ namespace ÜrünTakip
 
             // Müşteri seçtir
             Form selectForm = new Form() { Width = 400, Height = 350, Text = "Müşteri Seçin", StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog };
-            ListBox lb = new ListBox() { Left = 10, Top = 10, Width = 365, Height = 240, Font = new Font("Segoe UI", 12F) };
+            ListBox lb = new ListBox() { Left = 10, Top = 10, Width = 365, Height = 240, Font = new Font("Open Sans", 12F) };
             Button ok = new Button() { Text = "SEÇ", Left = 250, Top = 260, Width = 125, Height = 40, DialogResult = DialogResult.OK, BackColor = Color.MediumSeaGreen, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
             selectForm.Controls.Add(lb); selectForm.Controls.Add(ok);
             selectForm.AcceptButton = ok;
@@ -734,13 +734,13 @@ namespace ÜrünTakip
                 Width = 420, Height = 250, Text = "Nakit & Kart Ödeme Bölüştürme",
                 StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog
             };
-            Label lblTotal = new Label() { Text = $"Toplam Tutar: {_cartTotal:C2}", Left = 20, Top = 15, Width = 360, Height = 30, Font = new Font("Segoe UI", 14F, FontStyle.Bold) };
-            Label lblNakit = new Label() { Text = "Nakit (₺):", Left = 20, Top = 60, Width = 100, Height = 25, Font = new Font("Segoe UI", 11F) };
-            NumericUpDown numNakit = new NumericUpDown() { Left = 130, Top = 58, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Segoe UI", 14F) };
-            Label lblKart = new Label() { Text = "Kart (₺):", Left = 20, Top = 100, Width = 100, Height = 25, Font = new Font("Segoe UI", 11F) };
-            NumericUpDown numKart = new NumericUpDown() { Left = 130, Top = 98, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Segoe UI", 14F) };
-            Label lblWarning = new Label() { Text = "", Left = 20, Top = 140, Width = 360, Height = 20, ForeColor = Color.Red, Font = new Font("Segoe UI", 9F) };
-            Button ok = new Button() { Text = "ÖDEMEYİ TAMAMLA", Left = 130, Top = 165, Width = 250, Height = 40, BackColor = Color.DarkOrange, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+            Label lblTotal = new Label() { Text = $"Toplam Tutar: {_cartTotal:C2}", Left = 20, Top = 15, Width = 360, Height = 30, Font = new Font("Open Sans", 14F, FontStyle.Bold) };
+            Label lblNakit = new Label() { Text = "Nakit (₺):", Left = 20, Top = 60, Width = 100, Height = 25, Font = new Font("Open Sans", 11F) };
+            NumericUpDown numNakit = new NumericUpDown() { Left = 130, Top = 58, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Open Sans", 14F) };
+            Label lblKart = new Label() { Text = "Kart (₺):", Left = 20, Top = 100, Width = 100, Height = 25, Font = new Font("Open Sans", 11F) };
+            NumericUpDown numKart = new NumericUpDown() { Left = 130, Top = 98, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Open Sans", 14F) };
+            Label lblWarning = new Label() { Text = "", Left = 20, Top = 140, Width = 360, Height = 20, ForeColor = Color.Red, Font = new Font("Open Sans", 9F) };
+            Button ok = new Button() { Text = "ÖDEMEYİ TAMAMLA", Left = 130, Top = 165, Width = 250, Height = 40, BackColor = Color.DarkOrange, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Open Sans", 10F, FontStyle.Bold) };
 
             numNakit.ValueChanged += (s2, e2) => {
                 numKart.Value = Math.Max(0, _cartTotal - numNakit.Value);

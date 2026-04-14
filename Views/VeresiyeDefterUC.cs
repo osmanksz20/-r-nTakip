@@ -106,7 +106,7 @@ namespace ÜrünTakip.Views
             if (_selectedCustomerId == 0) { MessageBox.Show("Önce müşteri seçin!"); return; }
             Form payForm = new Form() { Width = 350, Height = 180, Text = "Ödeme Al", StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog };
             Label lbl = new Label() { Text = "Ödeme Tutarı (₺):", Left = 20, Top = 25, Width = 120 };
-            NumericUpDown num = new NumericUpDown() { Left = 145, Top = 23, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new System.Drawing.Font("Segoe UI", 14F) };
+            NumericUpDown num = new NumericUpDown() { Left = 145, Top = 23, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new System.Drawing.Font("Open Sans", 14F) };
             Button ok = new Button() { Text = "ÖDEMEY AL", Left = 145, Top = 70, Width = 150, Height = 40, DialogResult = DialogResult.OK, BackColor = System.Drawing.Color.MediumSeaGreen, ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat };
             payForm.Controls.Add(lbl); payForm.Controls.Add(num); payForm.Controls.Add(ok);
             payForm.AcceptButton = ok;

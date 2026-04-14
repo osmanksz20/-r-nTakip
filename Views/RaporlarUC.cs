@@ -12,17 +12,49 @@ namespace ÜrünTakip.Views
         public RaporlarUC()
         {
             InitializeComponent();
-            this.Load += (s, e) => { dtpReportDate.Value = DateTime.Today; RefreshReport(); };
+            this.Load += (s, e) => { 
+                var today = DateTime.Today;
+                dtpReportStartDate.Value = new DateTime(today.Year, today.Month, 1);
+                dtpReportEndDate.Value = today;
+                RefreshReport(); 
+            };
             btnRefresh.Click += (s, e) => RefreshReport();
-            dtpReportDate.ValueChanged += (s, e) => RefreshReport();
+            dtpReportStartDate.ValueChanged += (s, e) => RefreshReport();
+            dtpReportEndDate.ValueChanged += (s, e) => RefreshReport();
+
+            btnMenuSummary.Click += (s, e) => ShowPanel(pnlSummary);
+            btnMenuTop.Click += (s, e) => ShowPanel(pnlTopProducts);
+            btnMenuLow.Click += (s, e) => ShowPanel(pnlLowStock);
+            btnMenuDetail.Click += (s, e) => ShowPanel(pnlDailySalesDetail);
+            
+            btnBack.Click += (s, e) => {
+                pnlSummary.Visible = false;
+                pnlTopProducts.Visible = false;
+                pnlLowStock.Visible = false;
+                pnlDailySalesDetail.Visible = false;
+                pnlMenu.Visible = true;
+                btnBack.Visible = false;
+            };
+        }
+
+        private void ShowPanel(Panel pnl)
+        {
+            pnlMenu.Visible = false;
+            pnlSummary.Visible = false;
+            pnlTopProducts.Visible = false;
+            pnlLowStock.Visible = false;
+            pnlDailySalesDetail.Visible = false;
+            
+            pnl.Visible = true;
+            btnBack.Visible = true;
         }
 
         private void RefreshReport()
         {
             using (var db = new AppDbContext())
             {
-                var startDate = dtpReportDate.Value.Date;
-                var endDate = startDate.AddDays(1);
+                var startDate = dtpReportStartDate.Value.Date;
+                var endDate = dtpReportEndDate.Value.Date.AddDays(1);
 
                 // Günlük satış özeti
                 var dailySales = db.Sales.Where(s => s.SaleDate >= startDate && s.SaleDate < endDate).ToList();

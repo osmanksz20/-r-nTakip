@@ -38,7 +38,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.SuspendLayout();
 
-            System.Drawing.Font mf = new System.Drawing.Font("Segoe UI", 10F);
+            System.Drawing.Font mf = new System.Drawing.Font("Open Sans", 10F);
 
             // tlpMain
             this.tlpMain.ColumnCount = 3;
@@ -57,7 +57,7 @@ namespace ÜrünTakip.Views
             this.pnlForm.BackColor = System.Drawing.Color.White;
             this.pnlForm.Padding = new System.Windows.Forms.Padding(15);
 
-            this.lblTitle.Text = "Müşteri Bilgileri"; this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold); this.lblTitle.Location = new System.Drawing.Point(15, 15); this.lblTitle.Size = new System.Drawing.Size(250, 35);
+            this.lblTitle.Text = "Müşteri Bilgileri"; this.lblTitle.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Bold); this.lblTitle.Location = new System.Drawing.Point(15, 15); this.lblTitle.Size = new System.Drawing.Size(250, 35);
             this.lblName.Text = "Ad Soyad:"; this.lblName.Location = new System.Drawing.Point(15, 60); this.lblName.Size = new System.Drawing.Size(80, 25); this.lblName.Font = mf;
             this.txtName.Location = new System.Drawing.Point(100, 58); this.txtName.Size = new System.Drawing.Size(165, 28); this.txtName.Font = mf;
             this.lblPhone.Text = "Telefon:"; this.lblPhone.Location = new System.Drawing.Point(15, 95); this.lblPhone.Size = new System.Drawing.Size(80, 25); this.lblPhone.Font = mf;
@@ -65,12 +65,12 @@ namespace ÜrünTakip.Views
             this.lblAddress.Text = "Adres:"; this.lblAddress.Location = new System.Drawing.Point(15, 130); this.lblAddress.Size = new System.Drawing.Size(80, 25); this.lblAddress.Font = mf;
             this.txtAddress.Location = new System.Drawing.Point(100, 128); this.txtAddress.Size = new System.Drawing.Size(165, 60); this.txtAddress.Font = mf; this.txtAddress.Multiline = true;
 
-            this.btnSaveCustomer.Text = "KAYDET"; this.btnSaveCustomer.Location = new System.Drawing.Point(15, 200); this.btnSaveCustomer.Size = new System.Drawing.Size(120, 40); this.btnSaveCustomer.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnSaveCustomer.ForeColor = System.Drawing.Color.White; this.btnSaveCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnSaveCustomer.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnDeleteCustomer.Text = "SİL"; this.btnDeleteCustomer.Location = new System.Drawing.Point(145, 200); this.btnDeleteCustomer.Size = new System.Drawing.Size(120, 40); this.btnDeleteCustomer.BackColor = System.Drawing.Color.Crimson; this.btnDeleteCustomer.ForeColor = System.Drawing.Color.White; this.btnDeleteCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnDeleteCustomer.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnClearCustomer.Text = "TEMİZLE"; this.btnClearCustomer.Location = new System.Drawing.Point(15, 250); this.btnClearCustomer.Size = new System.Drawing.Size(120, 40); this.btnClearCustomer.BackColor = System.Drawing.Color.Gray; this.btnClearCustomer.ForeColor = System.Drawing.Color.White; this.btnClearCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnClearCustomer.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnTakePayment.Text = "ÖDEME AL"; this.btnTakePayment.Location = new System.Drawing.Point(145, 250); this.btnTakePayment.Size = new System.Drawing.Size(120, 40); this.btnTakePayment.BackColor = System.Drawing.Color.SteelBlue; this.btnTakePayment.ForeColor = System.Drawing.Color.White; this.btnTakePayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnTakePayment.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnSaveCustomer.Text = "KAYDET"; this.btnSaveCustomer.Location = new System.Drawing.Point(15, 200); this.btnSaveCustomer.Size = new System.Drawing.Size(120, 40); this.btnSaveCustomer.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnSaveCustomer.ForeColor = System.Drawing.Color.White; this.btnSaveCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnSaveCustomer.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
+            this.btnDeleteCustomer.Text = "SİL"; this.btnDeleteCustomer.Location = new System.Drawing.Point(145, 200); this.btnDeleteCustomer.Size = new System.Drawing.Size(120, 40); this.btnDeleteCustomer.BackColor = System.Drawing.Color.Crimson; this.btnDeleteCustomer.ForeColor = System.Drawing.Color.White; this.btnDeleteCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnDeleteCustomer.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
+            this.btnClearCustomer.Text = "TEMİZLE"; this.btnClearCustomer.Location = new System.Drawing.Point(15, 250); this.btnClearCustomer.Size = new System.Drawing.Size(120, 40); this.btnClearCustomer.BackColor = System.Drawing.Color.Gray; this.btnClearCustomer.ForeColor = System.Drawing.Color.White; this.btnClearCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnClearCustomer.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
+            this.btnTakePayment.Text = "ÖDEME AL"; this.btnTakePayment.Location = new System.Drawing.Point(145, 250); this.btnTakePayment.Size = new System.Drawing.Size(120, 40); this.btnTakePayment.BackColor = System.Drawing.Color.SteelBlue; this.btnTakePayment.ForeColor = System.Drawing.Color.White; this.btnTakePayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnTakePayment.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
 
-            this.lblDebtInfo.Text = "Toplam Borç: 0,00 ₺"; this.lblDebtInfo.Location = new System.Drawing.Point(15, 310); this.lblDebtInfo.Size = new System.Drawing.Size(250, 40); this.lblDebtInfo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold); this.lblDebtInfo.ForeColor = System.Drawing.Color.Crimson;
+            this.lblDebtInfo.Text = "Toplam Borç: 0,00 ₺"; this.lblDebtInfo.Location = new System.Drawing.Point(15, 310); this.lblDebtInfo.Size = new System.Drawing.Size(250, 40); this.lblDebtInfo.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Bold); this.lblDebtInfo.ForeColor = System.Drawing.Color.Crimson;
 
             this.pnlForm.Controls.Add(this.lblTitle); this.pnlForm.Controls.Add(this.lblName); this.pnlForm.Controls.Add(this.txtName);
             this.pnlForm.Controls.Add(this.lblPhone); this.pnlForm.Controls.Add(this.txtPhone);
@@ -94,7 +94,7 @@ namespace ÜrünTakip.Views
             this.pnlHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHistory.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlHistory.Padding = new System.Windows.Forms.Padding(5);
-            this.lblHistoryTitle.Text = "Veresiye Geçmişi"; this.lblHistoryTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblHistoryTitle.Height = 30; this.lblHistoryTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold); this.lblHistoryTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblHistoryTitle.Text = "Veresiye Geçmişi"; this.lblHistoryTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblHistoryTitle.Height = 30; this.lblHistoryTitle.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Bold); this.lblHistoryTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.dgvHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvHistory.AllowUserToAddRows = false; this.dgvHistory.ReadOnly = true;
             this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;

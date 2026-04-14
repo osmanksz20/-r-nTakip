@@ -77,7 +77,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.SuspendLayout();
 
-            System.Drawing.Font mainFont = new System.Drawing.Font("Segoe UI", 10F);
+            System.Drawing.Font mainFont = new System.Drawing.Font("Open Sans", 10F);
 
             // tlpMain
             this.tlpMain.ColumnCount = 2;
@@ -95,14 +95,14 @@ namespace ÜrünTakip.Views
             
             // lblTitle
             this.lblTitle.Text = "Ürün Kayıt Formu";
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Font = new System.Drawing.Font("Open Sans", 16F, System.Drawing.FontStyle.Bold);
             this.lblTitle.Location = new System.Drawing.Point(20, 20);
             this.lblTitle.Size = new System.Drawing.Size(300, 40);
 
             // lblCategory
             this.lblCategory.Text = "Kategori:"; this.lblCategory.Location = new System.Drawing.Point(20, 70); this.lblCategory.Size = new System.Drawing.Size(100, 25); this.lblCategory.Font = mainFont;
             this.cmbCategories.Location = new System.Drawing.Point(120, 70); this.cmbCategories.Size = new System.Drawing.Size(200, 30); this.cmbCategories.Font = mainFont; this.cmbCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.btnAddCategory.Text = "+"; this.btnAddCategory.Location = new System.Drawing.Point(330, 70); this.btnAddCategory.Size = new System.Drawing.Size(40, 30); this.btnAddCategory.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAddCategory.Text = "+"; this.btnAddCategory.Location = new System.Drawing.Point(330, 70); this.btnAddCategory.Size = new System.Drawing.Size(40, 30); this.btnAddCategory.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
 
             // lblBarcode
             this.lblBarcode.Text = "Barkod:"; this.lblBarcode.Location = new System.Drawing.Point(20, 110); this.lblBarcode.Size = new System.Drawing.Size(100, 25); this.lblBarcode.Font = mainFont;
@@ -137,7 +137,7 @@ namespace ÜrünTakip.Views
             this.lblTotalStock.Text = "Toplam Stok: 0";
             this.lblTotalStock.Location = new System.Drawing.Point(20, 305);
             this.lblTotalStock.Size = new System.Drawing.Size(350, 22);
-            this.lblTotalStock.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTotalStock.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
             this.lblTotalStock.ForeColor = System.Drawing.Color.SteelBlue;
 
             // Satış Fiyatı
@@ -156,14 +156,14 @@ namespace ÜrünTakip.Views
             this.lblKdvCalc.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.lblKdvCalc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblKdvCalc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblKdvCalc.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblKdvCalc.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
             this.lblKdvCalc.Text = "Hesap Bekleniyor...";
 
             // Action Buttons
-            this.btnSave.Text = "KAYDET"; this.btnSave.Location = new System.Drawing.Point(20, 460); this.btnSave.Size = new System.Drawing.Size(170, 45); this.btnSave.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnSave.ForeColor = System.Drawing.Color.White; this.btnSave.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold); this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.Text = "GÜNCELLE"; this.btnUpdate.Location = new System.Drawing.Point(200, 460); this.btnUpdate.Size = new System.Drawing.Size(170, 45); this.btnUpdate.BackColor = System.Drawing.Color.SteelBlue; this.btnUpdate.ForeColor = System.Drawing.Color.White; this.btnUpdate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold); this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Text = "SİL"; this.btnDelete.Location = new System.Drawing.Point(20, 515); this.btnDelete.Size = new System.Drawing.Size(170, 45); this.btnDelete.BackColor = System.Drawing.Color.Crimson; this.btnDelete.ForeColor = System.Drawing.Color.White; this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold); this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.Text = "TEMİZLE"; this.btnClear.Location = new System.Drawing.Point(200, 515); this.btnClear.Size = new System.Drawing.Size(170, 45); this.btnClear.BackColor = System.Drawing.Color.Gray; this.btnClear.ForeColor = System.Drawing.Color.White; this.btnClear.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold); this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Text = "KAYDET"; this.btnSave.Location = new System.Drawing.Point(20, 460); this.btnSave.Size = new System.Drawing.Size(170, 45); this.btnSave.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnSave.ForeColor = System.Drawing.Color.White; this.btnSave.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold); this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Text = "GÜNCELLE"; this.btnUpdate.Location = new System.Drawing.Point(200, 460); this.btnUpdate.Size = new System.Drawing.Size(170, 45); this.btnUpdate.BackColor = System.Drawing.Color.SteelBlue; this.btnUpdate.ForeColor = System.Drawing.Color.White; this.btnUpdate.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold); this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Text = "SİL"; this.btnDelete.Location = new System.Drawing.Point(20, 515); this.btnDelete.Size = new System.Drawing.Size(170, 45); this.btnDelete.BackColor = System.Drawing.Color.Crimson; this.btnDelete.ForeColor = System.Drawing.Color.White; this.btnDelete.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold); this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.Text = "TEMİZLE"; this.btnClear.Location = new System.Drawing.Point(200, 515); this.btnClear.Size = new System.Drawing.Size(170, 45); this.btnClear.BackColor = System.Drawing.Color.Gray; this.btnClear.ForeColor = System.Drawing.Color.White; this.btnClear.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold); this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 
             this.pnlForm.Controls.Add(this.lblTitle);
             this.pnlForm.Controls.Add(this.cmbCategories); this.pnlForm.Controls.Add(this.lblCategory); this.pnlForm.Controls.Add(this.btnAddCategory);
@@ -194,7 +194,7 @@ namespace ÜrünTakip.Views
             this.lblSearch.Text = "Hızlı Ara:";
             this.lblSearch.Location = new System.Drawing.Point(0, 5);
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblSearch.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
             
             this.txtSearch.Location = new System.Drawing.Point(70, 2);
             this.txtSearch.Width = 300;
@@ -204,7 +204,7 @@ namespace ÜrünTakip.Views
             this.lblFilterCategory.Text = "Kategori Seçimi:";
             this.lblFilterCategory.Location = new System.Drawing.Point(390, 5);
             this.lblFilterCategory.AutoSize = true;
-            this.lblFilterCategory.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblFilterCategory.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
 
             // cmbFilterCategory
             this.cmbFilterCategory.Location = new System.Drawing.Point(510, 2);

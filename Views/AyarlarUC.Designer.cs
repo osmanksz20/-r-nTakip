@@ -36,7 +36,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.numDefaultVat)).BeginInit();
             this.SuspendLayout();
 
-            System.Drawing.Font mf = new System.Drawing.Font("Segoe UI", 10F);
+            System.Drawing.Font mf = new System.Drawing.Font("Open Sans", 10F);
 
             // tlpMain
             this.tlpMain.ColumnCount = 2;
@@ -53,7 +53,7 @@ namespace ÜrünTakip.Views
             this.pnlCompany.BackColor = System.Drawing.Color.White;
             this.pnlCompany.Padding = new System.Windows.Forms.Padding(20);
 
-            this.lblCompanyTitle.Text = "Firma Bilgileri"; this.lblCompanyTitle.Location = new System.Drawing.Point(20, 15); this.lblCompanyTitle.Size = new System.Drawing.Size(300, 35); this.lblCompanyTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblCompanyTitle.Text = "Firma Bilgileri"; this.lblCompanyTitle.Location = new System.Drawing.Point(20, 15); this.lblCompanyTitle.Size = new System.Drawing.Size(300, 35); this.lblCompanyTitle.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Bold);
 
             this.lblStoreName.Text = "Mağaza Adı:"; this.lblStoreName.Location = new System.Drawing.Point(20, 60); this.lblStoreName.Size = new System.Drawing.Size(100, 25); this.lblStoreName.Font = mf;
             this.txtStoreName.Location = new System.Drawing.Point(130, 58); this.txtStoreName.Size = new System.Drawing.Size(250, 28); this.txtStoreName.Font = mf; this.txtStoreName.Text = "Örnek Market";
@@ -67,7 +67,7 @@ namespace ÜrünTakip.Views
             this.lblDefaultVat.Text = "Vars. KDV (%):"; this.lblDefaultVat.Location = new System.Drawing.Point(20, 200); this.lblDefaultVat.Size = new System.Drawing.Size(110, 25); this.lblDefaultVat.Font = mf;
             this.numDefaultVat.Location = new System.Drawing.Point(130, 198); this.numDefaultVat.Size = new System.Drawing.Size(80, 28); this.numDefaultVat.Font = mf; this.numDefaultVat.Maximum = 100; this.numDefaultVat.Value = 18;
 
-            this.btnSaveSettings.Text = "AYARLARI KAYDET"; this.btnSaveSettings.Location = new System.Drawing.Point(20, 250); this.btnSaveSettings.Size = new System.Drawing.Size(360, 45); this.btnSaveSettings.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnSaveSettings.ForeColor = System.Drawing.Color.White; this.btnSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnSaveSettings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnSaveSettings.Text = "AYARLARI KAYDET"; this.btnSaveSettings.Location = new System.Drawing.Point(20, 250); this.btnSaveSettings.Size = new System.Drawing.Size(360, 45); this.btnSaveSettings.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnSaveSettings.ForeColor = System.Drawing.Color.White; this.btnSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnSaveSettings.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Bold);
 
             this.lblDbInfo.Text = "Veritabanı: PostgreSQL @ localhost:5432 / UrunTakipDB"; this.lblDbInfo.Location = new System.Drawing.Point(20, 310); this.lblDbInfo.Size = new System.Drawing.Size(380, 25); this.lblDbInfo.Font = mf; this.lblDbInfo.ForeColor = System.Drawing.Color.Gray;
 
@@ -84,11 +84,11 @@ namespace ÜrünTakip.Views
             this.pnlPersonnel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlPersonnel.Padding = new System.Windows.Forms.Padding(20);
 
-            this.lblPersonnelTitle.Text = "Personel Yönetimi"; this.lblPersonnelTitle.Location = new System.Drawing.Point(20, 15); this.lblPersonnelTitle.Size = new System.Drawing.Size(300, 35); this.lblPersonnelTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblPersonnelTitle.Text = "Personel Yönetimi"; this.lblPersonnelTitle.Location = new System.Drawing.Point(20, 15); this.lblPersonnelTitle.Size = new System.Drawing.Size(300, 35); this.lblPersonnelTitle.Font = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Bold);
             this.txtNewPersonnel.Location = new System.Drawing.Point(20, 60); this.txtNewPersonnel.Size = new System.Drawing.Size(230, 28); this.txtNewPersonnel.Font = mf; this.txtNewPersonnel.Text = "";
             this.btnAddPersonnel.Text = "EKLE"; this.btnAddPersonnel.Location = new System.Drawing.Point(260, 58); this.btnAddPersonnel.Size = new System.Drawing.Size(70, 30); this.btnAddPersonnel.BackColor = System.Drawing.Color.SteelBlue; this.btnAddPersonnel.ForeColor = System.Drawing.Color.White; this.btnAddPersonnel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemovePersonnel.Text = "SEÇİLİ SİL"; this.btnRemovePersonnel.Location = new System.Drawing.Point(340, 58); this.btnRemovePersonnel.Size = new System.Drawing.Size(80, 30); this.btnRemovePersonnel.BackColor = System.Drawing.Color.Crimson; this.btnRemovePersonnel.ForeColor = System.Drawing.Color.White; this.btnRemovePersonnel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lstPersonnel.Location = new System.Drawing.Point(20, 100); this.lstPersonnel.Size = new System.Drawing.Size(400, 300); this.lstPersonnel.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lstPersonnel.Location = new System.Drawing.Point(20, 100); this.lstPersonnel.Size = new System.Drawing.Size(400, 300); this.lstPersonnel.Font = new System.Drawing.Font("Open Sans", 12F);
             this.lstPersonnel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
 
             this.pnlPersonnel.Controls.Add(this.lblPersonnelTitle);

@@ -1,33 +1,33 @@
-ï»¿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// Bir bÃ¼tÃ¼nleÅŸtirilmiÅŸ koda iliÅŸkin Genel Bilgiler aÅŸaÄŸÄ±daki Ã¶znitelikler kÃ¼mesiyle
-// denetlenir. BÃ¼tÃ¼nleÅŸtirilmiÅŸ kod ile iliÅŸkili bilgileri deÄŸiÅŸtirmek iÃ§in
-// bu Ã¶znitelik deÄŸerlerini deÄŸiÅŸtirin.
-[assembly: AssemblyTitle("ÃœrÃ¼nTakip")]
+// Bir bütünleştirilmiş koda ilişkin Genel Bilgiler aşağıdaki öznitelikler kümesiyle
+// denetlenir. Bütünleştirilmiş kod ile ilişkili bilgileri değiştirmek için
+// bu öznitelik değerlerini değiştirin.
+[assembly: AssemblyTitle("ÜrünTakip")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ÃœrÃ¼nTakip")]
-[assembly: AssemblyCopyright("Copyright Â©  2026")]
+[assembly: AssemblyProduct("ÜrünTakip")]
+[assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// ComVisible Ã¶zniteliÄŸinin false olarak ayarlanmasÄ± bu bÃ¼tÃ¼nleÅŸtirilmiÅŸ koddaki tÃ¼rleri
-// COM bileÅŸenleri iÃ§in gÃ¶rÃ¼nmez yapar. Bu bÃ¼tÃ¼nleÅŸtirilmiÅŸ koddaki bir tÃ¼re
-// eriÅŸmeniz gerekirse ComVisible Ã¶zniteliÄŸini o tÃ¼rde true olarak ayarlayÄ±n.
+// ComVisible özniteliğinin false olarak ayarlanması bu bütünleştirilmiş koddaki türleri
+// COM bileşenleri için görünmez yapar. Bu bütünleştirilmiş koddaki bir türe
+// erişmeniz gerekirse ComVisible özniteliğini o türde true olarak ayarlayın.
 [assembly: ComVisible(false)]
 
-// Bu proje COM'un kullanÄ±mÄ±na sunulursa, aÅŸaÄŸÄ±daki GUID tÃ¼r kitaplÄ±ÄŸÄ±nÄ±n kimliÄŸi iÃ§indir
+// Bu proje COM'un kullanımına sunulursa, aşağıdaki GUID tür kitaplığının kimliği içindir
 [assembly: Guid("1da169c8-b54c-4334-84a5-d96580ca3502")]
 
-// Bir derlemenin sÃ¼rÃ¼m bilgileri aÅŸaÄŸÄ±daki dÃ¶rt deÄŸerden oluÅŸur:
+// Bir derlemenin sürüm bilgileri aşağıdaki dört değerden oluşur:
 //
-//      Ana SÃ¼rÃ¼m
-//      Ä°kincil SÃ¼rÃ¼m 
-//      YapÄ± NumarasÄ±
-//      DÃ¼zeltme
+//      Ana Sürüm
+//      İkincil Sürüm 
+//      Yapı Numarası
+//      Düzeltme
 //
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

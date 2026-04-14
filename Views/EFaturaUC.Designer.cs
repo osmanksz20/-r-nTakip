@@ -26,7 +26,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetail)).BeginInit();
             this.SuspendLayout();
 
-            System.Drawing.Font mf = new System.Drawing.Font("Segoe UI", 10F);
+            System.Drawing.Font mf = new System.Drawing.Font("Open Sans", 10F);
 
             // tlpMain
             this.tlpMain.ColumnCount = 1;
@@ -49,8 +49,8 @@ namespace ÜrünTakip.Views
             this.dtpStart.Location = new System.Drawing.Point(85, 15); this.dtpStart.Size = new System.Drawing.Size(150, 28); this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.lblEnd.Text = "Bitiş:"; this.lblEnd.Location = new System.Drawing.Point(250, 18); this.lblEnd.Size = new System.Drawing.Size(40, 25); this.lblEnd.Font = mf;
             this.dtpEnd.Location = new System.Drawing.Point(295, 15); this.dtpEnd.Size = new System.Drawing.Size(150, 28); this.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.btnSearch.Text = "ARA"; this.btnSearch.Location = new System.Drawing.Point(460, 12); this.btnSearch.Size = new System.Drawing.Size(90, 35); this.btnSearch.BackColor = System.Drawing.Color.SteelBlue; this.btnSearch.ForeColor = System.Drawing.Color.White; this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnPrintReceipt.Text = "FİŞ GÖRÜNTÜLE"; this.btnPrintReceipt.Location = new System.Drawing.Point(560, 12); this.btnPrintReceipt.Size = new System.Drawing.Size(140, 35); this.btnPrintReceipt.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnPrintReceipt.ForeColor = System.Drawing.Color.White; this.btnPrintReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnPrintReceipt.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnSearch.Text = "ARA"; this.btnSearch.Location = new System.Drawing.Point(460, 12); this.btnSearch.Size = new System.Drawing.Size(90, 35); this.btnSearch.BackColor = System.Drawing.Color.SteelBlue; this.btnSearch.ForeColor = System.Drawing.Color.White; this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnSearch.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
+            this.btnPrintReceipt.Text = "FİŞ GÖRÜNTÜLE"; this.btnPrintReceipt.Location = new System.Drawing.Point(560, 12); this.btnPrintReceipt.Size = new System.Drawing.Size(140, 35); this.btnPrintReceipt.BackColor = System.Drawing.Color.MediumSeaGreen; this.btnPrintReceipt.ForeColor = System.Drawing.Color.White; this.btnPrintReceipt.FlatStyle = System.Windows.Forms.FlatStyle.Flat; this.btnPrintReceipt.Font = new System.Drawing.Font("Open Sans", 10F, System.Drawing.FontStyle.Bold);
             this.pnlFilter.Controls.Add(this.lblStart); this.pnlFilter.Controls.Add(this.dtpStart);
             this.pnlFilter.Controls.Add(this.lblEnd); this.pnlFilter.Controls.Add(this.dtpEnd);
             this.pnlFilter.Controls.Add(this.btnSearch); this.pnlFilter.Controls.Add(this.btnPrintReceipt);
@@ -65,7 +65,7 @@ namespace ÜrünTakip.Views
             // lblDetailTitle
             this.lblDetailTitle.Text = "  Seçili Satışın Detayları";
             this.lblDetailTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDetailTitle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblDetailTitle.Font = new System.Drawing.Font("Open Sans", 11F, System.Drawing.FontStyle.Bold);
             this.lblDetailTitle.BackColor = System.Drawing.Color.LightGray;
             this.lblDetailTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 
