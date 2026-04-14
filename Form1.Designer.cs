@@ -98,7 +98,7 @@ namespace ÜrünTakip
             // tlpMain
             // 
             this.tlpMain.ColumnCount = 2;
-            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMain.Controls.Add(this.pnlSidebar, 0, 0);
             this.tlpMain.Controls.Add(this.tlpContent, 1, 0);
@@ -112,9 +112,9 @@ namespace ÜrünTakip
             // 
             // pnlSidebar
             // 
-            this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(52)))), ((int)(((byte)(54)))));
-            this.pnlSidebar.Controls.Add(this.btnStok);
+            this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
             this.pnlSidebar.Controls.Add(this.btnKasa);
+            this.pnlSidebar.Controls.Add(this.btnStok);
             this.pnlSidebar.Controls.Add(this.btnVeresiyeDefteri);
             this.pnlSidebar.Controls.Add(this.btnEFatura);
             this.pnlSidebar.Controls.Add(this.btnRaporlar);
@@ -124,100 +124,115 @@ namespace ÜrünTakip
             this.pnlSidebar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlSidebar.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Size = new System.Drawing.Size(200, 768);
+            this.pnlSidebar.Size = new System.Drawing.Size(260, 768);
             this.pnlSidebar.TabIndex = 0;
-            // 
-            // btnStok
-            // 
-            this.btnStok.FlatAppearance.BorderSize = 0;
-            this.btnStok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStok.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnStok.ForeColor = System.Drawing.Color.White;
-            this.btnStok.Location = new System.Drawing.Point(0, 0);
-            this.btnStok.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.btnStok.Name = "btnStok";
-            this.btnStok.Size = new System.Drawing.Size(200, 70);
-            this.btnStok.TabIndex = 0;
-            this.btnStok.Text = "📦 Stok İşlemleri";
             // 
             // btnKasa
             // 
             this.btnKasa.FlatAppearance.BorderSize = 0;
             this.btnKasa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKasa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnKasa.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnKasa.ForeColor = System.Drawing.Color.White;
-            this.btnKasa.Location = new System.Drawing.Point(0, 72);
-            this.btnKasa.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnKasa.Location = new System.Drawing.Point(10, 20);
+            this.btnKasa.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.btnKasa.Name = "btnKasa";
-            this.btnKasa.Size = new System.Drawing.Size(200, 70);
-            this.btnKasa.TabIndex = 1;
+            this.btnKasa.Size = new System.Drawing.Size(240, 80);
+            this.btnKasa.TabIndex = 0;
             this.btnKasa.Text = "💳 Kasa";
+            this.btnKasa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKasa.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            // 
+            // btnStok
+            // 
+            this.btnStok.FlatAppearance.BorderSize = 0;
+            this.btnStok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStok.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnStok.ForeColor = System.Drawing.Color.White;
+            this.btnStok.Location = new System.Drawing.Point(10, 110);
+            this.btnStok.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.btnStok.Name = "btnStok";
+            this.btnStok.Size = new System.Drawing.Size(240, 80);
+            this.btnStok.TabIndex = 1;
+            this.btnStok.Text = "📦 Stok İşlemleri";
+            this.btnStok.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStok.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             // 
             // btnVeresiyeDefteri
             // 
             this.btnVeresiyeDefteri.FlatAppearance.BorderSize = 0;
             this.btnVeresiyeDefteri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVeresiyeDefteri.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnVeresiyeDefteri.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnVeresiyeDefteri.ForeColor = System.Drawing.Color.White;
-            this.btnVeresiyeDefteri.Location = new System.Drawing.Point(0, 144);
-            this.btnVeresiyeDefteri.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnVeresiyeDefteri.Location = new System.Drawing.Point(10, 200);
+            this.btnVeresiyeDefteri.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.btnVeresiyeDefteri.Name = "btnVeresiyeDefteri";
-            this.btnVeresiyeDefteri.Size = new System.Drawing.Size(200, 70);
+            this.btnVeresiyeDefteri.Size = new System.Drawing.Size(240, 80);
             this.btnVeresiyeDefteri.TabIndex = 2;
             this.btnVeresiyeDefteri.Text = "📖 Veresiye Defteri";
+            this.btnVeresiyeDefteri.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVeresiyeDefteri.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             // 
             // btnEFatura
             // 
             this.btnEFatura.FlatAppearance.BorderSize = 0;
             this.btnEFatura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEFatura.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnEFatura.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnEFatura.ForeColor = System.Drawing.Color.White;
-            this.btnEFatura.Location = new System.Drawing.Point(0, 216);
-            this.btnEFatura.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnEFatura.Location = new System.Drawing.Point(10, 290);
+            this.btnEFatura.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.btnEFatura.Name = "btnEFatura";
-            this.btnEFatura.Size = new System.Drawing.Size(200, 70);
+            this.btnEFatura.Size = new System.Drawing.Size(240, 80);
             this.btnEFatura.TabIndex = 3;
             this.btnEFatura.Text = "🧾 e-Fatura";
+            this.btnEFatura.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEFatura.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             // 
             // btnRaporlar
             // 
             this.btnRaporlar.FlatAppearance.BorderSize = 0;
             this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnRaporlar.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnRaporlar.ForeColor = System.Drawing.Color.White;
-            this.btnRaporlar.Location = new System.Drawing.Point(0, 288);
-            this.btnRaporlar.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnRaporlar.Location = new System.Drawing.Point(10, 380);
+            this.btnRaporlar.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Size = new System.Drawing.Size(200, 70);
+            this.btnRaporlar.Size = new System.Drawing.Size(240, 80);
             this.btnRaporlar.TabIndex = 4;
             this.btnRaporlar.Text = "📊 Raporlar";
+            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             // 
             // btnAyarlar
             // 
             this.btnAyarlar.FlatAppearance.BorderSize = 0;
             this.btnAyarlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAyarlar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnAyarlar.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnAyarlar.ForeColor = System.Drawing.Color.White;
-            this.btnAyarlar.Location = new System.Drawing.Point(0, 360);
-            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnAyarlar.Location = new System.Drawing.Point(10, 470);
+            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(0, 0, 0, 25);
             this.btnAyarlar.Name = "btnAyarlar";
-            this.btnAyarlar.Size = new System.Drawing.Size(200, 70);
+            this.btnAyarlar.Size = new System.Drawing.Size(240, 80);
             this.btnAyarlar.TabIndex = 5;
             this.btnAyarlar.Text = "⚙️ Ayarlar";
+            this.btnAyarlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAyarlar.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             // 
             // btnKapat
             // 
             this.btnKapat.FlatAppearance.BorderSize = 0;
             this.btnKapat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKapat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnKapat.ForeColor = System.Drawing.Color.IndianRed;
-            this.btnKapat.Location = new System.Drawing.Point(0, 482);
-            this.btnKapat.Margin = new System.Windows.Forms.Padding(0, 50, 0, 0);
+            this.btnKapat.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnKapat.ForeColor = System.Drawing.Color.LightCoral;
+            this.btnKapat.Location = new System.Drawing.Point(10, 585);
+            this.btnKapat.Margin = new System.Windows.Forms.Padding(0);
             this.btnKapat.Name = "btnKapat";
-            this.btnKapat.Size = new System.Drawing.Size(200, 70);
+            this.btnKapat.Size = new System.Drawing.Size(240, 80);
             this.btnKapat.TabIndex = 6;
             this.btnKapat.Text = "❌ Kapat";
+            this.btnKapat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKapat.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             // 
             // tlpContent
             // 
@@ -228,16 +243,17 @@ namespace ÜrünTakip
             this.tlpContent.Controls.Add(this.flpFooter, 0, 2);
             this.tlpContent.Controls.Add(this.pnlDynamicContent, 0, 1);
             this.tlpContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpContent.Location = new System.Drawing.Point(200, 0);
+            this.tlpContent.Location = new System.Drawing.Point(260, 0);
             this.tlpContent.Margin = new System.Windows.Forms.Padding(0);
             this.tlpContent.Name = "tlpContent";
             this.tlpContent.RowCount = 3;
+            // Note: the following RowStyles block is automatically adjusted by the designer
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpContent.Size = new System.Drawing.Size(1166, 768);
+            this.tlpContent.Size = new System.Drawing.Size(1106, 768);
             this.tlpContent.TabIndex = 1;
             // 
             // pnlHeader

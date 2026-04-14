@@ -22,6 +22,7 @@ namespace ÜrünTakip
         // Sepet verileri (Kasa ekranı)
         private List<CartItem> _cart = new List<CartItem>();
         private decimal _cartTotal = 0;
+        private Button btnCloseSearch;
 
         public Form1()
         {
@@ -78,6 +79,42 @@ namespace ÜrünTakip
 
         private void SetupCustomEvents()
         {
+            // Arama kapatma butonu oluştur
+            btnCloseSearch = new Button();
+            btnCloseSearch.Text = "❌ Kapat";
+            btnCloseSearch.BackColor = Color.IndianRed;
+            btnCloseSearch.ForeColor = Color.White;
+            btnCloseSearch.FlatStyle = FlatStyle.Flat;
+            btnCloseSearch.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnCloseSearch.Size = new Size(110, 40);
+            btnCloseSearch.Visible = false;
+            this.Controls.Add(btnCloseSearch);
+
+            btnCloseSearch.Click += (s, e) => {
+                dgvKasaSearch.Visible = false;
+                btnCloseSearch.Visible = false;
+                txtKasaSearch.Focus();
+                txtKasaSearch.Clear();
+            };
+
+            // Dış alana tıklayınca kapatma (Global Form tıklamaları)
+            EventHandler closeGridClick = (s, e) => {
+                if (dgvKasaSearch.Visible && !dgvKasaSearch.Bounds.Contains(this.PointToClient(Cursor.Position)))
+                {
+                    dgvKasaSearch.Visible = false;
+                    btnCloseSearch.Visible = false;
+                }
+            };
+            this.Click += closeGridClick;
+            pnlSidebar.Click += closeGridClick;
+            tlpMain.Click += closeGridClick;
+            tlpContent.Click += closeGridClick;
+            pnlHeader.Click += closeGridClick;
+            tlpMiddle.Click += closeGridClick;
+            pnlSales.Click += closeGridClick;
+            dgvSales.Click += closeGridClick;
+            pnlTouch.Click += closeGridClick;
+
             // Kapat
             btnKapat.Click += (s, e) =>
             {
@@ -113,6 +150,7 @@ namespace ÜrünTakip
                 if (string.IsNullOrWhiteSpace(txtKasaSearch.Text)) { 
                     txtKasaSearch.Text = "Ürün Ara..."; 
                     dgvKasaSearch.Visible = false;
+                    if (btnCloseSearch != null) btnCloseSearch.Visible = false;
                 }
             };
 
@@ -121,6 +159,7 @@ namespace ÜrünTakip
                 if (searchTxt == "Ürün Ara..." || string.IsNullOrWhiteSpace(searchTxt))
                 {
                     dgvKasaSearch.Visible = false;
+                    if (btnCloseSearch != null) btnCloseSearch.Visible = false;
                     return;
                 }
                 
@@ -136,22 +175,43 @@ namespace ÜrünTakip
                             Id = p.Id,
                             Barkod = p.Barcode,
                             Ürün = p.Name,
-                            Stok = p.CurrentStock,
-                            Fiyat = p.SalePrice.ToString("N2") + " ₺"
+                            TopStok = p.CurrentStock,
+                            Stok_1 = p.Stock1,
+                            Alış_1 = p.PurchasePrice.ToString("N2") + " ₺",
+                            Stok_2 = p.Stock2,
+                            Alış_2 = p.PurchasePrice2.ToString("N2") + " ₺",
+                            Satış_Fiyatı = p.SalePrice.ToString("N2") + " ₺"
                         })
                         .ToList();
                         
                     if (results.Count > 0)
                     {
+                        dgvKasaSearch.Parent = this; // Panel kısıtlamasından kurtulmak için en dışa al
+                        dgvKasaSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left; 
+                        Point pt = txtKasaSearch.PointToScreen(Point.Empty);
+                        Point formPt = this.PointToClient(pt);
+                        dgvKasaSearch.Location = new Point(formPt.X, formPt.Y + txtKasaSearch.Height + 5);
+                        dgvKasaSearch.Width = 980; // Yatayda devasa boyut
+                        dgvKasaSearch.Height = 450;
+                        
+                        dgvKasaSearch.DataSource = null; // Kolon çakışmalarını sıfırla
                         dgvKasaSearch.DataSource = results;
-                        dgvKasaSearch.Columns["Id"].Visible = false;
+                        if (dgvKasaSearch.Columns.Contains("Id")) dgvKasaSearch.Columns["Id"].Visible = false;
+                        if (dgvKasaSearch.Columns.Contains("Ürün")) dgvKasaSearch.Columns["Ürün"].FillWeight = 250;
+                        
                         dgvKasaSearch.ClearSelection();
                         dgvKasaSearch.Visible = true;
                         dgvKasaSearch.BringToFront();
+
+                        btnCloseSearch.Parent = this;
+                        btnCloseSearch.Location = new Point(dgvKasaSearch.Right - btnCloseSearch.Width, dgvKasaSearch.Top - btnCloseSearch.Height);
+                        btnCloseSearch.BringToFront();
+                        btnCloseSearch.Visible = true;
                     }
                     else
                     {
                         dgvKasaSearch.Visible = false;
+                        if (btnCloseSearch != null) btnCloseSearch.Visible = false;
                     }
                 }
             };
@@ -174,6 +234,7 @@ namespace ÜrünTakip
                         AddProductById(id);
                         txtKasaSearch.Clear();
                         dgvKasaSearch.Visible = false;
+                        if (btnCloseSearch != null) btnCloseSearch.Visible = false;
                         txtBarcode.Focus();
                     }
                 }
@@ -186,6 +247,7 @@ namespace ÜrünTakip
                     AddProductById(id);
                     txtKasaSearch.Clear();
                     dgvKasaSearch.Visible = false;
+                    if (btnCloseSearch != null) btnCloseSearch.Visible = false;
                     txtBarcode.Focus();
                 }
             };
@@ -246,6 +308,8 @@ namespace ÜrünTakip
                 pnlDynamicContent.Visible = false;
                 tlpMiddle.Visible = true;
                 flpFooter.Visible = true;
+                lblTotalTitle.Visible = true;
+                lblTotalValue.Visible = true;
                 lblTotalTitle.Text = "KASA TOPLAM:";
                 UpdateCartDisplay();
                 lblTotalValue.ForeColor = Color.ForestGreen;
@@ -257,6 +321,8 @@ namespace ÜrünTakip
                 tlpMiddle.Visible = false;
                 flpFooter.Visible = false;
                 pnlDynamicContent.Visible = true;
+                lblTotalTitle.Visible = false;
+                lblTotalValue.Visible = false;
                 HideAllUC();
 
                 switch (sayfaAdi)
@@ -270,10 +336,6 @@ namespace ÜrünTakip
                     case "Raporlar": raporlarUC.Visible = true; break;
                     case "Ayarlar": ayarlarUC.Visible = true; break;
                 }
-
-                lblTotalTitle.Text = "BÖLÜM:";
-                lblTotalValue.Text = sayfaAdi;
-                lblTotalValue.ForeColor = Color.SteelBlue;
             }
         }
 
