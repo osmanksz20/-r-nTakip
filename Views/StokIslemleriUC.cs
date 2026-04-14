@@ -32,6 +32,10 @@ namespace ÜrünTakip.Views
             btnClear.Click += BtnClear_Click;
             
             dgvProducts.CellClick += DgvProducts_CellClick;
+            txtSearch.TextChanged += (s, e) => LoadProducts(txtSearch.Text);
+            cmbFilterCategory.SelectedIndexChanged += (s, e) => {
+                if (cmbFilterCategory.DataSource != null) LoadProducts(txtSearch.Text);
+            };
         }
 
         private void StokIslemleriUC_Load(object sender, EventArgs e)
@@ -49,14 +53,34 @@ namespace ÜrünTakip.Views
                 cmbCategories.DataSource = cats;
                 cmbCategories.DisplayMember = "Name";
                 cmbCategories.ValueMember = "Id";
+
+                var filterCats = cats.ToList();
+                filterCats.Insert(0, new Category { Id = 0, Name = "Tümü" });
+                cmbFilterCategory.DataSource = filterCats;
+                cmbFilterCategory.DisplayMember = "Name";
+                cmbFilterCategory.ValueMember = "Id";
             }
         }
 
-        private void LoadProducts()
+        private void LoadProducts(string searchTerm = "")
         {
             using (var db = new AppDbContext())
             {
-                var prods = db.Products.Include(p => p.Category).ToList();
+                var allProds = db.Products.Include(p => p.Category).ToList();
+                var prods = allProds;
+
+                if (!string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    prods = prods.Where(p => 
+                        (p.Name != null && p.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0) || 
+                        (p.Barcode != null && p.Barcode.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0)
+                    ).ToList();
+                }
+
+                if (cmbFilterCategory.SelectedValue != null && cmbFilterCategory.SelectedValue is int catId && catId > 0)
+                {
+                    prods = prods.Where(p => p.CategoryId == catId).ToList();
+                }
                 var dataSource = prods.Select(p => new
                 {
                     p.Id,

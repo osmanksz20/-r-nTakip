@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace ÜrünTakip.Views
             InitializeComponent();
             this.Load += (s, e) => { dtpReportDate.Value = DateTime.Today; RefreshReport(); };
             btnRefresh.Click += (s, e) => RefreshReport();
+            dtpReportDate.ValueChanged += (s, e) => RefreshReport();
         }
 
         private void RefreshReport()
@@ -62,7 +64,25 @@ namespace ÜrünTakip.Views
                     .OrderBy(p => p.Stok)
                     .ToList();
                 dgvLowStock.DataSource = lowStock;
+
+                // Günlük satış detayları tablosu
+                var salesDetail = dailySales
+                    .OrderByDescending(s => s.SaleDate)
+                    .Select(s => new
+                    {
+                        Saat = s.SaleDate.ToLocalTime().ToString("HH:mm:ss"),
+                        Kasiyer = s.CashierName ?? "-",
+                        Ödeme = s.PaymentType ?? "-",
+                        Ürünler = string.Join(", ", saleItems
+                            .Where(si => si.SaleId == s.Id)
+                            .Select(si => $"{si.ProductName} x{si.Quantity}")),
+                        KDV = s.VatTotal.ToString("C2"),
+                        Toplam = s.TotalAmount.ToString("C2")
+                    })
+                    .ToList();
+                dgvDailySalesDetail.DataSource = salesDetail;
             }
         }
     }
 }
+

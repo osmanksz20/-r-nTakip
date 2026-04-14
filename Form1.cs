@@ -107,6 +107,91 @@ namespace ÜrünTakip
             txtBarcode.GotFocus += (s, e) => { if (txtBarcode.Text == "Barkod Okutunuz...") txtBarcode.Clear(); };
             txtBarcode.LostFocus += (s, e) => { if (string.IsNullOrWhiteSpace(txtBarcode.Text)) txtBarcode.Text = "Barkod Okutunuz..."; };
 
+            // Kasa arama kutucuğu
+            txtKasaSearch.GotFocus += (s, e) => { if (txtKasaSearch.Text == "Ürün Ara...") txtKasaSearch.Clear(); };
+            txtKasaSearch.LostFocus += (s, e) => { 
+                if (string.IsNullOrWhiteSpace(txtKasaSearch.Text)) { 
+                    txtKasaSearch.Text = "Ürün Ara..."; 
+                    dgvKasaSearch.Visible = false;
+                }
+            };
+
+            txtKasaSearch.TextChanged += (s, e) => {
+                string searchTxt = txtKasaSearch.Text;
+                if (searchTxt == "Ürün Ara..." || string.IsNullOrWhiteSpace(searchTxt))
+                {
+                    dgvKasaSearch.Visible = false;
+                    return;
+                }
+                
+                using (var db = new AppDbContext())
+                {
+                    var allProducts = db.Products.Where(p => p.IsActive).ToList();
+                    var results = allProducts
+                        .Where(p => 
+                            (p.Name != null && p.Name.IndexOf(searchTxt, StringComparison.OrdinalIgnoreCase) >= 0) || 
+                            (p.Barcode != null && p.Barcode.IndexOf(searchTxt, StringComparison.OrdinalIgnoreCase) >= 0))
+                        .Take(15)
+                        .Select(p => new {
+                            Id = p.Id,
+                            Barkod = p.Barcode,
+                            Ürün = p.Name,
+                            Stok = p.CurrentStock,
+                            Fiyat = p.SalePrice.ToString("N2") + " ₺"
+                        })
+                        .ToList();
+                        
+                    if (results.Count > 0)
+                    {
+                        dgvKasaSearch.DataSource = results;
+                        dgvKasaSearch.Columns["Id"].Visible = false;
+                        dgvKasaSearch.ClearSelection();
+                        dgvKasaSearch.Visible = true;
+                        dgvKasaSearch.BringToFront();
+                    }
+                    else
+                    {
+                        dgvKasaSearch.Visible = false;
+                    }
+                }
+            };
+
+            txtKasaSearch.KeyDown += (s, e) => {
+                if (e.KeyCode == Keys.Down && dgvKasaSearch.Visible && dgvKasaSearch.Rows.Count > 0)
+                {
+                    dgvKasaSearch.Focus();
+                    dgvKasaSearch.Rows[0].Selected = true;
+                }
+            };
+
+            dgvKasaSearch.KeyDown += (s, e) => {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.SuppressKeyPress = true;
+                    if (dgvKasaSearch.SelectedRows.Count > 0)
+                    {
+                        int id = (int)dgvKasaSearch.SelectedRows[0].Cells["Id"].Value;
+                        AddProductById(id);
+                        txtKasaSearch.Clear();
+                        dgvKasaSearch.Visible = false;
+                        txtBarcode.Focus();
+                    }
+                }
+            };
+
+            dgvKasaSearch.CellClick += (s, e) => {
+                if (e.RowIndex >= 0)
+                {
+                    int id = (int)dgvKasaSearch.Rows[e.RowIndex].Cells["Id"].Value;
+                    AddProductById(id);
+                    txtKasaSearch.Clear();
+                    dgvKasaSearch.Visible = false;
+                    txtBarcode.Focus();
+                }
+            };
+
+            txtKasaSearch.Text = "Ürün Ara...";
+
             // DataGrid satır silme butonu
             dgvSales.CellClick += DgvSales_CellClick;
 
@@ -132,6 +217,7 @@ namespace ÜrünTakip
             btnNakit.Click += (s, e) => CompleteSale("Nakit");
             btnKrediKarti.Click += (s, e) => CompleteSale("Kart");
             btnNakitKart.Click += (s, e) => CompleteSaleNakitKart();
+            btnNakitKart.Text = "[F10] \n Nakit/Kart";
             btnVeresiye.Click += (s, e) => CompleteSaleVeresiye();
             btnDiger.Click += (s, e) => CompleteSale("Diğer");
         }

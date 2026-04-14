@@ -46,6 +46,11 @@ namespace ÜrünTakip.Views
             this.btnClear = new System.Windows.Forms.Button();
 
             this.pnlList = new System.Windows.Forms.Panel();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblFilterCategory = new System.Windows.Forms.Label();
+            this.cmbFilterCategory = new System.Windows.Forms.ComboBox();
             this.dgvProducts = new System.Windows.Forms.DataGridView();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBarcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,6 +66,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.numVatRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).BeginInit();
             this.pnlList.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.SuspendLayout();
 
@@ -152,6 +158,39 @@ namespace ÜrünTakip.Views
             this.pnlList.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlList.Padding = new System.Windows.Forms.Padding(10);
             
+            // pnlSearch
+            this.pnlSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSearch.Height = 40;
+            this.pnlSearch.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            
+            this.lblSearch.Text = "Hızlı Ara:";
+            this.lblSearch.Location = new System.Drawing.Point(0, 5);
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            
+            this.txtSearch.Location = new System.Drawing.Point(70, 2);
+            this.txtSearch.Width = 300;
+            this.txtSearch.Font = mainFont;
+            
+            this.txtSearch.Font = mainFont;
+            
+            // lblFilterCategory
+            this.lblFilterCategory.Text = "Kategori Seçimi:";
+            this.lblFilterCategory.Location = new System.Drawing.Point(390, 5);
+            this.lblFilterCategory.AutoSize = true;
+            this.lblFilterCategory.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+
+            // cmbFilterCategory
+            this.cmbFilterCategory.Location = new System.Drawing.Point(510, 2);
+            this.cmbFilterCategory.Width = 150;
+            this.cmbFilterCategory.Font = mainFont;
+            this.cmbFilterCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            
+            this.pnlSearch.Controls.Add(this.lblSearch);
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            this.pnlSearch.Controls.Add(this.lblFilterCategory);
+            this.pnlSearch.Controls.Add(this.cmbFilterCategory);
+            
             // dgvProducts
             this.dgvProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProducts.AllowUserToAddRows = false;
@@ -171,7 +210,10 @@ namespace ÜrünTakip.Views
             this.colStock.DataPropertyName = "CurrentStock"; this.colStock.HeaderText = "Stok";
             this.colPrice.DataPropertyName = "SalePrice"; this.colPrice.HeaderText = "Satış Fiyatı";
 
+            this.colPrice.DataPropertyName = "SalePrice"; this.colPrice.HeaderText = "Satış Fiyatı";
+
             this.pnlList.Controls.Add(this.dgvProducts);
+            this.pnlList.Controls.Add(this.pnlSearch);
 
             // StokIslemleriUC
             this.Controls.Add(this.tlpMain);
@@ -187,6 +229,8 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.numVatRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStock)).EndInit();
             this.pnlList.ResumeLayout(false);
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             this.ResumeLayout(false);
         }
@@ -226,6 +270,11 @@ namespace ÜrünTakip.Views
 
         // List Controls
         private System.Windows.Forms.Panel pnlList;
+        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblFilterCategory;
+        private System.Windows.Forms.ComboBox cmbFilterCategory;
         private System.Windows.Forms.DataGridView dgvProducts;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBarcode;

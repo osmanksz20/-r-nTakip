@@ -30,25 +30,33 @@ namespace ÜrünTakip.Views
             this.lblLowStockTitle = new System.Windows.Forms.Label();
             this.dgvLowStock = new System.Windows.Forms.DataGridView();
 
+            this.pnlDailySalesDetail = new System.Windows.Forms.Panel();
+            this.lblDailySalesDetailTitle = new System.Windows.Forms.Label();
+            this.dgvDailySalesDetail = new System.Windows.Forms.DataGridView();
+
             this.tlpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTopProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLowStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDailySalesDetail)).BeginInit();
             this.SuspendLayout();
 
             System.Drawing.Font mf = new System.Drawing.Font("Segoe UI", 10F);
             System.Drawing.Font bigFont = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
 
-            // tlpMain (2x2 grid)
+            // tlpMain (3x2 grid – bottom row spans both columns for daily sales detail)
             this.tlpMain.ColumnCount = 2;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpMain.RowCount = 2;
+            this.tlpMain.RowCount = 3;
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tlpMain.Controls.Add(this.pnlSummary, 0, 0);
             this.tlpMain.Controls.Add(this.pnlActions, 1, 0);
             this.tlpMain.Controls.Add(this.pnlTopProducts, 0, 1);
             this.tlpMain.Controls.Add(this.pnlLowStock, 1, 1);
+            this.tlpMain.Controls.Add(this.pnlDailySalesDetail, 0, 2);
+            this.tlpMain.SetColumnSpan(this.pnlDailySalesDetail, 2);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
 
             // pnlSummary
@@ -89,12 +97,21 @@ namespace ÜrünTakip.Views
             this.dgvLowStock.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvLowStock.AllowUserToAddRows = false; this.dgvLowStock.ReadOnly = true; this.dgvLowStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvLowStock.BackgroundColor = System.Drawing.Color.White;
             this.pnlLowStock.Controls.Add(this.dgvLowStock); this.pnlLowStock.Controls.Add(this.lblLowStockTitle);
 
+            // pnlDailySalesDetail (full-width bottom row)
+            this.pnlDailySalesDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDailySalesDetail.BackColor = System.Drawing.Color.White;
+            this.pnlDailySalesDetail.Padding = new System.Windows.Forms.Padding(5);
+            this.lblDailySalesDetailTitle.Text = "  GÜNLÜK SATIŞ DETAYLARI"; this.lblDailySalesDetailTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblDailySalesDetailTitle.Height = 30; this.lblDailySalesDetailTitle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold); this.lblDailySalesDetailTitle.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.dgvDailySalesDetail.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvDailySalesDetail.AllowUserToAddRows = false; this.dgvDailySalesDetail.ReadOnly = true; this.dgvDailySalesDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvDailySalesDetail.BackgroundColor = System.Drawing.Color.White;
+            this.pnlDailySalesDetail.Controls.Add(this.dgvDailySalesDetail); this.pnlDailySalesDetail.Controls.Add(this.lblDailySalesDetailTitle);
+
             this.Controls.Add(this.tlpMain);
-            this.Size = new System.Drawing.Size(1000, 600);
+            this.Size = new System.Drawing.Size(1000, 750);
 
             this.tlpMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTopProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLowStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDailySalesDetail)).EndInit();
             this.ResumeLayout(false);
         }
         #endregion
@@ -116,5 +133,8 @@ namespace ÜrünTakip.Views
         private System.Windows.Forms.Panel pnlLowStock;
         private System.Windows.Forms.Label lblLowStockTitle;
         private System.Windows.Forms.DataGridView dgvLowStock;
+        private System.Windows.Forms.Panel pnlDailySalesDetail;
+        private System.Windows.Forms.Label lblDailySalesDetailTitle;
+        private System.Windows.Forms.DataGridView dgvDailySalesDetail;
     }
 }
