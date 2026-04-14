@@ -120,6 +120,13 @@ namespace ÜrünTakip
 
             // Alınan para elle yazıldığında para üstü hesapla
             txtAlinan.TextChanged += AlinanTextChanged;
+            btnClearAlinan.Click += (s, e) => {
+                txtAlinan.TextChanged -= AlinanTextChanged;
+                txtAlinan.Text = "0,00";
+                txtParaUstu.Text = "0,00";
+                txtParaUstu.ForeColor = Color.Red;
+                txtAlinan.TextChanged += AlinanTextChanged;
+            };
 
             // Satış butonları
             btnNakit.Click += (s, e) => CompleteSale("Nakit");

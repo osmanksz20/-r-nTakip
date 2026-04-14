@@ -115,7 +115,7 @@ namespace ÜrünTakip.Views
             this.numVatRate.Location = new System.Drawing.Point(120, 270); this.numVatRate.Size = new System.Drawing.Size(100, 30); this.numVatRate.Font = mainFont; this.numVatRate.Maximum = 100;
             
             this.lblStock.Text = "Stok Adedi:"; this.lblStock.Location = new System.Drawing.Point(230, 270); this.lblStock.Size = new System.Drawing.Size(80, 25); this.lblStock.Font = mainFont;
-            this.numStock.Location = new System.Drawing.Point(310, 270); this.numStock.Size = new System.Drawing.Size(60, 30); this.numStock.Font = mainFont; this.numStock.Maximum = 999999;
+            this.numStock.Location = new System.Drawing.Point(310, 270); this.numStock.Size = new System.Drawing.Size(60, 30); this.numStock.Font = mainFont; this.numStock.Maximum = 999999; this.numStock.Minimum = -999;
 
             this.chkIsActive.Text = "Aktif Mi?"; this.chkIsActive.Location = new System.Drawing.Point(120, 310); this.chkIsActive.Size = new System.Drawing.Size(100, 25); this.chkIsActive.Font = mainFont; this.chkIsActive.Checked = true;
 

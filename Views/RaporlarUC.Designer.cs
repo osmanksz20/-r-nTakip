@@ -85,7 +85,7 @@ namespace ÜrünTakip.Views
             this.pnlLowStock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLowStock.BackColor = System.Drawing.Color.White;
             this.pnlLowStock.Padding = new System.Windows.Forms.Padding(5);
-            this.lblLowStockTitle.Text = "  KRİTİK STOK UYARISI (< 5 adet)"; this.lblLowStockTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblLowStockTitle.Height = 30; this.lblLowStockTitle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold); this.lblLowStockTitle.BackColor = System.Drawing.Color.MistyRose;
+            this.lblLowStockTitle.Text = "  KRİTİK STOK UYARISI (< 3 adet)"; this.lblLowStockTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblLowStockTitle.Height = 30; this.lblLowStockTitle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold); this.lblLowStockTitle.BackColor = System.Drawing.Color.MistyRose;
             this.dgvLowStock.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvLowStock.AllowUserToAddRows = false; this.dgvLowStock.ReadOnly = true; this.dgvLowStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvLowStock.BackgroundColor = System.Drawing.Color.White;
             this.pnlLowStock.Controls.Add(this.dgvLowStock); this.pnlLowStock.Controls.Add(this.lblLowStockTitle);
 

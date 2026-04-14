@@ -55,9 +55,9 @@ namespace ÜrünTakip.Views
                     .ToList();
                 dgvTopProducts.DataSource = topProducts;
 
-                // Kritik stok (5 altı)
+                // Kritik stok (3 altı)
                 var lowStock = db.Products
-                    .Where(p => p.IsActive && p.CurrentStock < 5)
+                    .Where(p => p.IsActive && p.CurrentStock < 3)
                     .Select(p => new { p.Name, Stok = p.CurrentStock, p.Barcode })
                     .OrderBy(p => p.Stok)
                     .ToList();

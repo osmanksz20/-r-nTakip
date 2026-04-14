@@ -17,7 +17,7 @@ namespace ÜrünTakip
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.pnlSidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.btnStok = new System.Windows.Forms.Button();
@@ -48,7 +48,9 @@ namespace ÜrünTakip
             this.btnTabKasa2 = new System.Windows.Forms.Button();
             this.flpBanknotes = new System.Windows.Forms.FlowLayoutPanel();
             this.lblAlinan = new System.Windows.Forms.Label();
+            this.flpAlinanRow = new System.Windows.Forms.FlowLayoutPanel();
             this.txtAlinan = new System.Windows.Forms.TextBox();
+            this.btnClearAlinan = new System.Windows.Forms.Button();
             this.lblParaUstu = new System.Windows.Forms.Label();
             this.txtParaUstu = new System.Windows.Forms.TextBox();
             this.btn5TL = new System.Windows.Forms.Button();
@@ -83,6 +85,7 @@ namespace ÜrünTakip
             ((System.ComponentModel.ISupportInitialize)(this.dgvSales)).BeginInit();
             this.flpTabs.SuspendLayout();
             this.flpBanknotes.SuspendLayout();
+            this.flpAlinanRow.SuspendLayout();
             this.pnlTouch.SuspendLayout();
             this.flpTouchCategories.SuspendLayout();
             this.flpFooter.SuspendLayout();
@@ -266,7 +269,7 @@ namespace ÜrünTakip
             this.lblTotalValue.Name = "lblTotalValue";
             this.lblTotalValue.Size = new System.Drawing.Size(350, 80);
             this.lblTotalValue.TabIndex = 1;
-            this.lblTotalValue.Text = "594,00 ₺";
+            this.lblTotalValue.Text = "0 ₺";
             this.lblTotalValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTotalTitle
@@ -370,9 +373,9 @@ namespace ÜrünTakip
             // 
             // colSil
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Red;
-            this.colSil.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Red;
+            this.colSil.DefaultCellStyle = dataGridViewCellStyle1;
             this.colSil.HeaderText = "SİL";
             this.colSil.MinimumWidth = 6;
             this.colSil.Name = "colSil";
@@ -395,7 +398,7 @@ namespace ÜrünTakip
             "Ahmet Yılmaz"});
             this.cmbPersonnel.Location = new System.Drawing.Point(270, 50);
             this.cmbPersonnel.Name = "cmbPersonnel";
-            this.cmbPersonnel.Size = new System.Drawing.Size(150, 36);
+            this.cmbPersonnel.Size = new System.Drawing.Size(220, 36);
             this.cmbPersonnel.TabIndex = 2;
             // 
             // flpTabs
@@ -430,7 +433,7 @@ namespace ÜrünTakip
             // 
             this.flpBanknotes.BackColor = System.Drawing.Color.WhiteSmoke;
             this.flpBanknotes.Controls.Add(this.lblAlinan);
-            this.flpBanknotes.Controls.Add(this.txtAlinan);
+            this.flpBanknotes.Controls.Add(this.flpAlinanRow);
             this.flpBanknotes.Controls.Add(this.lblParaUstu);
             this.flpBanknotes.Controls.Add(this.txtParaUstu);
             this.flpBanknotes.Controls.Add(this.btn5TL);
@@ -456,19 +459,39 @@ namespace ÜrünTakip
             this.lblAlinan.TabIndex = 0;
             this.lblAlinan.Text = "ALINAN PARA";
             // 
+            // flpAlinanRow
+            // 
+            this.flpAlinanRow.Controls.Add(this.txtAlinan);
+            this.flpAlinanRow.Controls.Add(this.btnClearAlinan);
+            this.flpAlinanRow.Location = new System.Drawing.Point(116, 10);
+            this.flpAlinanRow.Margin = new System.Windows.Forms.Padding(0);
+            this.flpAlinanRow.Name = "flpAlinanRow";
+            this.flpAlinanRow.Size = new System.Drawing.Size(130, 50);
+            this.flpAlinanRow.TabIndex = 1;
+            // 
             // txtAlinan
             // 
             this.txtAlinan.Font = new System.Drawing.Font("Segoe UI", 16F);
-            this.txtAlinan.Location = new System.Drawing.Point(119, 13);
+            this.txtAlinan.Location = new System.Drawing.Point(3, 3);
             this.txtAlinan.Name = "txtAlinan";
-            this.txtAlinan.Size = new System.Drawing.Size(130, 43);
-            this.txtAlinan.TabIndex = 1;
+            this.txtAlinan.Size = new System.Drawing.Size(85, 43);
+            this.txtAlinan.TabIndex = 0;
             this.txtAlinan.Text = "0,00";
+            // 
+            // btnClearAlinan
+            // 
+            this.btnClearAlinan.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnClearAlinan.Location = new System.Drawing.Point(94, 3);
+            this.btnClearAlinan.Name = "btnClearAlinan";
+            this.btnClearAlinan.Size = new System.Drawing.Size(30, 43);
+            this.btnClearAlinan.TabIndex = 1;
+            this.btnClearAlinan.Text = "C";
+            this.btnClearAlinan.UseVisualStyleBackColor = true;
             // 
             // lblParaUstu
             // 
             this.lblParaUstu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblParaUstu.Location = new System.Drawing.Point(255, 20);
+            this.lblParaUstu.Location = new System.Drawing.Point(249, 20);
             this.lblParaUstu.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.lblParaUstu.Name = "lblParaUstu";
             this.lblParaUstu.Size = new System.Drawing.Size(100, 23);
@@ -479,7 +502,7 @@ namespace ÜrünTakip
             // 
             this.txtParaUstu.Font = new System.Drawing.Font("Segoe UI", 16F);
             this.txtParaUstu.ForeColor = System.Drawing.Color.Red;
-            this.txtParaUstu.Location = new System.Drawing.Point(361, 13);
+            this.txtParaUstu.Location = new System.Drawing.Point(355, 13);
             this.txtParaUstu.Name = "txtParaUstu";
             this.txtParaUstu.Size = new System.Drawing.Size(130, 43);
             this.txtParaUstu.TabIndex = 3;
@@ -489,7 +512,7 @@ namespace ÜrünTakip
             // 
             this.btn5TL.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.btn5TL.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btn5TL.Location = new System.Drawing.Point(494, 25);
+            this.btn5TL.Location = new System.Drawing.Point(488, 25);
             this.btn5TL.Margin = new System.Windows.Forms.Padding(0, 15, 0, 5);
             this.btn5TL.Name = "btn5TL";
             this.btn5TL.Size = new System.Drawing.Size(130, 50);
@@ -501,7 +524,7 @@ namespace ÜrünTakip
             // 
             this.btn10TL.BackColor = System.Drawing.Color.LightPink;
             this.btn10TL.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btn10TL.Location = new System.Drawing.Point(627, 13);
+            this.btn10TL.Location = new System.Drawing.Point(621, 13);
             this.btn10TL.Name = "btn10TL";
             this.btn10TL.Size = new System.Drawing.Size(130, 50);
             this.btn10TL.TabIndex = 5;
@@ -512,7 +535,7 @@ namespace ÜrünTakip
             // 
             this.btn20TL.BackColor = System.Drawing.Color.LightGreen;
             this.btn20TL.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btn20TL.Location = new System.Drawing.Point(763, 13);
+            this.btn20TL.Location = new System.Drawing.Point(757, 13);
             this.btn20TL.Name = "btn20TL";
             this.btn20TL.Size = new System.Drawing.Size(130, 50);
             this.btn20TL.TabIndex = 6;
@@ -523,7 +546,7 @@ namespace ÜrünTakip
             // 
             this.btn50TL.BackColor = System.Drawing.Color.LightSalmon;
             this.btn50TL.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btn50TL.Location = new System.Drawing.Point(899, 13);
+            this.btn50TL.Location = new System.Drawing.Point(893, 13);
             this.btn50TL.Name = "btn50TL";
             this.btn50TL.Size = new System.Drawing.Size(130, 50);
             this.btn50TL.TabIndex = 7;
@@ -534,7 +557,7 @@ namespace ÜrünTakip
             // 
             this.btn100TL.BackColor = System.Drawing.Color.LightBlue;
             this.btn100TL.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btn100TL.Location = new System.Drawing.Point(1035, 13);
+            this.btn100TL.Location = new System.Drawing.Point(1029, 13);
             this.btn100TL.Name = "btn100TL";
             this.btn100TL.Size = new System.Drawing.Size(130, 50);
             this.btn100TL.TabIndex = 8;
@@ -545,7 +568,7 @@ namespace ÜrünTakip
             // 
             this.btn200TL.BackColor = System.Drawing.Color.Plum;
             this.btn200TL.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btn200TL.Location = new System.Drawing.Point(1171, 13);
+            this.btn200TL.Location = new System.Drawing.Point(1165, 13);
             this.btn200TL.Name = "btn200TL";
             this.btn200TL.Size = new System.Drawing.Size(130, 50);
             this.btn200TL.TabIndex = 9;
@@ -788,6 +811,8 @@ namespace ÜrünTakip
             this.flpTabs.ResumeLayout(false);
             this.flpBanknotes.ResumeLayout(false);
             this.flpBanknotes.PerformLayout();
+            this.flpAlinanRow.ResumeLayout(false);
+            this.flpAlinanRow.PerformLayout();
             this.pnlTouch.ResumeLayout(false);
             this.flpTouchCategories.ResumeLayout(false);
             this.flpFooter.ResumeLayout(false);
@@ -843,7 +868,9 @@ namespace ÜrünTakip
 
         // Banknotes Controls
         private System.Windows.Forms.Label lblAlinan;
+        private System.Windows.Forms.FlowLayoutPanel flpAlinanRow;
         private System.Windows.Forms.TextBox txtAlinan;
+        private System.Windows.Forms.Button btnClearAlinan;
         private System.Windows.Forms.Label lblParaUstu;
         private System.Windows.Forms.TextBox txtParaUstu;
         private System.Windows.Forms.Button btn5TL;
