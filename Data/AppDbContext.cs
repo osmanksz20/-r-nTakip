@@ -52,7 +52,7 @@ namespace ÜrünTakip.Data
                 .HasOne(si => si.Product)
                 .WithMany()
                 .HasForeignKey(si => si.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

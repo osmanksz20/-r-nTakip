@@ -224,32 +224,6 @@ namespace ÜrünTakip.Views
                     LoadProducts();
                     BtnClear_Click(null, null);
                 }
-                catch (DbUpdateException)
-                {
-                    var result = MessageBox.Show("Bu ürün satış veya diğer kayıtlarda kullanıldığı için kalıcı olarak silinemez!\n\nBunun yerine ürünü pasif duruma (satışa kapalı) getirmek ister misiniz?", "Silme Hatası - İlişkili Kayıt Bulundu", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes)
-                    {
-                        try
-                        {
-                            using (var db = new AppDbContext())
-                            {
-                                var p = db.Products.Find(_selectedProductId);
-                                if (p != null)
-                                {
-                                    p.IsActive = false;
-                                    db.SaveChanges();
-                                    MessageBox.Show("Ürün başarıyla pasif duruma alındı!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    LoadProducts();
-                                    BtnClear_Click(null, null);
-                                }
-                            }
-                        }
-                        catch (Exception innerEx)
-                        {
-                            MessageBox.Show("Güncelleme hatası: " + innerEx.Message);
-                        }
-                    }
-                }
                 catch (Exception ex)
                 {
                     string errorMsg = ex.Message;
