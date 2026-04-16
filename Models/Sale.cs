@@ -24,6 +24,9 @@ namespace ÜrünTakip.Models
         [MaxLength(100)]
         public string CashierName { get; set; }
 
+        /// <summary>Satışın yapıldığı kasa (1 veya 2)</summary>
+        public int RegisterId { get; set; }
+
         public ICollection<SaleItem> Items { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ÜrünTakip.Data;
 using ÜrünTakip.Models;
 using ÜrünTakip.Views;
+using ÜrünTakip.Controls;
 
 namespace ÜrünTakip
 {
@@ -19,10 +20,13 @@ namespace ÜrünTakip
         private RaporlarUC raporlarUC;
         private AyarlarUC ayarlarUC;
 
-        // Sepet verileri (Kasa ekranı)
-        private List<CartItem> _cart = new List<CartItem>();
-        private decimal _cartTotal = 0;
+        // Sepet verileri (Kasa ekranı - Çoklu Kasa Desteği)
+        private List<List<CartItem>> _carts = new List<List<CartItem>> { new List<CartItem>(), new List<CartItem>() };
+        private int _activeKasaIndex = 0; // 0=Kasa 1, 1=Kasa 2
+        private decimal _cartTotal { get { return CurrentCart.Sum(x => x.LineTotal); } }
+        private List<CartItem> CurrentCart => _carts[_activeKasaIndex];
         private Button btnCloseSearch;
+        private ContextMenuStrip _shortcutMenu;
 
         public Form1()
         {
@@ -51,6 +55,39 @@ namespace ÜrünTakip
             // Klavye kısayolları
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
+
+            SetupShortcuts();
+        }
+
+        private void SetupShortcuts()
+        {
+            _shortcutMenu = new ContextMenuStrip();
+            _shortcutMenu.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            _shortcutMenu.Items.Add("💳 Kasa (F1)", null, (s, e) => SayfaDegistir("Kasa"));
+            _shortcutMenu.Items.Add("📦 Stok İşlemleri (F2)", null, (s, e) => SayfaDegistir("Stok İşlemleri"));
+            _shortcutMenu.Items.Add("👥 Veresiye Defteri (F3)", null, (s, e) => SayfaDegistir("Veresiye Defteri"));
+            _shortcutMenu.Items.Add("📄 e-Fatura / Geçmiş (F4)", null, (s, e) => SayfaDegistir("e-Fatura / Geçmiş"));
+            _shortcutMenu.Items.Add("📊 Raporlar (F5)", null, (s, e) => SayfaDegistir("Raporlar"));
+            _shortcutMenu.Items.Add("⚙️ Ayarlar (F6)", null, (s, e) => SayfaDegistir("Ayarlar"));
+            _shortcutMenu.Items.Add(new ToolStripSeparator());
+            _shortcutMenu.Items.Add("❌ Kapat (Alt+F4)", null, (s, e) => Application.Exit());
+
+            this.ContextMenuStrip = _shortcutMenu;
+
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.F1: SayfaDegistir("Kasa"); return true;
+                case Keys.F2: SayfaDegistir("Stok İşlemleri"); return true;
+                case Keys.F3: SayfaDegistir("Veresiye Defteri"); return true;
+                case Keys.F4: SayfaDegistir("e-Fatura / Geçmiş"); return true;
+                case Keys.F5: SayfaDegistir("Raporlar"); return true;
+                case Keys.F6: SayfaDegistir("Ayarlar"); return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void RefreshPersonnelList()
@@ -85,7 +122,7 @@ namespace ÜrünTakip
             btnCloseSearch.BackColor = Color.IndianRed;
             btnCloseSearch.ForeColor = Color.White;
             btnCloseSearch.FlatStyle = FlatStyle.Flat;
-            btnCloseSearch.Font = new Font("Open Sans", 12F, FontStyle.Bold);
+            btnCloseSearch.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnCloseSearch.Size = new Size(110, 40);
             btnCloseSearch.Visible = false;
             this.Controls.Add(btnCloseSearch);
@@ -129,6 +166,11 @@ namespace ÜrünTakip
             btnEFatura.Click += delegate { SayfaDegistir("e-Fatura"); };
             btnRaporlar.Click += delegate { SayfaDegistir("Raporlar"); };
             btnAyarlar.Click += delegate { SayfaDegistir("Ayarlar"); };
+
+            // Kasa (Tab) Geçişleri
+            btnTabKasa1.Click += (s, e) => SwitchKasa(0);
+            btnTabKasa2.Click += (s, e) => SwitchKasa(1);
+            SwitchKasa(0); // Başlangıçta Kasa 1 aktif
 
             // Barkod ile ürün ekleme (Enter tuşu)
             txtBarcode.KeyDown += (s, e) =>
@@ -190,7 +232,7 @@ namespace ÜrünTakip
                         dgvKasaSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left; 
                         Point pt = txtKasaSearch.PointToScreen(Point.Empty);
                         Point formPt = this.PointToClient(pt);
-                        dgvKasaSearch.Location = new Point(formPt.X, formPt.Y + txtKasaSearch.Height + 5);
+                        dgvKasaSearch.Location = new Point(formPt.X, formPt.Y + txtKasaSearch.Height + 15);
                         dgvKasaSearch.Width = 980; // Yatayda devasa boyut
                         dgvKasaSearch.Height = 450;
                         
@@ -334,7 +376,10 @@ namespace ÜrünTakip
                     case "Veresiye Defteri": veresiyeUC.Visible = true; break;
                     case "e-Fatura": efaturaUC.Visible = true; break;
                     case "Raporlar": raporlarUC.Visible = true; break;
-                    case "Ayarlar": ayarlarUC.Visible = true; break;
+                    case "Ayarlar": 
+                        ayarlarUC.LoadCategories();
+                        ayarlarUC.Visible = true; 
+                        break;
                 }
             }
         }
@@ -425,7 +470,7 @@ namespace ÜrünTakip
         private void AddToCart(Product product)
         {
             // Eğer aynı ürün zaten sepette varsa miktarını artır
-            var existing = _cart.FirstOrDefault(c => c.ProductId == product.Id);
+            var existing = CurrentCart.FirstOrDefault(c => c.ProductId == product.Id);
             if (existing != null)
             {
                 existing.Quantity++;
@@ -433,7 +478,7 @@ namespace ÜrünTakip
             }
             else
             {
-                _cart.Add(new CartItem
+                CurrentCart.Add(new CartItem
                 {
                     ProductId = product.Id,
                     ProductName = product.Name,
@@ -444,7 +489,7 @@ namespace ÜrünTakip
                 });
             }
             decimal currentCartQty = 0;
-            var addedItem = _cart.FirstOrDefault(c => c.ProductId == product.Id);
+            var addedItem = CurrentCart.FirstOrDefault(c => c.ProductId == product.Id);
             if (addedItem != null) currentCartQty = addedItem.Quantity;
             
             decimal totalStock = product.Stock1 + product.Stock2 - currentCartQty;
@@ -458,11 +503,9 @@ namespace ÜrünTakip
         private void RefreshCartGrid()
         {
             dgvSales.Rows.Clear();
-            _cartTotal = 0;
-            foreach (var item in _cart)
+            foreach (var item in CurrentCart)
             {
                 dgvSales.Rows.Add(item.ProductName, item.Quantity.ToString("N0"), item.UnitPrice.ToString("N2"), item.LineTotal.ToString("N2"), $"%{item.VatRate}", "✖");
-                _cartTotal += item.LineTotal;
             }
             UpdateCartDisplay();
             CalculateChange();
@@ -481,9 +524,9 @@ namespace ÜrünTakip
             // SİL sütunu (son sütun)
             if (e.ColumnIndex == dgvSales.Columns.Count - 1)
             {
-                if (e.RowIndex < _cart.Count)
+                if (e.RowIndex < CurrentCart.Count)
                 {
-                    _cart.RemoveAt(e.RowIndex);
+                    CurrentCart.RemoveAt(e.RowIndex);
                     RefreshCartGrid();
                 }
             }
@@ -562,7 +605,7 @@ namespace ÜrünTakip
 
         private void CompleteSale(string paymentType)
         {
-            if (_cart.Count == 0) { MessageBox.Show("Sepet boş! Önce ürün ekleyin."); return; }
+            if (CurrentCart.Count == 0) { MessageBox.Show("Sepet boş! Önce ürün ekleyin."); return; }
 
             try
             {
@@ -570,7 +613,7 @@ namespace ÜrünTakip
                 {
                     // KDV toplamı hesapla
                     decimal vatTotal = 0;
-                    foreach (var item in _cart)
+                    foreach (var item in CurrentCart)
                     {
                         vatTotal += item.LineTotal * (item.VatRate / 100m);
                     }
@@ -582,13 +625,14 @@ namespace ÜrünTakip
                         TotalAmount = _cartTotal,
                         VatTotal = vatTotal,
                         PaymentType = paymentType,
-                        CashierName = cmbPersonnel.SelectedItem?.ToString() ?? "Bilinmiyor"
+                        CashierName = cmbPersonnel.SelectedItem?.ToString() ?? "Bilinmiyor",
+                        RegisterId = _activeKasaIndex + 1
                     };
                     db.Sales.Add(sale);
                     db.SaveChanges();
 
                     // Satış detay satırlarını kaydet ve stok düş (FIFO)
-                    foreach (var item in _cart)
+                    foreach (var item in CurrentCart)
                     {
                         var product = db.Products.Find(item.ProductId);
                         decimal purchasePriceAtSale = 0;
@@ -614,7 +658,7 @@ namespace ÜrünTakip
                     // Fiş göster
                     if (chkFisVer.Checked)
                     {
-                        ShowReceipt(sale, _cart);
+                        ShowReceipt(sale, CurrentCart);
                     }
 
                     MessageBox.Show($"Satış tamamlandı!\nToplam: {_cartTotal:C2}\nÖdeme: {paymentType}", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -632,11 +676,11 @@ namespace ÜrünTakip
 
         private void CompleteSaleVeresiye()
         {
-            if (_cart.Count == 0) { MessageBox.Show("Sepet boş!"); return; }
+            if (CurrentCart.Count == 0) { MessageBox.Show("Sepet boş!"); return; }
 
             // Müşteri seçtir
             Form selectForm = new Form() { Width = 400, Height = 350, Text = "Müşteri Seçin", StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog };
-            ListBox lb = new ListBox() { Left = 10, Top = 10, Width = 365, Height = 240, Font = new Font("Open Sans", 12F) };
+            ListBox lb = new ListBox() { Left = 10, Top = 10, Width = 365, Height = 240, Font = new Font("Segoe UI", 12F) };
             Button ok = new Button() { Text = "SEÇ", Left = 250, Top = 260, Width = 125, Height = 40, DialogResult = DialogResult.OK, BackColor = Color.MediumSeaGreen, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
             selectForm.Controls.Add(lb); selectForm.Controls.Add(ok);
             selectForm.AcceptButton = ok;
@@ -660,7 +704,7 @@ namespace ÜrünTakip
                     using (var db = new AppDbContext())
                     {
                         decimal vatTotal = 0;
-                        foreach (var item in _cart)
+                        foreach (var item in CurrentCart)
                             vatTotal += item.LineTotal * (item.VatRate / 100m);
 
                         var sale = new Sale
@@ -670,12 +714,13 @@ namespace ÜrünTakip
                             VatTotal = vatTotal,
                             PaymentType = "Veresiye",
                             CustomerId = customerId,
-                            CashierName = cmbPersonnel.SelectedItem?.ToString() ?? "Bilinmiyor"
+                            CashierName = cmbPersonnel.SelectedItem?.ToString() ?? "Bilinmiyor",
+                            RegisterId = _activeKasaIndex + 1
                         };
                         db.Sales.Add(sale);
                         db.SaveChanges();
 
-                        foreach (var item in _cart)
+                        foreach (var item in CurrentCart)
                         {
                             var product = db.Products.Find(item.ProductId);
                             decimal purchasePriceAtSale = 0;
@@ -713,8 +758,7 @@ namespace ÜrünTakip
 
         private void ClearCart()
         {
-            _cart.Clear();
-            _cartTotal = 0;
+            CurrentCart.Clear();
             RefreshCartGrid();
             // TextChanged event'ini geçici olarak devre dışı bırak, yoksa sıfırlamada kendini tekrar hesaplar
             txtAlinan.TextChanged -= AlinanTextChanged;
@@ -727,20 +771,20 @@ namespace ÜrünTakip
 
         private void CompleteSaleNakitKart()
         {
-            if (_cart.Count == 0) { MessageBox.Show("Sepet boş!"); return; }
+            if (CurrentCart.Count == 0) { MessageBox.Show("Sepet boş!"); return; }
 
             Form splitForm = new Form()
             {
                 Width = 420, Height = 250, Text = "Nakit & Kart Ödeme Bölüştürme",
                 StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog
             };
-            Label lblTotal = new Label() { Text = $"Toplam Tutar: {_cartTotal:C2}", Left = 20, Top = 15, Width = 360, Height = 30, Font = new Font("Open Sans", 14F, FontStyle.Bold) };
-            Label lblNakit = new Label() { Text = "Nakit (₺):", Left = 20, Top = 60, Width = 100, Height = 25, Font = new Font("Open Sans", 11F) };
-            NumericUpDown numNakit = new NumericUpDown() { Left = 130, Top = 58, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Open Sans", 14F) };
-            Label lblKart = new Label() { Text = "Kart (₺):", Left = 20, Top = 100, Width = 100, Height = 25, Font = new Font("Open Sans", 11F) };
-            NumericUpDown numKart = new NumericUpDown() { Left = 130, Top = 98, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Open Sans", 14F) };
-            Label lblWarning = new Label() { Text = "", Left = 20, Top = 140, Width = 360, Height = 20, ForeColor = Color.Red, Font = new Font("Open Sans", 9F) };
-            Button ok = new Button() { Text = "ÖDEMEYİ TAMAMLA", Left = 130, Top = 165, Width = 250, Height = 40, BackColor = Color.DarkOrange, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Open Sans", 10F, FontStyle.Bold) };
+            Label lblTotal = new Label() { Text = $"Toplam Tutar: {_cartTotal:C2}", Left = 20, Top = 15, Width = 360, Height = 30, Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold) };
+            Label lblNakit = new Label() { Text = "Nakit (₺):", Left = 20, Top = 60, Width = 100, Height = 25, Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold) };
+            NoSpinnerNumeric numNakit = new NoSpinnerNumeric() { Left = 130, Top = 58, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold) };
+            Label lblKart = new Label() { Text = "Kart (₺):", Left = 20, Top = 100, Width = 100, Height = 25, Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold) };
+            NoSpinnerNumeric numKart = new NoSpinnerNumeric() { Left = 130, Top = 98, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold) };
+            Label lblWarning = new Label() { Text = "", Left = 20, Top = 140, Width = 360, Height = 20, ForeColor = Color.Red, Font = new Font("Segoe UI", 9F) };
+            Button ok = new Button() { Text = "ÖDEMEYİ TAMAMLA", Left = 130, Top = 165, Width = 250, Height = 40, BackColor = Color.DarkOrange, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold) };
 
             numNakit.ValueChanged += (s2, e2) => {
                 numKart.Value = Math.Max(0, _cartTotal - numNakit.Value);
@@ -790,6 +834,22 @@ namespace ÜrünTakip
             receipt += "═══════════════════════════\n";
             receipt += "   Bizi tercih ettiğiniz\n     için teşekkürler!\n";
             MessageBox.Show(receipt, "Satış Fişi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void SwitchKasa(int index)
+        {
+            _activeKasaIndex = index;
+            
+            // Buton görsellerini güncelle
+            btnTabKasa1.BackColor = (_activeKasaIndex == 0) ? Color.MediumSeaGreen : Color.LightGray;
+            btnTabKasa1.ForeColor = (_activeKasaIndex == 0) ? Color.White : Color.Black;
+            btnTabKasa1.Font = new Font("Segoe UI", 12F, (_activeKasaIndex == 0) ? FontStyle.Bold : FontStyle.Regular);
+
+            btnTabKasa2.BackColor = (_activeKasaIndex == 1) ? Color.MediumSeaGreen : Color.LightGray;
+            btnTabKasa2.ForeColor = (_activeKasaIndex == 1) ? Color.White : Color.Black;
+            btnTabKasa2.Font = new Font("Segoe UI", 12F, (_activeKasaIndex == 1) ? FontStyle.Bold : FontStyle.Regular);
+
+            RefreshCartGrid();
+            txtBarcode.Focus();
         }
     }
 

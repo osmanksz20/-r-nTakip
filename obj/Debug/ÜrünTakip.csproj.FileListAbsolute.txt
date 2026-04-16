@@ -41,3 +41,5 @@ C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.exe.co
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.csproj.Up2Date
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.exe
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.pdb
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.Views.AyarlarUC.resources
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.Views.StokIslemleriUC.resources

@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using ÜrünTakip.Data;
+using ÜrünTakip.Models;
 
 namespace ÜrünTakip.Views
 {
@@ -13,10 +17,12 @@ namespace ÜrünTakip.Views
         public AyarlarUC()
         {
             InitializeComponent();
-            this.Load += (s, e) => { LoadSettings(); LoadPersonnel(); };
+            this.Load += (s, e) => { LoadSettings(); LoadPersonnel(); LoadCategories(); };
             btnSaveSettings.Click += BtnSaveSettings_Click;
             btnAddPersonnel.Click += BtnAddPersonnel_Click;
             btnRemovePersonnel.Click += BtnRemovePersonnel_Click;
+            btnRemoveCategory.Click += BtnRemoveCategory_Click;
+            btnRefreshCategories.Click += (s, e) => LoadCategories();
         }
 
         private void LoadSettings()
@@ -110,6 +116,48 @@ namespace ÜrünTakip.Views
                 if (lines.Length > 0) return lines[0];
             }
             return "Örnek Market";
+        }
+        public void LoadCategories()
+        {
+            lstCategories.Items.Clear();
+            using (var db = new AppDbContext())
+            {
+                var categories = db.Categories.OrderBy(c => c.Name).ToList();
+                foreach (var cat in categories)
+                {
+                    lstCategories.Items.Add(cat);
+                }
+            }
+            lstCategories.DisplayMember = "Name";
+        }
+
+        private void BtnRemoveCategory_Click(object sender, EventArgs e)
+        {
+            if (lstCategories.SelectedItem == null) return;
+            var cat = (Category)lstCategories.SelectedItem;
+
+            if (MessageBox.Show($"'{cat.Name}' kategorisini silmek istediğinize emin misiniz?", "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                return;
+
+            using (var db = new AppDbContext())
+            {
+                // Kategoride ürün var mı kontrol et
+                bool hasProducts = db.Products.Any(p => p.CategoryId == cat.Id);
+                if (hasProducts)
+                {
+                    MessageBox.Show("Bu kategoride kayıtlı ürünler bulunmaktadır. Kategoriyi silmeden önce ürünleri başka bir kategoriye taşımalı veya silmelisiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var dbCat = db.Categories.Find(cat.Id);
+                if (dbCat != null)
+                {
+                    db.Categories.Remove(dbCat);
+                    db.SaveChanges();
+                    MessageBox.Show("Kategori başarıyla silindi.");
+                    LoadCategories();
+                }
+            }
         }
     }
 }

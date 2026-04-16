@@ -87,6 +87,9 @@
     <Compile Include="Views\AyarlarUC.Designer.cs">
       <DependentUpon>AyarlarUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NoSpinnerNumeric.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Migrations\20260413083443_InitialCreate.cs" />
     <Compile Include="Migrations\20260413083443_InitialCreate.Designer.cs">
@@ -118,6 +121,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AyarlarUC.resx">
+      <DependentUpon>AyarlarUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StokIslemleriUC.resx">
+      <DependentUpon>StokIslemleriUC.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

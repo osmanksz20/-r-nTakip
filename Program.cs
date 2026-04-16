@@ -39,6 +39,11 @@ namespace ÜrünTakip
                                 EXECUTE format('ALTER TABLE ""SaleItems"" DROP CONSTRAINT %I', fk_name);
                                 EXECUTE format('ALTER TABLE ""SaleItems"" ADD CONSTRAINT %I FOREIGN KEY (""ProductId"") REFERENCES ""Products""(""Id"") ON DELETE SET NULL', fk_name);
                             END IF;
+
+                            -- RegisterId sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Sales' AND column_name='RegisterId') THEN
+                                ALTER TABLE ""Sales"" ADD COLUMN ""RegisterId"" INTEGER NOT NULL DEFAULT 0;
+                            END IF;
                         END $$;
                     ");
                 }

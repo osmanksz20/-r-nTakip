@@ -1,6 +1,8 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ÜrünTakip.Controls;
 using ÜrünTakip.Data;
 using ÜrünTakip.Models;
 
@@ -105,9 +107,9 @@ namespace ÜrünTakip.Views
         {
             if (_selectedCustomerId == 0) { MessageBox.Show("Önce müşteri seçin!"); return; }
             Form payForm = new Form() { Width = 350, Height = 180, Text = "Ödeme Al", StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog };
-            Label lbl = new Label() { Text = "Ödeme Tutarı (₺):", Left = 20, Top = 25, Width = 120 };
-            NumericUpDown num = new NumericUpDown() { Left = 145, Top = 23, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new System.Drawing.Font("Open Sans", 14F) };
-            Button ok = new Button() { Text = "ÖDEMEY AL", Left = 145, Top = 70, Width = 150, Height = 40, DialogResult = DialogResult.OK, BackColor = System.Drawing.Color.MediumSeaGreen, ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat };
+            Label lbl = new Label() { Text = "Ödeme Tutarı (₺):", Left = 20, Top = 25, Width = 140, Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold) };
+            NoSpinnerNumeric num = new NoSpinnerNumeric() { Left = 160, Top = 23, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new System.Drawing.Font("Segoe UI Semibold", 14F, System.Drawing.FontStyle.Bold) };
+            Button ok = new Button() { Text = "ÖDEMEYİ AL", Left = 160, Top = 70, Width = 150, Height = 40, DialogResult = DialogResult.OK, BackColor = System.Drawing.Color.MediumSeaGreen, ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat, Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold) };
             payForm.Controls.Add(lbl); payForm.Controls.Add(num); payForm.Controls.Add(ok);
             payForm.AcceptButton = ok;
 

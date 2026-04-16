@@ -55,10 +55,10 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.dgvDailySalesDetail)).BeginInit();
             this.SuspendLayout();
 
-            System.Drawing.Font mainFont = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular);
-            System.Drawing.Font titleFont = new System.Drawing.Font("Open Sans", 16F, System.Drawing.FontStyle.Bold);
-            System.Drawing.Font btnFont = new System.Drawing.Font("Open Sans", 14F, System.Drawing.FontStyle.Bold);
-            System.Drawing.Font bigFont = new System.Drawing.Font("Open Sans", 24F, System.Drawing.FontStyle.Bold);
+            System.Drawing.Font mainFont = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            System.Drawing.Font titleFont = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            System.Drawing.Font btnFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            System.Drawing.Font bigFont = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
 
             // pnlHeader
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -119,19 +119,19 @@ namespace ÜrünTakip.Views
             // pnlTopProducts
             this.pnlTopProducts.Dock = System.Windows.Forms.DockStyle.Fill; this.pnlTopProducts.Visible = false; this.pnlTopProducts.Padding = new System.Windows.Forms.Padding(20);
             this.lblTopTitle.Text = "  EN ÇOK SATAN 10 ÜRÜN"; this.lblTopTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblTopTitle.Height = 40; this.lblTopTitle.Font = titleFont; this.lblTopTitle.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-            this.dgvTopProducts.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvTopProducts.AllowUserToAddRows = false; this.dgvTopProducts.ReadOnly = true; this.dgvTopProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvTopProducts.BackgroundColor = System.Drawing.Color.White; this.dgvTopProducts.Font = mainFont; this.dgvTopProducts.RowTemplate.Height = 40; this.dgvTopProducts.ColumnHeadersHeight = 40;
+            this.dgvTopProducts.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvTopProducts.AllowUserToAddRows = false; this.dgvTopProducts.ReadOnly = true; this.dgvTopProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvTopProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect; this.dgvTopProducts.BackgroundColor = System.Drawing.Color.White; this.dgvTopProducts.Font = mainFont; this.dgvTopProducts.RowTemplate.Height = 40; this.dgvTopProducts.ColumnHeadersHeight = 40;
             this.pnlTopProducts.Controls.Add(this.dgvTopProducts); this.pnlTopProducts.Controls.Add(this.lblTopTitle);
 
             // pnlLowStock
             this.pnlLowStock.Dock = System.Windows.Forms.DockStyle.Fill; this.pnlLowStock.Visible = false; this.pnlLowStock.Padding = new System.Windows.Forms.Padding(20);
             this.lblLowStockTitle.Text = "  KRİTİK STOK UYARISI (< 3 adet)"; this.lblLowStockTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblLowStockTitle.Height = 40; this.lblLowStockTitle.Font = titleFont; this.lblLowStockTitle.BackColor = System.Drawing.Color.MistyRose;
-            this.dgvLowStock.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvLowStock.AllowUserToAddRows = false; this.dgvLowStock.ReadOnly = true; this.dgvLowStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvLowStock.BackgroundColor = System.Drawing.Color.White; this.dgvLowStock.Font = mainFont; this.dgvLowStock.RowTemplate.Height = 40; this.dgvLowStock.ColumnHeadersHeight = 40;
+            this.dgvLowStock.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvLowStock.AllowUserToAddRows = false; this.dgvLowStock.ReadOnly = true; this.dgvLowStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvLowStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect; this.dgvLowStock.BackgroundColor = System.Drawing.Color.White; this.dgvLowStock.Font = mainFont; this.dgvLowStock.RowTemplate.Height = 40; this.dgvLowStock.ColumnHeadersHeight = 40;
             this.pnlLowStock.Controls.Add(this.dgvLowStock); this.pnlLowStock.Controls.Add(this.lblLowStockTitle);
 
             // pnlDailySalesDetail
             this.pnlDailySalesDetail.Dock = System.Windows.Forms.DockStyle.Fill; this.pnlDailySalesDetail.Visible = false; this.pnlDailySalesDetail.Padding = new System.Windows.Forms.Padding(20);
             this.lblDailySalesDetailTitle.Text = "  GÜNLÜK SATIŞ DETAYLARI"; this.lblDailySalesDetailTitle.Dock = System.Windows.Forms.DockStyle.Top; this.lblDailySalesDetailTitle.Height = 40; this.lblDailySalesDetailTitle.Font = titleFont; this.lblDailySalesDetailTitle.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.dgvDailySalesDetail.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvDailySalesDetail.AllowUserToAddRows = false; this.dgvDailySalesDetail.ReadOnly = true; this.dgvDailySalesDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvDailySalesDetail.BackgroundColor = System.Drawing.Color.White; this.dgvDailySalesDetail.Font = mainFont; this.dgvDailySalesDetail.RowTemplate.Height = 40; this.dgvDailySalesDetail.ColumnHeadersHeight = 40;
+            this.dgvDailySalesDetail.Dock = System.Windows.Forms.DockStyle.Fill; this.dgvDailySalesDetail.AllowUserToAddRows = false; this.dgvDailySalesDetail.ReadOnly = true; this.dgvDailySalesDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill; this.dgvDailySalesDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect; this.dgvDailySalesDetail.BackgroundColor = System.Drawing.Color.White; this.dgvDailySalesDetail.Font = mainFont; this.dgvDailySalesDetail.RowTemplate.Height = 40; this.dgvDailySalesDetail.ColumnHeadersHeight = 40;
             this.pnlDailySalesDetail.Controls.Add(this.dgvDailySalesDetail); this.pnlDailySalesDetail.Controls.Add(this.lblDailySalesDetailTitle);
 
             this.Controls.Add(this.pnlContent);

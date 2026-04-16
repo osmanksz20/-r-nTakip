@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,7 @@ namespace ÜrünTakip.Views
 
         private void StokIslemleriUC_Load(object sender, EventArgs e)
         {
+            dtpEntryDate.Value = DateTime.Now;
             LoadCategories();
             LoadProducts();
             CalculateKDV(null, null);
@@ -141,9 +143,9 @@ namespace ÜrünTakip.Views
                 Width = 400, Height = 150, FormBorderStyle = FormBorderStyle.FixedDialog,
                 Text = "Kategori Ekle", StartPosition = FormStartPosition.CenterParent
             };
-            Label textLabel = new Label() { Left = 20, Top = 20, Text = "Yeni Kategori Adı:" };
-            TextBox textBox = new TextBox() { Left = 130, Top = 18, Width = 230 };
-            Button confirmation = new Button() { Text = "Ekle", Left = 260, Width = 100, Top = 60, DialogResult = DialogResult.OK };
+            Label textLabel = new Label() { Left = 20, Top = 20, Text = "Yeni Kategori Adı:", Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold), AutoSize = true };
+            TextBox textBox = new TextBox() { Left = 150, Top = 18, Width = 210, Font = new Font("Segoe UI", 10F) };
+            Button confirmation = new Button() { Text = "EKLE", Left = 260, Width = 100, Top = 60, DialogResult = DialogResult.OK, BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold) };
             inputForm.Controls.Add(textLabel); inputForm.Controls.Add(textBox); inputForm.Controls.Add(confirmation);
             inputForm.AcceptButton = confirmation;
 
