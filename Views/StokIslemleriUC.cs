@@ -306,7 +306,7 @@ namespace ÜrünTakip.Views
             {
                 var row = dgvProducts.Rows[e.RowIndex];
                 // Sütun adıyla Id'yi bul (gizli sütunlarda index kayması olmaz)
-                int pId = Convert.ToInt32(row.Cells["colId"].Value);
+                int pId = Convert.ToInt32(row.Cells["Id"].Value);
                 _selectedProductId = pId;
                 
                 using (var db = new AppDbContext())
