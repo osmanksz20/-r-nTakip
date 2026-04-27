@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,11 +17,23 @@ namespace ÜrünTakip
             // Npgsql 6.0+ için yerel saat sorunlarını gideren eski tip çalışma modu
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-            // Veritabanı foreign key (ürün silme) constraint'ini otomatik düzeltme
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Veritabanı bağlantı kontrolü ve Otomatik Tablo Düzenleme
             try
             {
                 using (var db = new ÜrünTakip.Data.AppDbContext())
                 {
+                    // Bağlantıyı test et
+                    if (!db.Database.CanConnect())
+                    {
+                        MessageBox.Show("Veritabanına bağlanılamıyor!\n\nLütfen şunları kontrol edin:\n1. PostgreSQL servisinin çalıştığından emin olun.\n2. Veritabanı şifresinin '123456' olduğunu doğrulayın.\n3. 'UrunTakipDB' veritabanının mevcut olduğundan emin olun.", 
+                            "Veritabanı Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Veritabanı foreign key (ürün silme) constraint'ini otomatik düzeltme
                     Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRaw(db.Database, @"
                         ALTER TABLE ""SaleItems"" ALTER COLUMN ""ProductId"" DROP NOT NULL;
 
@@ -63,10 +75,13 @@ namespace ÜrünTakip
                     ");
                 }
             }
-            catch { /* Zaten uygulanmışsa veya tablo yoksa sessizce geç */ }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Veritabanı işlemleri sırasında bir hata oluştu:\n\n{ex.Message}\n\nLütfen PostgreSQL servisinin durumunu kontrol edin.", 
+                    "Veritabanı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
     }
