@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -36,6 +36,15 @@ namespace ÜrünTakip.Models
 
         /// <summary>Toplam stok (Stock1 + Stock2). DB'ye yazılır, satışta güncellenir.</summary>
         public decimal CurrentStock { get; set; } 
+
+        /// <summary>Kritik stok seviyesi. Stok bu değerin altına düşerse veya eşit olursa uyarı verilir.</summary>
+        public decimal CriticalStock { get; set; } = 0;
+
+        /// <summary>Kasa dokunmatik ekranında hangi sekmede bulunacağı (GENEL, TEKEL vb.)</summary>
+        public string PosCategory { get; set; }
+
+        /// <summary>Kasa dokunmatik ekranında kaçıncı sırada (1-20) bulunacağı</summary>
+        public int? PosPosition { get; set; }
 
         // PostgreSQL'in gücü: Dinamik özellikler!
         [Column(TypeName = "jsonb")]

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,11 +14,13 @@ namespace ÜrünTakip
     public partial class Form1 : Form
     {
         // UserControl instances
-        private StokIslemleriUC stokUC;
         private VeresiyeDefterUC veresiyeUC;
         private EFaturaUC efaturaUC;
-        private RaporlarUC raporlarUC;
         private AyarlarUC ayarlarUC;
+
+        // Ayrı pencere olarak açılan formlar
+        private Form _stokForm;
+        private Form _raporlarForm;
 
         // Sepet verileri (Kasa ekranı - Çoklu Kasa Desteği)
         private List<List<CartItem>> _carts = new List<List<CartItem>> { new List<CartItem>(), new List<CartItem>() };
@@ -27,22 +29,19 @@ namespace ÜrünTakip
         private List<CartItem> CurrentCart => _carts[_activeKasaIndex];
         private Button btnCloseSearch;
         private ContextMenuStrip _shortcutMenu;
+        private string _activeTouchCategory = "GENEL";
 
         public Form1()
         {
             InitializeComponent();
 
-            // UserControl'leri oluştur ve dinamik panele ekle
-            stokUC = new StokIslemleriUC() { Dock = DockStyle.Fill, Visible = false };
+            // UserControl'leri oluştur ve dinamik panele ekle (Stok ve Raporlar ayrı pencere açılır)
             veresiyeUC = new VeresiyeDefterUC() { Dock = DockStyle.Fill, Visible = false };
             efaturaUC = new EFaturaUC() { Dock = DockStyle.Fill, Visible = false };
-            raporlarUC = new RaporlarUC() { Dock = DockStyle.Fill, Visible = false };
             ayarlarUC = new AyarlarUC() { Dock = DockStyle.Fill, Visible = false };
 
-            pnlDynamicContent.Controls.Add(stokUC);
             pnlDynamicContent.Controls.Add(veresiyeUC);
             pnlDynamicContent.Controls.Add(efaturaUC);
-            pnlDynamicContent.Controls.Add(raporlarUC);
             pnlDynamicContent.Controls.Add(ayarlarUC);
 
             SetupCustomEvents();
@@ -324,6 +323,40 @@ namespace ÜrünTakip
             btnNakitKart.Text = "[F10] \n Nakit/Kart";
             btnVeresiye.Click += (s, e) => CompleteSaleVeresiye();
             btnDiger.Click += (s, e) => CompleteSale("Diğer");
+
+            // Dokunmatik Kategori Butonları
+            btnCatGenel.Click += (s, e) => SetTouchCategory("GENEL", btnCatGenel);
+            btnCatTekel.Click += (s, e) => SetTouchCategory("TEKEL", btnCatTekel);
+            btnCatManav.Click += (s, e) => SetTouchCategory("MANAV", btnCatManav);
+            
+            // Kısayol Ayarları
+            if (btnTouchSettings != null)
+            {
+                btnTouchSettings.Click += (s, e) => {
+                    var frm = new KisayolAyarlariForm();
+                    frm.ShowDialog();
+                    LoadTouchGridProducts(); // Ayarlar bitince yenile
+                };
+            }
+        }
+
+        private void SetTouchCategory(string category, Button activeBtn)
+        {
+            _activeTouchCategory = category;
+            
+            // Renkleri sıfırla
+            btnCatGenel.BackColor = Color.LightGray;
+            btnCatTekel.BackColor = Color.LightGray;
+            btnCatManav.BackColor = Color.LightGray;
+            btnCatGenel.ForeColor = Color.Black;
+            btnCatTekel.ForeColor = Color.Black;
+            btnCatManav.ForeColor = Color.Black;
+
+            // Aktif butonu vurgula
+            activeBtn.BackColor = Color.SteelBlue;
+            activeBtn.ForeColor = Color.White;
+
+            LoadTouchGridProducts();
         }
 
         private void AlinanTextChanged(object sender, EventArgs e)
@@ -335,16 +368,72 @@ namespace ÜrünTakip
 
         private void HideAllUC()
         {
-            stokUC.Visible = false;
             veresiyeUC.Visible = false;
             efaturaUC.Visible = false;
-            raporlarUC.Visible = false;
             ayarlarUC.Visible = false;
             lblDynamicContentTitle.Visible = false;
         }
 
+        /// <summary>Stok veya Raporlar için ayrı modeless pencere açar. Zaten açıksa öne getirir.</summary>
+        private void OpenAsWindow(string title, Func<UserControl> createUC, ref Form formField)
+        {
+            // Eğer pencere zaten açıksa öne getir
+            if (formField != null && !formField.IsDisposed)
+            {
+                formField.WindowState = FormWindowState.Normal;
+                formField.BringToFront();
+                formField.Activate();
+                return;
+            }
+
+            var uc = createUC();
+            uc.Dock = DockStyle.Fill;
+
+            var frm = new Form();
+            frm.Text = title;
+            frm.Size = new Size(1300, 850);
+            frm.MinimumSize = new Size(900, 600);
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.Icon = this.Icon;
+            frm.BackColor = Color.White;
+            frm.FormBorderStyle = FormBorderStyle.Sizable;
+            frm.MaximizeBox = true;
+            frm.MinimizeBox = true;
+            frm.ShowInTaskbar = true;
+            frm.KeyPreview = true;
+            frm.KeyDown += (s, e) => { if (e.KeyCode == Keys.Escape) frm.Close(); };
+
+            frm.Controls.Add(uc);
+
+            // Pencere kapandığında referansı temizle
+            Form localRef = frm; // closure için
+            frm.FormClosed += (s, e) =>
+            {
+                if (_stokForm == localRef) _stokForm = null;
+                if (_raporlarForm == localRef) _raporlarForm = null;
+            };
+
+            formField = frm;
+            frm.Show(); // Modeless — ana uygulama ile aynı anda kullanılabilir
+        }
+
         private void SayfaDegistir(string sayfaAdi)
         {
+            // Stok ve Raporlar ayrı pencere olarak açılır
+            if (sayfaAdi == "Stok İşlemleri")
+            {
+                OpenAsWindow("📦 Stok İşlemleri", () => {
+                    var uc = new StokIslemleriUC();
+                    return uc;
+                }, ref _stokForm);
+                return;
+            }
+            if (sayfaAdi == "Raporlar")
+            {
+                OpenAsWindow("📊 Raporlar", () => new RaporlarUC(), ref _raporlarForm);
+                return;
+            }
+
             if (sayfaAdi == "Kasa")
             {
                 pnlDynamicContent.Visible = false;
@@ -369,13 +458,8 @@ namespace ÜrünTakip
 
                 switch (sayfaAdi)
                 {
-                    case "Stok İşlemleri": 
-                        stokUC.RefreshData();
-                        stokUC.Visible = true; 
-                        break;
                     case "Veresiye Defteri": veresiyeUC.Visible = true; break;
                     case "e-Fatura": efaturaUC.Visible = true; break;
-                    case "Raporlar": raporlarUC.Visible = true; break;
                     case "Ayarlar": 
                         ayarlarUC.LoadCategories();
                         ayarlarUC.Visible = true; 
@@ -393,27 +477,44 @@ namespace ÜrünTakip
             {
                 using (var db = new AppDbContext())
                 {
-                    var products = db.Products.Where(p => p.IsActive).Take(20).ToList();
-                    foreach (var prod in products)
+                    // Seçili kategoriye ve pozisyona göre ürünleri getir (sadece 20 pozisyon)
+                    var products = db.Products
+                                     .Where(p => p.IsActive && p.PosCategory == _activeTouchCategory && p.PosPosition != null)
+                                     .ToList();
+
+                    // 20 pozisyonluk dizi oluştur
+                    Product[] gridProducts = new Product[20];
+                    foreach(var p in products)
                     {
-                        Button btn = new Button();
-                        btn.Dock = DockStyle.Fill;
-                        btn.Text = prod.Name + "\n" + prod.SalePrice.ToString("N2") + " ₺";
-                        btn.BackColor = Color.WhiteSmoke;
-                        btn.FlatStyle = FlatStyle.Flat;
-                        btn.Tag = prod.Id;
-                        btn.Click += TouchProductBtn_Click;
-                        tlpTouchGrid.Controls.Add(btn);
+                        if (p.PosPosition >= 1 && p.PosPosition <= 20)
+                        {
+                            // Aynı pozisyonda birden fazla ürün varsa ilkini alır
+                            if (gridProducts[p.PosPosition.Value - 1] == null)
+                                gridProducts[p.PosPosition.Value - 1] = p;
+                        }
                     }
-                    // Kalan boş alan doldur
-                    for (int i = products.Count; i < 20; i++)
+
+                    for (int i = 0; i < 20; i++)
                     {
+                        var prod = gridProducts[i];
                         Button btn = new Button();
                         btn.Dock = DockStyle.Fill;
-                        btn.Text = "";
-                        btn.BackColor = Color.WhiteSmoke;
                         btn.FlatStyle = FlatStyle.Flat;
-                        btn.Enabled = false;
+
+                        if (prod != null)
+                        {
+                            btn.Text = prod.Name + "\n" + prod.SalePrice.ToString("N2") + " ₺";
+                            btn.BackColor = Color.WhiteSmoke;
+                            btn.Tag = prod.Id;
+                            btn.Click += TouchProductBtn_Click;
+                        }
+                        else
+                        {
+                            btn.Text = "";
+                            btn.BackColor = Color.WhiteSmoke;
+                            btn.Enabled = false;
+                        }
+
                         tlpTouchGrid.Controls.Add(btn);
                     }
                 }
@@ -497,6 +598,12 @@ namespace ÜrünTakip
             if (remainingStok1 < 0) remainingStok1 = 0; // Görsel olarak o anki sepet düşümü
             
             lblSelectedProduct.Text = $"  Seçili: {product.Name} | Kalan Stok: {totalStock:N0} (Stok1: {remainingStok1:N0} , {product.PurchasePrice:N2}₺)";
+            
+            if (product.CriticalStock > 0 && totalStock <= product.CriticalStock)
+            {
+                MessageBox.Show($"DİKKAT: {product.Name} ürünü kritik stok seviyesine ulaştı!\nKalan Stok: {totalStock:N0}\nKritik Seviye: {product.CriticalStock:N0}", "Kritik Stok Uyarısı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
             RefreshCartGrid();
         }
 
@@ -526,8 +633,118 @@ namespace ÜrünTakip
             {
                 if (e.RowIndex < CurrentCart.Count)
                 {
-                    CurrentCart.RemoveAt(e.RowIndex);
-                    RefreshCartGrid();
+                    var item = CurrentCart[e.RowIndex];
+                    
+                    Form frmAmount = new Form();
+                    frmAmount.Text = "Ürün Miktarı Güncelle";
+                    frmAmount.Size = new Size(350, 260);
+                    frmAmount.StartPosition = FormStartPosition.CenterParent;
+                    frmAmount.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    frmAmount.MaximizeBox = false;
+                    frmAmount.MinimizeBox = false;
+                    frmAmount.BackColor = Color.White;
+
+                    Label lblInfo = new Label();
+                    lblInfo.Text = $"{item.ProductName} \nMevcut Miktar: {item.Quantity:N0}\nYeni Miktarı Giriniz:";
+                    lblInfo.AutoSize = false;
+                    lblInfo.Size = new Size(310, 60);
+                    lblInfo.Location = new Point(10, 10);
+                    lblInfo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    lblInfo.TextAlign = ContentAlignment.MiddleCenter;
+                    frmAmount.Controls.Add(lblInfo);
+
+                    TextBox txtAmount = new TextBox();
+                    txtAmount.Text = item.Quantity.ToString("G");
+                    txtAmount.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+                    txtAmount.Size = new Size(100, 40);
+                    txtAmount.Location = new Point(115, 80);
+                    txtAmount.TextAlign = HorizontalAlignment.Center;
+                    frmAmount.Controls.Add(txtAmount);
+
+                    Button btnMinus = new Button();
+                    btnMinus.Text = "-";
+                    btnMinus.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+                    btnMinus.Size = new Size(50, 44);
+                    btnMinus.Location = new Point(55, 80);
+                    btnMinus.BackColor = Color.IndianRed;
+                    btnMinus.ForeColor = Color.White;
+                    btnMinus.FlatStyle = FlatStyle.Flat;
+                    frmAmount.Controls.Add(btnMinus);
+
+                    Button btnPlus = new Button();
+                    btnPlus.Text = "+";
+                    btnPlus.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+                    btnPlus.Size = new Size(50, 44);
+                    btnPlus.Location = new Point(225, 80);
+                    btnPlus.BackColor = Color.MediumSeaGreen;
+                    btnPlus.ForeColor = Color.White;
+                    btnPlus.FlatStyle = FlatStyle.Flat;
+                    frmAmount.Controls.Add(btnPlus);
+
+                    Button btnOk = new Button();
+                    btnOk.Text = "GÜNCELLE";
+                    btnOk.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    btnOk.Size = new Size(125, 45);
+                    btnOk.Location = new Point(40, 145);
+                    btnOk.BackColor = Color.SteelBlue;
+                    btnOk.ForeColor = Color.White;
+                    btnOk.FlatStyle = FlatStyle.Flat;
+                    btnOk.DialogResult = DialogResult.OK;
+                    frmAmount.Controls.Add(btnOk);
+
+                    Button btnDelete = new Button();
+                    btnDelete.Text = "DİREKT SİL";
+                    btnDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                    btnDelete.Size = new Size(125, 45);
+                    btnDelete.Location = new Point(175, 145);
+                    btnDelete.BackColor = Color.Crimson;
+                    btnDelete.ForeColor = Color.White;
+                    btnDelete.FlatStyle = FlatStyle.Flat;
+                    frmAmount.Controls.Add(btnDelete);
+
+                    frmAmount.AcceptButton = btnOk;
+
+                    btnDelete.Click += (s, ev) => {
+                        txtAmount.Text = "0";
+                        frmAmount.DialogResult = DialogResult.OK;
+                    };
+
+                    btnMinus.Click += (s, ev) => {
+                        if (decimal.TryParse(txtAmount.Text, out decimal val) && val > 0)
+                            txtAmount.Text = (val - 1).ToString("G");
+                    };
+                    btnPlus.Click += (s, ev) => {
+                        if (decimal.TryParse(txtAmount.Text, out decimal val))
+                            txtAmount.Text = (val + 1).ToString("G");
+                    };
+
+                    txtAmount.KeyPress += (s, ev) => {
+                        if (!char.IsControl(ev.KeyChar) && !char.IsDigit(ev.KeyChar) && ev.KeyChar != ',')
+                        {
+                            ev.Handled = true;
+                        }
+                        if (ev.KeyChar == ',' && txtAmount.Text.Contains(","))
+                        {
+                            ev.Handled = true;
+                        }
+                    };
+
+                    if (frmAmount.ShowDialog() == DialogResult.OK)
+                    {
+                        if (decimal.TryParse(txtAmount.Text, out decimal newQty))
+                        {
+                            if (newQty <= 0)
+                            {
+                                CurrentCart.RemoveAt(e.RowIndex);
+                            }
+                            else
+                            {
+                                item.Quantity = newQty;
+                                item.LineTotal = item.Quantity * item.UnitPrice;
+                            }
+                            RefreshCartGrid();
+                        }
+                    }
                 }
             }
         }

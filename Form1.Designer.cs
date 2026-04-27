@@ -67,6 +67,7 @@ namespace ÜrünTakip
             this.btnCatGenel = new System.Windows.Forms.Button();
             this.btnCatTekel = new System.Windows.Forms.Button();
             this.btnCatManav = new System.Windows.Forms.Button();
+            this.btnTouchSettings = new System.Windows.Forms.Button();
             this.lblSelectedProduct = new System.Windows.Forms.Label();
             this.flpFooter = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNakit = new System.Windows.Forms.Button();
@@ -681,6 +682,7 @@ namespace ÜrünTakip
             this.flpTouchCategories.Controls.Add(this.btnCatGenel);
             this.flpTouchCategories.Controls.Add(this.btnCatTekel);
             this.flpTouchCategories.Controls.Add(this.btnCatManav);
+            this.flpTouchCategories.Controls.Add(this.btnTouchSettings);
             this.flpTouchCategories.Dock = System.Windows.Forms.DockStyle.Top;
             this.flpTouchCategories.Location = new System.Drawing.Point(0, 0);
             this.flpTouchCategories.Name = "flpTouchCategories";
@@ -717,6 +719,17 @@ namespace ÜrünTakip
             this.btnCatManav.TabIndex = 2;
             this.btnCatManav.Text = "MANAV";
             this.btnCatManav.UseVisualStyleBackColor = false;
+            // 
+            // btnTouchSettings5
+            // 
+            this.btnTouchSettings.BackColor = System.Drawing.Color.Goldenrod;
+            this.btnTouchSettings.ForeColor = System.Drawing.Color.White;
+            this.btnTouchSettings.Location = new System.Drawing.Point(321, 3);
+            this.btnTouchSettings.Name = "btnTouchSettings";
+            this.btnTouchSettings.Size = new System.Drawing.Size(120, 35);
+            this.btnTouchSettings.TabIndex = 3;
+            this.btnTouchSettings.Text = "⚙️ AYARLAR";
+            this.btnTouchSettings.UseVisualStyleBackColor = false;
             // 
             // lblSelectedProduct
             // 
@@ -971,6 +984,7 @@ namespace ÜrünTakip
         private System.Windows.Forms.Button btnCatGenel;
         private System.Windows.Forms.Button btnCatTekel;
         private System.Windows.Forms.Button btnCatManav;
+        private System.Windows.Forms.Button btnTouchSettings;
         private System.Windows.Forms.TableLayoutPanel tlpTouchGrid;
         private System.Windows.Forms.Label lblSelectedProduct;
 

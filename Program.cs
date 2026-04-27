@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,6 +43,21 @@ namespace ÜrünTakip
                             -- RegisterId sütunu yoksa ekle
                             IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Sales' AND column_name='RegisterId') THEN
                                 ALTER TABLE ""Sales"" ADD COLUMN ""RegisterId"" INTEGER NOT NULL DEFAULT 0;
+                            END IF;
+
+                            -- CriticalStock sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Products' AND column_name='CriticalStock') THEN
+                                ALTER TABLE ""Products"" ADD COLUMN ""CriticalStock"" NUMERIC NOT NULL DEFAULT 0.0;
+                            END IF;
+
+                            -- PosCategory sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Products' AND column_name='PosCategory') THEN
+                                ALTER TABLE ""Products"" ADD COLUMN ""PosCategory"" TEXT NULL;
+                            END IF;
+
+                            -- PosPosition sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Products' AND column_name='PosPosition') THEN
+                                ALTER TABLE ""Products"" ADD COLUMN ""PosPosition"" INTEGER NULL;
                             END IF;
                         END $$;
                     ");
