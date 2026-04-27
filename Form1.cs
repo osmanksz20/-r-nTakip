@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
@@ -338,6 +340,9 @@ namespace ÜrünTakip
                     LoadTouchGridProducts(); // Ayarlar bitince yenile
                 };
             }
+
+            // Yedekleme butonu
+            btnYedekle.Click += (s, e) => BackupDatabase();
         }
 
         private void SetTouchCategory(string category, Button activeBtn)
@@ -1067,6 +1072,93 @@ namespace ÜrünTakip
 
             RefreshCartGrid();
             txtBarcode.Focus();
+        }
+
+        // ——————————————————— VERİTABANI YEDEKLEME ———————————————————
+
+        /// <summary>PostgreSQL kurulum dizinlerinden pg_dump.exe yolunu otomatik bulur</summary>
+        private string FindPgDump()
+        {
+            // Bilinen PostgreSQL kurulum dizinlerini tara
+            string[] searchRoots = new string[]
+            {
+                @"C:\Program Files\PostgreSQL",
+                @"C:\Program Files (x86)\PostgreSQL"
+            };
+
+            foreach (string root in searchRoots)
+            {
+                if (Directory.Exists(root))
+                {
+                    // Versiyon klasörlerini büyükten küçüğe sırala (en yeni versiyon önce)
+                    var versionDirs = Directory.GetDirectories(root)
+                        .OrderByDescending(d => d)
+                        .ToArray();
+
+                    foreach (var dir in versionDirs)
+                    {
+                        string pgDumpPath = Path.Combine(dir, "bin", "pg_dump.exe");
+                        if (File.Exists(pgDumpPath))
+                            return pgDumpPath;
+                    }
+                }
+            }
+
+            // Bulunamazsa PATH'teki pg_dump'ı dene
+            return "pg_dump";
+        }
+
+        private void BackupDatabase()
+        {
+            try
+            {
+                string backupFolder = AyarlarUC.GetBackupPath();
+
+                // Klasör yoksa oluştur
+                if (!Directory.Exists(backupFolder))
+                    Directory.CreateDirectory(backupFolder);
+
+                string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".backup";
+                string fullPath = Path.Combine(backupFolder, fileName);
+
+                // Aynı isimde dosya varsa zaman ekle
+                if (File.Exists(fullPath))
+                {
+                    fileName = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".backup";
+                    fullPath = Path.Combine(backupFolder, fileName);
+                }
+
+                string pgDumpExe = FindPgDump();
+
+                // pg_dump ile yedekleme
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = pgDumpExe;
+                psi.Arguments = $"-h localhost -p 5432 -U postgres -F c -b -v -f \"{fullPath}\" UrunTakipDB";
+                psi.UseShellExecute = false;
+                psi.CreateNoWindow = true;
+                psi.RedirectStandardOutput = true;
+                psi.RedirectStandardError = true;
+                psi.EnvironmentVariables["PGPASSWORD"] = "123456";
+
+                using (Process process = Process.Start(psi))
+                {
+                    string error = process.StandardError.ReadToEnd();
+                    process.WaitForExit();
+
+                    if (process.ExitCode == 0)
+                    {
+                        MessageBox.Show($"Veritabanı yedeği başarıyla alındı!\n\nDosya: {fullPath}", "Yedekleme Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Yedekleme sırasında hata oluştu:\n{error}", "Yedekleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Yedekleme başlatılamadı:\n{ex.Message}\n\npg_dump bulunamadı. PostgreSQL kurulu olduğundan emin olun.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 

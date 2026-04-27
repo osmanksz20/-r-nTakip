@@ -22,6 +22,10 @@ namespace ÜrünTakip.Views
             this.numDefaultVat = new ÜrünTakip.Controls.NoSpinnerNumeric();
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.lblDbInfo = new System.Windows.Forms.Label();
+            this.lblBackupPath = new System.Windows.Forms.Label();
+            this.txtBackupPath = new System.Windows.Forms.TextBox();
+            this.btnBrowseBackup = new System.Windows.Forms.Button();
+            this.btnRestore = new System.Windows.Forms.Button();
             this.pnlPersonnel = new System.Windows.Forms.Panel();
             this.lblPersonnelTitle = new System.Windows.Forms.Label();
             this.txtNewPersonnel = new System.Windows.Forms.TextBox();
@@ -71,6 +75,10 @@ namespace ÜrünTakip.Views
             this.pnlCompany.Controls.Add(this.numDefaultVat);
             this.pnlCompany.Controls.Add(this.btnSaveSettings);
             this.pnlCompany.Controls.Add(this.lblDbInfo);
+            this.pnlCompany.Controls.Add(this.lblBackupPath);
+            this.pnlCompany.Controls.Add(this.txtBackupPath);
+            this.pnlCompany.Controls.Add(this.btnBrowseBackup);
+            this.pnlCompany.Controls.Add(this.btnRestore);
             this.pnlCompany.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCompany.Location = new System.Drawing.Point(3, 3);
             this.pnlCompany.Name = "pnlCompany";
@@ -185,6 +193,50 @@ namespace ÜrünTakip.Views
             this.lblDbInfo.Size = new System.Drawing.Size(380, 25);
             this.lblDbInfo.TabIndex = 10;
             this.lblDbInfo.Text = "Veritabanı: PostgreSQL @ localhost:5432 / UrunTakipDB";
+            // 
+            // lblBackupPath
+            // 
+            this.lblBackupPath.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblBackupPath.Location = new System.Drawing.Point(20, 350);
+            this.lblBackupPath.Name = "lblBackupPath";
+            this.lblBackupPath.Size = new System.Drawing.Size(120, 25);
+            this.lblBackupPath.TabIndex = 11;
+            this.lblBackupPath.Text = "Yedek Klasörü:";
+            // 
+            // txtBackupPath
+            // 
+            this.txtBackupPath.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtBackupPath.Location = new System.Drawing.Point(20, 378);
+            this.txtBackupPath.Name = "txtBackupPath";
+            this.txtBackupPath.ReadOnly = true;
+            this.txtBackupPath.Size = new System.Drawing.Size(300, 27);
+            this.txtBackupPath.TabIndex = 12;
+            // 
+            // btnBrowseBackup
+            // 
+            this.btnBrowseBackup.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnBrowseBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowseBackup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBrowseBackup.ForeColor = System.Drawing.Color.White;
+            this.btnBrowseBackup.Location = new System.Drawing.Point(325, 376);
+            this.btnBrowseBackup.Name = "btnBrowseBackup";
+            this.btnBrowseBackup.Size = new System.Drawing.Size(55, 29);
+            this.btnBrowseBackup.TabIndex = 13;
+            this.btnBrowseBackup.Text = "📁";
+            this.btnBrowseBackup.UseVisualStyleBackColor = false;
+            // 
+            // btnRestore
+            // 
+            this.btnRestore.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestore.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRestore.ForeColor = System.Drawing.Color.White;
+            this.btnRestore.Location = new System.Drawing.Point(20, 420);
+            this.btnRestore.Name = "btnRestore";
+            this.btnRestore.Size = new System.Drawing.Size(360, 45);
+            this.btnRestore.TabIndex = 14;
+            this.btnRestore.Text = "♻️ YEDEKTENGERİ YÜKLE";
+            this.btnRestore.UseVisualStyleBackColor = false;
             // 
             // pnlPersonnel
             // 
@@ -346,6 +398,10 @@ namespace ÜrünTakip.Views
         private NoSpinnerNumeric numDefaultVat;
         private System.Windows.Forms.Button btnSaveSettings;
         private System.Windows.Forms.Label lblDbInfo;
+        private System.Windows.Forms.Label lblBackupPath;
+        private System.Windows.Forms.TextBox txtBackupPath;
+        private System.Windows.Forms.Button btnBrowseBackup;
+        private System.Windows.Forms.Button btnRestore;
         private System.Windows.Forms.Label lblPersonnelTitle;
         private System.Windows.Forms.TextBox txtNewPersonnel;
         private System.Windows.Forms.Button btnAddPersonnel;

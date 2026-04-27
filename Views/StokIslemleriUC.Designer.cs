@@ -44,6 +44,8 @@ namespace ÜrünTakip.Views
             this.lblSalePrice = new System.Windows.Forms.Label();
             this.numVatRate = new ÜrünTakip.Controls.NoSpinnerNumeric();
             this.lblVatRate = new System.Windows.Forms.Label();
+            this.numCriticalStock = new ÜrünTakip.Controls.NoSpinnerNumeric();
+            this.lblCriticalStock = new System.Windows.Forms.Label();
             this.chkIsActive = new System.Windows.Forms.CheckBox();
             this.lblKdvCalc = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -65,6 +67,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.numStock2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSalePrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVatRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCriticalStock)).BeginInit();
             this.pnlList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.pnlSearch.SuspendLayout();
@@ -112,6 +115,8 @@ namespace ÜrünTakip.Views
             this.pnlForm.Controls.Add(this.lblSalePrice);
             this.pnlForm.Controls.Add(this.numVatRate);
             this.pnlForm.Controls.Add(this.lblVatRate);
+            this.pnlForm.Controls.Add(this.numCriticalStock);
+            this.pnlForm.Controls.Add(this.lblCriticalStock);
             this.pnlForm.Controls.Add(this.chkIsActive);
             this.pnlForm.Controls.Add(this.lblKdvCalc);
             this.pnlForm.Controls.Add(this.btnSave);
@@ -371,6 +376,28 @@ namespace ÜrünTakip.Views
             this.lblVatRate.TabIndex = 23;
             this.lblVatRate.Text = "KDV (%):";
             // 
+            // numCriticalStock
+            // 
+            this.numCriticalStock.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.numCriticalStock.Location = new System.Drawing.Point(310, 375);
+            this.numCriticalStock.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numCriticalStock.Name = "numCriticalStock";
+            this.numCriticalStock.Size = new System.Drawing.Size(60, 30);
+            this.numCriticalStock.TabIndex = 24;
+            // 
+            // lblCriticalStock
+            // 
+            this.lblCriticalStock.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.lblCriticalStock.Location = new System.Drawing.Point(210, 375);
+            this.lblCriticalStock.Name = "lblCriticalStock";
+            this.lblCriticalStock.Size = new System.Drawing.Size(95, 25);
+            this.lblCriticalStock.TabIndex = 25;
+            this.lblCriticalStock.Text = "Kritik Stok:";
+            // 
             // chkIsActive
             // 
             this.chkIsActive.Checked = true;
@@ -378,8 +405,8 @@ namespace ÜrünTakip.Views
             this.chkIsActive.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.chkIsActive.Location = new System.Drawing.Point(120, 375);
             this.chkIsActive.Name = "chkIsActive";
-            this.chkIsActive.Size = new System.Drawing.Size(100, 25);
-            this.chkIsActive.TabIndex = 24;
+            this.chkIsActive.Size = new System.Drawing.Size(85, 25);
+            this.chkIsActive.TabIndex = 26;
             this.chkIsActive.Text = "Aktif Mi?";
             // 
             // lblKdvCalc
@@ -390,7 +417,7 @@ namespace ÜrünTakip.Views
             this.lblKdvCalc.Location = new System.Drawing.Point(20, 405);
             this.lblKdvCalc.Name = "lblKdvCalc";
             this.lblKdvCalc.Size = new System.Drawing.Size(350, 40);
-            this.lblKdvCalc.TabIndex = 25;
+            this.lblKdvCalc.TabIndex = 27;
             this.lblKdvCalc.Text = "Hesap Bekleniyor...";
             this.lblKdvCalc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -403,7 +430,7 @@ namespace ÜrünTakip.Views
             this.btnSave.Location = new System.Drawing.Point(20, 460);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(170, 45);
-            this.btnSave.TabIndex = 26;
+            this.btnSave.TabIndex = 28;
             this.btnSave.Text = "KAYDET";
             this.btnSave.UseVisualStyleBackColor = false;
             // 
@@ -416,7 +443,7 @@ namespace ÜrünTakip.Views
             this.btnUpdate.Location = new System.Drawing.Point(200, 460);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(170, 45);
-            this.btnUpdate.TabIndex = 27;
+            this.btnUpdate.TabIndex = 29;
             this.btnUpdate.Text = "GÜNCELLE";
             this.btnUpdate.UseVisualStyleBackColor = false;
             // 
@@ -429,7 +456,7 @@ namespace ÜrünTakip.Views
             this.btnDelete.Location = new System.Drawing.Point(20, 515);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(170, 45);
-            this.btnDelete.TabIndex = 28;
+            this.btnDelete.TabIndex = 30;
             this.btnDelete.Text = "SİL";
             this.btnDelete.UseVisualStyleBackColor = false;
             // 
@@ -442,7 +469,7 @@ namespace ÜrünTakip.Views
             this.btnClear.Location = new System.Drawing.Point(200, 515);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(170, 45);
-            this.btnClear.TabIndex = 29;
+            this.btnClear.TabIndex = 31;
             this.btnClear.Text = "TEMİZLE";
             this.btnClear.UseVisualStyleBackColor = false;
             // 
@@ -539,6 +566,7 @@ namespace ÜrünTakip.Views
             ((System.ComponentModel.ISupportInitialize)(this.numStock2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSalePrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVatRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCriticalStock)).EndInit();
             this.pnlList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             this.pnlSearch.ResumeLayout(false);
@@ -572,6 +600,8 @@ namespace ÜrünTakip.Views
         private System.Windows.Forms.Label lblSalePrice;
         private NoSpinnerNumeric numVatRate;
         private System.Windows.Forms.Label lblVatRate;
+        private NoSpinnerNumeric numCriticalStock;
+        private System.Windows.Forms.Label lblCriticalStock;
         private NoSpinnerNumeric numStock;
         private System.Windows.Forms.Label lblStock;
         private NoSpinnerNumeric numStock2;

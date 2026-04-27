@@ -198,6 +198,7 @@ namespace ÜrünTakip.Views
                         Stock1 = numStock.Value,
                         Stock2 = numStock2.Value,
                         CurrentStock = numStock.Value + numStock2.Value,
+                        CriticalStock = numCriticalStock.Value,
                         IsActive = chkIsActive.Checked,
                         Attributes = "{}" // empty JSON
                     };
@@ -236,6 +237,7 @@ namespace ÜrünTakip.Views
                         p.Stock1 = numStock.Value;
                         p.Stock2 = numStock2.Value;
                         p.CurrentStock = numStock.Value + numStock2.Value;
+                        p.CriticalStock = numCriticalStock.Value;
                         p.IsActive = chkIsActive.Checked;
                         
                         db.SaveChanges();
@@ -297,6 +299,7 @@ namespace ÜrünTakip.Views
             numVatRate.Value = 18;
             numStock.Value = 0;
             numStock2.Value = 0;
+            numCriticalStock.Value = 0;
             chkIsActive.Checked = true;
         }
 
@@ -324,6 +327,7 @@ namespace ÜrünTakip.Views
                         numVatRate.Value = p.VatRate;
                         numStock.Value = p.Stock1;
                         numStock2.Value = p.Stock2;
+                        numCriticalStock.Value = p.CriticalStock;
                         chkIsActive.Checked = p.IsActive;
                     }
                 }

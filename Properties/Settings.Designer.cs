@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ÜrünTakip.Properties
+namespace ÃœrÃ¼nTakip.Properties
 {
 
 

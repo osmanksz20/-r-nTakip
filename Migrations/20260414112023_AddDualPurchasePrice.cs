@@ -1,8 +1,8 @@
-using System;
+﻿﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace �r�nTakip.Migrations
+namespace ÜrünTakip.Migrations
 {
     public partial class AddDualPurchasePrice : Migration
     {

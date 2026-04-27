@@ -77,6 +77,7 @@ namespace ÜrünTakip
             this.btnDiger = new System.Windows.Forms.Button();
             this.chkFisVer = new System.Windows.Forms.CheckBox();
             this.chkYazarKasa = new System.Windows.Forms.CheckBox();
+            this.btnYedekle = new System.Windows.Forms.Button();
             this.pnlDynamicContent = new System.Windows.Forms.Panel();
             this.lblDynamicContentTitle = new System.Windows.Forms.Label();
             this.flpQuickActions = new System.Windows.Forms.FlowLayoutPanel();
@@ -754,6 +755,7 @@ namespace ÜrünTakip
             this.flpFooter.Controls.Add(this.btnDiger);
             this.flpFooter.Controls.Add(this.chkFisVer);
             this.flpFooter.Controls.Add(this.chkYazarKasa);
+            this.flpFooter.Controls.Add(this.btnYedekle);
             this.flpFooter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpFooter.Location = new System.Drawing.Point(3, 751);
             this.flpFooter.Name = "flpFooter";
@@ -847,6 +849,19 @@ namespace ÜrünTakip
             this.chkYazarKasa.TabIndex = 6;
             this.chkYazarKasa.Text = "YazarKasa\nPOS";
             this.chkYazarKasa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnYedekle
+            // 
+            this.btnYedekle.BackColor = System.Drawing.Color.Teal;
+            this.btnYedekle.FlatAppearance.BorderSize = 0;
+            this.btnYedekle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnYedekle.ForeColor = System.Drawing.Color.White;
+            this.btnYedekle.Location = new System.Drawing.Point(1035, 13);
+            this.btnYedekle.Name = "btnYedekle";
+            this.btnYedekle.Size = new System.Drawing.Size(120, 80);
+            this.btnYedekle.TabIndex = 7;
+            this.btnYedekle.Text = "💾\nYEDEKLE";
+            this.btnYedekle.UseVisualStyleBackColor = false;
             // 
             // pnlDynamicContent
             // 
@@ -998,5 +1013,6 @@ namespace ÜrünTakip
         private System.Windows.Forms.CheckBox chkYazarKasa;
         private System.Windows.Forms.FlowLayoutPanel flpQuickActions;
         private System.Windows.Forms.Button btnQuickDailyReport;
+        private System.Windows.Forms.Button btnYedekle;
     }
 }
