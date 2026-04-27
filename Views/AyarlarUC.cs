@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 using ÜrünTakip.Data;
 using ÜrünTakip.Models;
 
@@ -25,6 +26,7 @@ namespace ÜrünTakip.Views
             btnRefreshCategories.Click += (s, e) => LoadCategories();
             btnBrowseBackup.Click += BtnBrowseBackup_Click;
             btnRestore.Click += BtnRestore_Click;
+            if (btnExportExcel != null) btnExportExcel.Click += BtnExportExcel_Click;
         }
 
         private void LoadSettings()
@@ -347,6 +349,119 @@ namespace ÜrünTakip.Views
                         "Hata",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void BtnExportExcel_Click(object sender, EventArgs e)
+        {
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Excel Dosyası|*.xlsx";
+                sfd.Title = "Günlük Raporu Kaydet";
+                sfd.FileName = $"GunlukRapor_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        using (var db = new AppDbContext())
+                        {
+                            var today = DateTime.Today;
+                            var tomorrow = today.AddDays(1);
+
+                            var dailySales = db.Sales.Where(s => s.SaleDate >= today && s.SaleDate < tomorrow).ToList();
+                            var saleIds = dailySales.Select(s => s.Id).ToList();
+                            var saleItems = db.SaleItems.Where(si => saleIds.Contains(si.SaleId)).ToList();
+
+                            using (var workbook = new XLWorkbook())
+                            {
+                                // 1. Sayfa: Özet
+                                var wsSummary = workbook.Worksheets.Add("Günlük Özet");
+                                wsSummary.Cell(1, 1).Value = "Tarih";
+                                wsSummary.Cell(1, 2).Value = today.ToString("dd.MM.yyyy");
+
+                                decimal totalCiro = dailySales.Sum(s => s.TotalAmount);
+                                decimal totalVat = dailySales.Sum(s => s.VatTotal);
+                                int saleCount = dailySales.Count;
+
+                                decimal totalProfit = 0;
+                                foreach (var si in saleItems)
+                                {
+                                    decimal costPrice = si.PurchasePriceAtSale;
+                                    if (costPrice == 0 && si.ProductId != null)
+                                    {
+                                        var product = db.Products.Find(si.ProductId);
+                                        if (product != null) costPrice = product.PurchasePrice;
+                                    }
+                                    totalProfit += (si.UnitPrice - costPrice) * si.Quantity;
+                                }
+
+                                wsSummary.Cell(3, 1).Value = "Toplam Ciro";
+                                wsSummary.Cell(3, 2).Value = totalCiro;
+                                wsSummary.Cell(4, 1).Value = "KDV Toplamı";
+                                wsSummary.Cell(4, 2).Value = totalVat;
+                                wsSummary.Cell(5, 1).Value = "Satış Adedi";
+                                wsSummary.Cell(5, 2).Value = saleCount;
+                                wsSummary.Cell(6, 1).Value = "Brüt Kâr";
+                                wsSummary.Cell(6, 2).Value = totalProfit;
+
+                                wsSummary.Range("A3:A6").Style.Font.Bold = true;
+                                wsSummary.Column(1).AdjustToContents();
+                                wsSummary.Column(2).AdjustToContents();
+
+                                // 2. Sayfa: Satış Detayları
+                                var wsDetails = workbook.Worksheets.Add("Satış Detayları");
+                                wsDetails.Cell(1, 1).Value = "Saat";
+                                wsDetails.Cell(1, 2).Value = "Kasiyer";
+                                wsDetails.Cell(1, 3).Value = "Ödeme Türü";
+                                wsDetails.Cell(1, 4).Value = "Kasa";
+                                wsDetails.Cell(1, 5).Value = "Tutar";
+                                wsDetails.Range("A1:E1").Style.Font.Bold = true;
+
+                                int row = 2;
+                                foreach (var s in dailySales.OrderByDescending(x => x.SaleDate))
+                                {
+                                    wsDetails.Cell(row, 1).Value = s.SaleDate.ToString("HH:mm:ss");
+                                    wsDetails.Cell(row, 2).Value = s.CashierName ?? "-";
+                                    wsDetails.Cell(row, 3).Value = s.PaymentType ?? "-";
+                                    wsDetails.Cell(row, 4).Value = s.RegisterId > 0 ? $"Kasa {s.RegisterId}" : "-";
+                                    wsDetails.Cell(row, 5).Value = s.TotalAmount;
+                                    row++;
+                                }
+                                wsDetails.Columns().AdjustToContents();
+
+                                // 3. Sayfa: Satılan Ürünler
+                                var wsItems = workbook.Worksheets.Add("Satılan Ürünler");
+                                wsItems.Cell(1, 1).Value = "Ürün Adı";
+                                wsItems.Cell(1, 2).Value = "Miktar";
+                                wsItems.Cell(1, 3).Value = "Birim Fiyat";
+                                wsItems.Cell(1, 4).Value = "Satır Toplam";
+                                wsItems.Range("A1:D1").Style.Font.Bold = true;
+
+                                int itemRow = 2;
+                                foreach (var si in saleItems.OrderBy(x => x.ProductName))
+                                {
+                                    wsItems.Cell(itemRow, 1).Value = si.ProductName;
+                                    wsItems.Cell(itemRow, 2).Value = si.Quantity;
+                                    wsItems.Cell(itemRow, 3).Value = si.UnitPrice;
+                                    wsItems.Cell(itemRow, 4).Value = si.LineTotal;
+                                    itemRow++;
+                                }
+                                wsItems.Columns().AdjustToContents();
+
+                                workbook.SaveAs(sfd.FileName);
+                            }
+                        }
+                        Cursor = Cursors.Default;
+                        MessageBox.Show("Günlük rapor başarıyla Excel dosyası olarak kaydedildi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        Cursor = Cursors.Default;
+                        MessageBox.Show($"Excel dışa aktarılırken bir hata oluştu:\n{ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

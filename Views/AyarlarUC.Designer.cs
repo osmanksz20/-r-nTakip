@@ -26,6 +26,7 @@ namespace ÜrünTakip.Views
             this.txtBackupPath = new System.Windows.Forms.TextBox();
             this.btnBrowseBackup = new System.Windows.Forms.Button();
             this.btnRestore = new System.Windows.Forms.Button();
+            this.btnExportExcel = new System.Windows.Forms.Button();
             this.pnlPersonnel = new System.Windows.Forms.Panel();
             this.lblPersonnelTitle = new System.Windows.Forms.Label();
             this.txtNewPersonnel = new System.Windows.Forms.TextBox();
@@ -79,6 +80,7 @@ namespace ÜrünTakip.Views
             this.pnlCompany.Controls.Add(this.txtBackupPath);
             this.pnlCompany.Controls.Add(this.btnBrowseBackup);
             this.pnlCompany.Controls.Add(this.btnRestore);
+            this.pnlCompany.Controls.Add(this.btnExportExcel);
             this.pnlCompany.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCompany.Location = new System.Drawing.Point(3, 3);
             this.pnlCompany.Name = "pnlCompany";
@@ -237,6 +239,19 @@ namespace ÜrünTakip.Views
             this.btnRestore.TabIndex = 14;
             this.btnRestore.Text = "♻️ YEDEKTENGERİ YÜKLE";
             this.btnRestore.UseVisualStyleBackColor = false;
+            // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnExportExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportExcel.Location = new System.Drawing.Point(20, 480);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(360, 45);
+            this.btnExportExcel.TabIndex = 15;
+            this.btnExportExcel.Text = "📊 GÜNLÜK RAPORU EXCEL'E AKTAR";
+            this.btnExportExcel.UseVisualStyleBackColor = false;
             // 
             // pnlPersonnel
             // 
@@ -402,6 +417,7 @@ namespace ÜrünTakip.Views
         private System.Windows.Forms.TextBox txtBackupPath;
         private System.Windows.Forms.Button btnBrowseBackup;
         private System.Windows.Forms.Button btnRestore;
+        private System.Windows.Forms.Button btnExportExcel;
         private System.Windows.Forms.Label lblPersonnelTitle;
         private System.Windows.Forms.TextBox txtNewPersonnel;
         private System.Windows.Forms.Button btnAddPersonnel;

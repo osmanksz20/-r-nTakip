@@ -43,3 +43,11 @@ C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.exe
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.pdb
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.Views.AyarlarUC.resources
 C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\obj\Debug\ÜrünTakip.Views.StokIslemleriUC.resources
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ClosedXML.dll
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ClosedXML.pdb
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ClosedXML.Parser.dll
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\ExcelNumberFormat.dll
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\RBush.dll
+C:\Users\osman\source\repos\ÜrünTakip\ÜrünTakip\bin\Debug\SixLabors.Fonts.dll
