@@ -18,6 +18,7 @@ namespace ÜrünTakip.Views
         public AyarlarUC()
         {
             InitializeComponent();
+            ApplyTheme();
             this.Load += (s, e) => { LoadSettings(); LoadPersonnel(); LoadCategories(); };
             btnSaveSettings.Click += BtnSaveSettings_Click;
             btnAddPersonnel.Click += BtnAddPersonnel_Click;
@@ -464,6 +465,23 @@ namespace ÜrünTakip.Views
                     }
                 }
             }
+        }
+        private void ApplyTheme()
+        {
+            pnlCompany.BackColor = ThemeManager.CardBg;
+            pnlPersonnel.BackColor = ThemeManager.SurfaceBg;
+            pnlCategory.BackColor = ThemeManager.CardBg;
+            lblDbInfo.ForeColor = ThemeManager.TextMuted;
+            ThemeManager.StyleButton(btnSaveSettings, ThemeManager.Success);
+            ThemeManager.StyleButton(btnBrowseBackup, ThemeManager.Primary);
+            ThemeManager.StyleButton(btnRestore, ThemeManager.Warning);
+            ThemeManager.StyleButton(btnExportExcel, ThemeManager.Purple);
+            ThemeManager.StyleButton(btnAddPersonnel, ThemeManager.Primary);
+            ThemeManager.StyleButton(btnRemovePersonnel, ThemeManager.Danger);
+            ThemeManager.StyleButton(btnRemoveCategory, ThemeManager.Danger);
+            btnRefreshCategories.BackColor = ThemeManager.Border;
+            btnRefreshCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRefreshCategories.FlatAppearance.BorderSize = 0;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace ÜrünTakip.Views
         public VeresiyeDefterUC()
         {
             InitializeComponent();
+            ApplyTheme();
             this.Load += (s, e) => { LoadCustomers(); };
             btnSaveCustomer.Click += BtnSaveCustomer_Click;
             btnDeleteCustomer.Click += BtnDeleteCustomer_Click;
@@ -109,7 +110,7 @@ namespace ÜrünTakip.Views
             Form payForm = new Form() { Width = 350, Height = 180, Text = "Ödeme Al", StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog };
             Label lbl = new Label() { Text = "Ödeme Tutarı (₺):", Left = 20, Top = 25, Width = 140, Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold) };
             NoSpinnerNumeric num = new NoSpinnerNumeric() { Left = 160, Top = 23, Width = 150, DecimalPlaces = 2, Maximum = 999999, Font = new System.Drawing.Font("Segoe UI Semibold", 14F, System.Drawing.FontStyle.Bold) };
-            Button ok = new Button() { Text = "ÖDEMEYİ AL", Left = 160, Top = 70, Width = 150, Height = 40, DialogResult = DialogResult.OK, BackColor = System.Drawing.Color.MediumSeaGreen, ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat, Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold) };
+            Button ok = new Button() { Text = "ÖDEMEYİ AL", Left = 160, Top = 70, Width = 150, Height = 40, DialogResult = DialogResult.OK, BackColor = ThemeManager.Success, ForeColor = System.Drawing.Color.White, FlatStyle = FlatStyle.Flat, Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold) };
             payForm.Controls.Add(lbl); payForm.Controls.Add(num); payForm.Controls.Add(ok);
             payForm.AcceptButton = ok;
 
@@ -137,6 +138,20 @@ namespace ÜrünTakip.Views
             txtName.Clear(); txtPhone.Clear(); txtAddress.Clear();
             lblDebtInfo.Text = "Toplam Borç: 0,00 ₺";
             dgvHistory.DataSource = null;
+        }
+
+        private void ApplyTheme()
+        {
+            pnlForm.BackColor = ThemeManager.CardBg;
+            pnlCustomerList.BackColor = ThemeManager.SurfaceBg;
+            pnlHistory.BackColor = ThemeManager.SurfaceBg;
+            lblDebtInfo.ForeColor = ThemeManager.Danger;
+            ThemeManager.StyleButton(btnSaveCustomer, ThemeManager.Success);
+            ThemeManager.StyleButton(btnDeleteCustomer, ThemeManager.Danger);
+            ThemeManager.StyleButton(btnClearCustomer, ThemeManager.Neutral);
+            ThemeManager.StyleButton(btnTakePayment, ThemeManager.Primary);
+            ThemeManager.StyleDataGridView(dgvCustomers);
+            ThemeManager.StyleDataGridView(dgvHistory);
         }
     }
 }

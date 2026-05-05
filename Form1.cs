@@ -36,6 +36,7 @@ namespace ÜrünTakip
         public Form1()
         {
             InitializeComponent();
+            ApplyTheme();
 
             // UserControl'leri oluştur ve dinamik panele ekle (Stok ve Raporlar ayrı pencere açılır)
             veresiyeUC = new VeresiyeDefterUC() { Dock = DockStyle.Fill, Visible = false };
@@ -58,6 +59,90 @@ namespace ÜrünTakip
             this.KeyDown += Form1_KeyDown;
 
             SetupShortcuts();
+        }
+
+        private void ApplyTheme()
+        {
+            // ── Sidebar ──
+            pnlSidebar.BackColor = ThemeManager.SidebarBg;
+            foreach (Control c in pnlSidebar.Controls)
+            {
+                if (c is Button btn)
+                {
+                    btn.FlatStyle = FlatStyle.Flat;
+                    btn.FlatAppearance.BorderSize = 0;
+                    btn.ForeColor = ThemeManager.SidebarText;
+                    btn.BackColor = Color.Transparent;
+                    btn.Cursor = Cursors.Hand;
+                    btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(35, 42, 52);
+                }
+            }
+            btnKasa.BackColor = ThemeManager.SidebarBtnActive;
+            btnKasa.ForeColor = ThemeManager.SidebarActiveText;
+            btnKapat.ForeColor = ThemeManager.SidebarCloseText;
+
+            // ── Header ──
+            pnlHeader.BackColor = ThemeManager.HeaderBg;
+            lblInfo.ForeColor = ThemeManager.TextSecondary;
+            lblTotalTitle.ForeColor = ThemeManager.TextMuted;
+            lblTotalValue.ForeColor = ThemeManager.TotalGreen;
+
+            // ── Satış Paneli ──
+            pnlSales.BackColor = ThemeManager.ContentBg;
+
+            // ── Banknot Paneli ──
+            flpBanknotes.BackColor = ThemeManager.SurfaceBg;
+            lblAlinan.ForeColor = ThemeManager.TextPrimary;
+            lblParaUstu.ForeColor = ThemeManager.TextPrimary;
+            ThemeManager.StyleButton(btn5TL, ThemeManager.Banknote5);
+            ThemeManager.StyleButton(btn10TL, ThemeManager.Banknote10);
+            ThemeManager.StyleButton(btn20TL, ThemeManager.Banknote20);
+            ThemeManager.StyleButton(btn50TL, ThemeManager.Banknote50);
+            ThemeManager.StyleButton(btn100TL, ThemeManager.Banknote100);
+            ThemeManager.StyleButton(btn200TL, ThemeManager.Banknote200);
+
+            // ── Dokunmatik Panel ──
+            pnlTouch.BackColor = ThemeManager.CardBg;
+            lblSelectedProduct.BackColor = ThemeManager.FooterBg;
+            lblSelectedProduct.ForeColor = Color.White;
+            btnCatGenel.BackColor = ThemeManager.TouchCatActive;
+            btnCatGenel.ForeColor = Color.White;
+            btnCatTekel.BackColor = ThemeManager.TouchCatInactive;
+            btnCatTekel.ForeColor = ThemeManager.TextPrimary;
+            btnCatManav.BackColor = ThemeManager.TouchCatInactive;
+            btnCatManav.ForeColor = ThemeManager.TextPrimary;
+            btnTouchSettings.BackColor = ThemeManager.Amber;
+            btnTouchSettings.ForeColor = Color.White;
+
+            // ── Footer (Ödeme Butonları) ──
+            flpFooter.BackColor = ThemeManager.FooterBg;
+            ThemeManager.StyleButton(btnNakit, ThemeManager.Success);
+            ThemeManager.StyleButton(btnKrediKarti, ThemeManager.Primary);
+            ThemeManager.StyleButton(btnNakitKart, ThemeManager.Warning);
+            ThemeManager.StyleButton(btnVeresiye, ThemeManager.Danger);
+            ThemeManager.StyleButton(btnDiger, ThemeManager.Neutral);
+            ThemeManager.StyleButton(btnYedekle, ThemeManager.Teal);
+            chkFisVer.BackColor = ThemeManager.FooterBg;
+            chkFisVer.ForeColor = Color.White;
+            chkFisVer.FlatStyle = FlatStyle.Flat;
+            chkYazarKasa.BackColor = ThemeManager.FooterBg;
+            chkYazarKasa.ForeColor = Color.White;
+            chkYazarKasa.FlatStyle = FlatStyle.Flat;
+
+            // ── Dynamic Content ──
+            pnlDynamicContent.BackColor = ThemeManager.ContentBg;
+
+            // ── DataGridView'ler ──
+            ThemeManager.StyleDataGridView(dgvSales);
+            ThemeManager.StyleDataGridView(dgvKasaSearch);
+
+            // ── Kasa Tab Butonları ──
+            btnTabKasa1.FlatStyle = FlatStyle.Flat;
+            btnTabKasa1.FlatAppearance.BorderColor = ThemeManager.Border;
+            btnTabKasa1.FlatAppearance.BorderSize = 1;
+            btnTabKasa2.FlatStyle = FlatStyle.Flat;
+            btnTabKasa2.FlatAppearance.BorderColor = ThemeManager.Border;
+            btnTabKasa2.FlatAppearance.BorderSize = 1;
         }
 
         private void SetupShortcuts()
@@ -120,9 +205,10 @@ namespace ÜrünTakip
             // Arama kapatma butonu oluştur
             btnCloseSearch = new Button();
             btnCloseSearch.Text = "❌ Kapat";
-            btnCloseSearch.BackColor = Color.IndianRed;
+            btnCloseSearch.BackColor = ThemeManager.Danger;
             btnCloseSearch.ForeColor = Color.White;
             btnCloseSearch.FlatStyle = FlatStyle.Flat;
+            btnCloseSearch.FlatAppearance.BorderSize = 0;
             btnCloseSearch.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnCloseSearch.Size = new Size(110, 40);
             btnCloseSearch.Visible = false;
@@ -350,15 +436,15 @@ namespace ÜrünTakip
             _activeTouchCategory = category;
             
             // Renkleri sıfırla
-            btnCatGenel.BackColor = Color.LightGray;
-            btnCatTekel.BackColor = Color.LightGray;
-            btnCatManav.BackColor = Color.LightGray;
-            btnCatGenel.ForeColor = Color.Black;
-            btnCatTekel.ForeColor = Color.Black;
-            btnCatManav.ForeColor = Color.Black;
+            btnCatGenel.BackColor = ThemeManager.TouchCatInactive;
+            btnCatTekel.BackColor = ThemeManager.TouchCatInactive;
+            btnCatManav.BackColor = ThemeManager.TouchCatInactive;
+            btnCatGenel.ForeColor = ThemeManager.TextPrimary;
+            btnCatTekel.ForeColor = ThemeManager.TextPrimary;
+            btnCatManav.ForeColor = ThemeManager.TextPrimary;
 
             // Aktif butonu vurgula
-            activeBtn.BackColor = Color.SteelBlue;
+            activeBtn.BackColor = ThemeManager.TouchCatActive;
             activeBtn.ForeColor = Color.White;
 
             LoadTouchGridProducts();
@@ -400,7 +486,7 @@ namespace ÜrünTakip
             frm.MinimumSize = new Size(900, 600);
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.Icon = this.Icon;
-            frm.BackColor = Color.White;
+            frm.BackColor = ThemeManager.ContentBg;
             frm.FormBorderStyle = FormBorderStyle.Sizable;
             frm.MaximizeBox = true;
             frm.MinimizeBox = true;
@@ -448,7 +534,7 @@ namespace ÜrünTakip
                 lblTotalValue.Visible = true;
                 lblTotalTitle.Text = "KASA TOPLAM:";
                 UpdateCartDisplay();
-                lblTotalValue.ForeColor = Color.ForestGreen;
+                lblTotalValue.ForeColor = ThemeManager.TotalGreen;
                 RefreshPersonnelList();
                 LoadTouchGridProducts();
             }
@@ -509,14 +595,20 @@ namespace ÜrünTakip
                         if (prod != null)
                         {
                             btn.Text = prod.Name + "\n" + prod.SalePrice.ToString("N2") + " ₺";
-                            btn.BackColor = Color.WhiteSmoke;
+                            btn.BackColor = ThemeManager.TouchBtnBg;
+                            btn.FlatAppearance.BorderColor = ThemeManager.TouchBtnBorder;
+                            btn.FlatAppearance.BorderSize = 1;
+                            btn.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                            btn.ForeColor = ThemeManager.TextPrimary;
                             btn.Tag = prod.Id;
+                            btn.Cursor = Cursors.Hand;
                             btn.Click += TouchProductBtn_Click;
                         }
                         else
                         {
                             btn.Text = "";
-                            btn.BackColor = Color.WhiteSmoke;
+                            btn.BackColor = ThemeManager.SurfaceBg;
+                            btn.FlatAppearance.BorderColor = ThemeManager.BorderLight;
                             btn.Enabled = false;
                         }
 
@@ -531,8 +623,9 @@ namespace ÜrünTakip
                     Button btn = new Button();
                     btn.Dock = DockStyle.Fill;
                     btn.Text = "Ürün " + (i + 1);
-                    btn.BackColor = Color.WhiteSmoke;
+                    btn.BackColor = ThemeManager.SurfaceBg;
                     btn.FlatStyle = FlatStyle.Flat;
+                    btn.FlatAppearance.BorderColor = ThemeManager.BorderLight;
                     tlpTouchGrid.Controls.Add(btn);
                 }
             }
@@ -647,7 +740,7 @@ namespace ÜrünTakip
                     frmAmount.FormBorderStyle = FormBorderStyle.FixedDialog;
                     frmAmount.MaximizeBox = false;
                     frmAmount.MinimizeBox = false;
-                    frmAmount.BackColor = Color.White;
+                    frmAmount.BackColor = ThemeManager.CardBg;
 
                     Label lblInfo = new Label();
                     lblInfo.Text = $"{item.ProductName} \nMevcut Miktar: {item.Quantity:N0}\nYeni Miktarı Giriniz:";
@@ -671,9 +764,10 @@ namespace ÜrünTakip
                     btnMinus.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
                     btnMinus.Size = new Size(50, 44);
                     btnMinus.Location = new Point(55, 80);
-                    btnMinus.BackColor = Color.IndianRed;
+                    btnMinus.BackColor = ThemeManager.Danger;
                     btnMinus.ForeColor = Color.White;
                     btnMinus.FlatStyle = FlatStyle.Flat;
+                    btnMinus.FlatAppearance.BorderSize = 0;
                     frmAmount.Controls.Add(btnMinus);
 
                     Button btnPlus = new Button();
@@ -681,9 +775,10 @@ namespace ÜrünTakip
                     btnPlus.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
                     btnPlus.Size = new Size(50, 44);
                     btnPlus.Location = new Point(225, 80);
-                    btnPlus.BackColor = Color.MediumSeaGreen;
+                    btnPlus.BackColor = ThemeManager.Success;
                     btnPlus.ForeColor = Color.White;
                     btnPlus.FlatStyle = FlatStyle.Flat;
+                    btnPlus.FlatAppearance.BorderSize = 0;
                     frmAmount.Controls.Add(btnPlus);
 
                     Button btnOk = new Button();
@@ -691,9 +786,10 @@ namespace ÜrünTakip
                     btnOk.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                     btnOk.Size = new Size(125, 45);
                     btnOk.Location = new Point(40, 145);
-                    btnOk.BackColor = Color.SteelBlue;
+                    btnOk.BackColor = ThemeManager.Primary;
                     btnOk.ForeColor = Color.White;
                     btnOk.FlatStyle = FlatStyle.Flat;
+                    btnOk.FlatAppearance.BorderSize = 0;
                     btnOk.DialogResult = DialogResult.OK;
                     frmAmount.Controls.Add(btnOk);
 
@@ -702,9 +798,10 @@ namespace ÜrünTakip
                     btnDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                     btnDelete.Size = new Size(125, 45);
                     btnDelete.Location = new Point(175, 145);
-                    btnDelete.BackColor = Color.Crimson;
+                    btnDelete.BackColor = ThemeManager.Danger;
                     btnDelete.ForeColor = Color.White;
                     btnDelete.FlatStyle = FlatStyle.Flat;
+                    btnDelete.FlatAppearance.BorderSize = 0;
                     frmAmount.Controls.Add(btnDelete);
 
                     frmAmount.AcceptButton = btnOk;
@@ -770,7 +867,7 @@ namespace ÜrünTakip
             decimal.TryParse(txtAlinan.Text.Replace("₺", "").Trim(), out paid);
             decimal change = paid - _cartTotal;
             txtParaUstu.Text = change >= 0 ? change.ToString("N2") : "0,00";
-            txtParaUstu.ForeColor = change >= 0 ? Color.ForestGreen : Color.Red;
+            txtParaUstu.ForeColor = change >= 0 ? ThemeManager.TotalGreen : ThemeManager.Danger;
         }
 
         // ————————————————— SATIŞ TAMAMLAMA —————————————————
@@ -986,7 +1083,7 @@ namespace ÜrünTakip
             txtAlinan.TextChanged -= AlinanTextChanged;
             txtAlinan.Text = "0,00";
             txtParaUstu.Text = "0,00";
-            txtParaUstu.ForeColor = Color.Red;
+            txtParaUstu.ForeColor = ThemeManager.Danger;
             txtAlinan.TextChanged += AlinanTextChanged;
             lblSelectedProduct.Text = "  Seçili Ürün: - | Stok: -";
         }
@@ -1062,12 +1159,12 @@ namespace ÜrünTakip
             _activeKasaIndex = index;
             
             // Buton görsellerini güncelle
-            btnTabKasa1.BackColor = (_activeKasaIndex == 0) ? Color.MediumSeaGreen : Color.LightGray;
-            btnTabKasa1.ForeColor = (_activeKasaIndex == 0) ? Color.White : Color.Black;
+            btnTabKasa1.BackColor = (_activeKasaIndex == 0) ? ThemeManager.Primary : ThemeManager.SurfaceBg;
+            btnTabKasa1.ForeColor = (_activeKasaIndex == 0) ? Color.White : ThemeManager.TextPrimary;
             btnTabKasa1.Font = new Font("Segoe UI", 12F, (_activeKasaIndex == 0) ? FontStyle.Bold : FontStyle.Regular);
 
-            btnTabKasa2.BackColor = (_activeKasaIndex == 1) ? Color.MediumSeaGreen : Color.LightGray;
-            btnTabKasa2.ForeColor = (_activeKasaIndex == 1) ? Color.White : Color.Black;
+            btnTabKasa2.BackColor = (_activeKasaIndex == 1) ? ThemeManager.Primary : ThemeManager.SurfaceBg;
+            btnTabKasa2.ForeColor = (_activeKasaIndex == 1) ? Color.White : ThemeManager.TextPrimary;
             btnTabKasa2.Font = new Font("Segoe UI", 12F, (_activeKasaIndex == 1) ? FontStyle.Bold : FontStyle.Regular);
 
             RefreshCartGrid();

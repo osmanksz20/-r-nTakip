@@ -15,6 +15,7 @@ namespace ÜrünTakip.Views
         public StokIslemleriUC()
         {
             InitializeComponent();
+            ApplyTheme();
             
             // Event Wiring
             this.Load += StokIslemleriUC_Load;
@@ -145,7 +146,7 @@ namespace ÜrünTakip.Views
             };
             Label textLabel = new Label() { Left = 20, Top = 20, Text = "Yeni Kategori Adı:", Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold), AutoSize = true };
             TextBox textBox = new TextBox() { Left = 150, Top = 18, Width = 210, Font = new Font("Segoe UI", 10F) };
-            Button confirmation = new Button() { Text = "EKLE", Left = 260, Width = 100, Top = 60, DialogResult = DialogResult.OK, BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold) };
+            Button confirmation = new Button() { Text = "EKLE", Left = 260, Width = 100, Top = 60, DialogResult = DialogResult.OK, BackColor = ThemeManager.Primary, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold) };
             inputForm.Controls.Add(textLabel); inputForm.Controls.Add(textBox); inputForm.Controls.Add(confirmation);
             inputForm.AcceptButton = confirmation;
 
@@ -332,6 +333,19 @@ namespace ÜrünTakip.Views
                     }
                 }
             }
+        }
+
+        private void ApplyTheme()
+        {
+            pnlForm.BackColor = ThemeManager.CardBg;
+            pnlList.BackColor = ThemeManager.ContentBg;
+            lblTotalStock.ForeColor = ThemeManager.Primary;
+            lblKdvCalc.BackColor = ThemeManager.KdvCalcBg;
+            ThemeManager.StyleButton(btnSave, ThemeManager.Success);
+            ThemeManager.StyleButton(btnUpdate, ThemeManager.Primary);
+            ThemeManager.StyleButton(btnDelete, ThemeManager.Danger);
+            ThemeManager.StyleButton(btnClear, ThemeManager.Neutral);
+            ThemeManager.StyleDataGridView(dgvProducts);
         }
     }
 }

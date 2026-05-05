@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace ÜrünTakip.Views
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.BackColor = Color.White;
+            this.BackColor = ThemeManager.CardBg;
 
             Panel pnlTop = new Panel { Dock = DockStyle.Top, Height = 60, Padding = new Padding(10) };
             
@@ -39,7 +39,7 @@ namespace ÜrünTakip.Views
             txtSearch = new TextBox { Location = new Point(100, 15), Width = 400, Font = new Font("Segoe UI", 14F) };
             txtSearch.TextChanged += TxtSearch_TextChanged;
             
-            btnRemove = new Button { Text = "❌ KISAYOLU KALDIR", Location = new Point(550, 10), Size = new Size(200, 40), BackColor = Color.Crimson, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+            btnRemove = new Button { Text = "❌ KISAYOLU KALDIR", Location = new Point(550, 10), Size = new Size(200, 40), BackColor = ThemeManager.Danger, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
             btnRemove.Click += BtnRemove_Click;
 
             pnlTop.Controls.Add(lblSearch);
@@ -57,8 +57,9 @@ namespace ÜrünTakip.Views
                 ReadOnly = true,
                 RowTemplate = { Height = 40 },
                 Font = new Font("Segoe UI", 12F),
-                BackgroundColor = Color.WhiteSmoke
+                BackgroundColor = ThemeManager.SurfaceBg
             };
+            ThemeManager.StyleDataGridView(dgvProducts);
             dgvProducts.CellDoubleClick += DgvProducts_CellDoubleClick;
 
             this.Controls.Add(dgvProducts);

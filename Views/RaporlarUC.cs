@@ -14,6 +14,7 @@ namespace ÜrünTakip.Views
         public RaporlarUC()
         {
             InitializeComponent();
+            ApplyTheme();
             this.Load += (s, e) => { 
                 var today = DateTime.Today;
                 dtpReportStartDate.Value = today;
@@ -180,7 +181,7 @@ namespace ÜrünTakip.Views
                 popup.StartPosition = FormStartPosition.CenterScreen;
                 popup.Size = new Size(950, 650);
                 popup.MinimumSize = new Size(700, 400);
-                popup.BackColor = Color.FromArgb(30, 30, 45);
+                popup.BackColor = Color.FromArgb(22, 27, 34);
                 popup.ForeColor = Color.White;
                 popup.FormBorderStyle = FormBorderStyle.Sizable;
                 popup.MaximizeBox = true;
@@ -193,13 +194,13 @@ namespace ÜrünTakip.Views
                 var pnlTitle = new Panel();
                 pnlTitle.Dock = DockStyle.Top;
                 pnlTitle.Height = 110;
-                pnlTitle.BackColor = Color.FromArgb(40, 40, 60);
+                pnlTitle.BackColor = Color.FromArgb(30, 41, 59);
                 pnlTitle.Padding = new Padding(25, 15, 25, 10);
 
                 var lblTitle = new Label();
                 lblTitle.Text = $"🧾  Satış #{saleId} — Ürün Detayları";
                 lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-                lblTitle.ForeColor = Color.FromArgb(130, 200, 255);
+                lblTitle.ForeColor = Color.FromArgb(147, 197, 253);
                 lblTitle.Dock = DockStyle.Top;
                 lblTitle.Height = 45;
 
@@ -220,36 +221,36 @@ namespace ÜrünTakip.Views
                 dgv.AllowUserToAddRows = false;
                 dgv.ReadOnly = true;
                 dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgv.BackgroundColor = Color.FromArgb(35, 35, 55);
-                dgv.GridColor = Color.FromArgb(60, 60, 80);
+                dgv.BackgroundColor = Color.FromArgb(30, 41, 59);
+                dgv.GridColor = Color.FromArgb(51, 65, 85);
                 dgv.BorderStyle = BorderStyle.None;
                 dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
                 dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dgv.RowHeadersVisible = false;
                 dgv.EnableHeadersVisualStyles = false;
 
-                dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 75);
-                dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(180, 220, 255);
+                dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(51, 65, 85);
+                dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(147, 197, 253);
                 dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
                 dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgv.ColumnHeadersHeight = 50;
                 dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
-                dgv.DefaultCellStyle.BackColor = Color.FromArgb(38, 38, 58);
+                dgv.DefaultCellStyle.BackColor = Color.FromArgb(30, 41, 59);
                 dgv.DefaultCellStyle.ForeColor = Color.White;
-                dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 70, 110);
+                dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(37, 99, 235);
                 dgv.DefaultCellStyle.SelectionForeColor = Color.White;
                 dgv.DefaultCellStyle.Font = new Font("Segoe UI", 13F);
                 dgv.DefaultCellStyle.Padding = new Padding(8, 5, 8, 5);
                 dgv.RowTemplate.Height = 48;
 
-                dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 68);
+                dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(36, 48, 67);
 
                 // Alt bilgi paneli
                 var pnlBottom = new Panel();
                 pnlBottom.Dock = DockStyle.Bottom;
                 pnlBottom.Height = 65;
-                pnlBottom.BackColor = Color.FromArgb(40, 40, 60);
+                pnlBottom.BackColor = Color.FromArgb(30, 41, 59);
                 pnlBottom.Padding = new Padding(20, 10, 20, 10);
 
                 var lblItemCount = new Label();
@@ -266,7 +267,7 @@ namespace ÜrünTakip.Views
                 btnClose.Size = new Size(150, 42);
                 btnClose.Dock = DockStyle.Right;
                 btnClose.FlatStyle = FlatStyle.Flat;
-                btnClose.BackColor = Color.FromArgb(180, 60, 60);
+                btnClose.BackColor = ThemeManager.Danger;
                 btnClose.ForeColor = Color.White;
                 btnClose.FlatAppearance.BorderSize = 0;
                 btnClose.Cursor = Cursors.Hand;
@@ -281,6 +282,37 @@ namespace ÜrünTakip.Views
 
                 popup.ShowDialog();
             }
+        }
+
+        private void ApplyTheme()
+        {
+            // Header
+            pnlHeader.BackColor = ThemeManager.SurfaceBg;
+            ThemeManager.StyleButton(btnRefresh, ThemeManager.Primary);
+            btnBack.BackColor = ThemeManager.Danger;
+            btnBack.ForeColor = Color.White;
+            btnBack.FlatStyle = FlatStyle.Flat;
+            btnBack.FlatAppearance.BorderSize = 0;
+
+            // Menü kartları
+            ThemeManager.StyleButton(btnMenuSummary, ThemeManager.ReportGreen);
+            ThemeManager.StyleButton(btnMenuTop, ThemeManager.ReportGold);
+            ThemeManager.StyleButton(btnMenuLow, ThemeManager.Danger);
+            ThemeManager.StyleButton(btnMenuDetail, ThemeManager.ReportSlate);
+
+            // Özet etiketleri
+            lblDailySales.ForeColor = ThemeManager.TotalGreen;
+            lblDailyProfit.ForeColor = ThemeManager.Primary;
+
+            // Alt başlıklar
+            lblTopTitle.BackColor = Color.FromArgb(254, 249, 195);
+            lblLowStockTitle.BackColor = Color.FromArgb(254, 226, 226);
+            lblDailySalesDetailTitle.BackColor = Color.FromArgb(219, 234, 254);
+
+            // DataGridView'ler
+            ThemeManager.StyleDataGridView(dgvTopProducts);
+            ThemeManager.StyleDataGridView(dgvLowStock);
+            ThemeManager.StyleDataGridView(dgvDailySalesDetail);
         }
     }
 }

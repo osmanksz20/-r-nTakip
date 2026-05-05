@@ -11,6 +11,7 @@ namespace ÜrünTakip.Views
         public EFaturaUC()
         {
             InitializeComponent();
+            ApplyTheme();
             this.Load += (s, e) => { dtpStart.Value = DateTime.Today; dtpEnd.Value = DateTime.Today; SearchSales(); };
             btnSearch.Click += (s, e) => SearchSales();
             dgvSales.CellClick += DgvSales_CellClick;
@@ -92,6 +93,17 @@ namespace ÜrünTakip.Views
 
                 MessageBox.Show(receipt, "Satış Fişi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void ApplyTheme()
+        {
+            pnlFilter.BackColor = ThemeManager.CardBg;
+            lblDetailTitle.BackColor = ThemeManager.ContentBg;
+            lblDetailTitle.ForeColor = ThemeManager.TextPrimary;
+            ThemeManager.StyleButton(btnSearch, ThemeManager.Primary);
+            ThemeManager.StyleButton(btnPrintReceipt, ThemeManager.Success);
+            ThemeManager.StyleDataGridView(dgvSales);
+            ThemeManager.StyleDataGridView(dgvDetail);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -27,7 +27,7 @@ namespace ÜrünTakip.Views
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.BackColor = Color.White;
+            this.BackColor = ThemeManager.ContentBg;
 
             // Top Panel
             Panel pnlTop = new Panel { Dock = DockStyle.Top, Height = 80, Padding = new Padding(20) };
@@ -39,9 +39,9 @@ namespace ÜrünTakip.Views
             cmbCategory.SelectedIndex = 0;
             cmbCategory.SelectedIndexChanged += (s, e) => LoadGrid();
 
-            Label lblInfo = new Label { Text = "ℹ️ Kutulara tıklayarak ürün atayabilir veya mevcut atamayı değiştirebilirsiniz.", AutoSize = true, Location = new Point(20, 60), Font = new Font("Segoe UI", 10F, FontStyle.Italic), ForeColor = Color.Gray };
+            Label lblInfo = new Label { Text = "ℹ️ Kutulara tıklayarak ürün atayabilir veya mevcut atamayı değiştirebilirsiniz.", AutoSize = true, Location = new Point(20, 60), Font = new Font("Segoe UI", 10F, FontStyle.Italic), ForeColor = ThemeManager.TextMuted };
 
-            Button btnClose = new Button { Text = "KAPAT", Location = new Point(850, 15), Size = new Size(100, 45), BackColor = Color.LightCoral, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 12F, FontStyle.Bold) };
+            Button btnClose = new Button { Text = "KAPAT", Location = new Point(850, 15), Size = new Size(100, 45), BackColor = ThemeManager.Danger, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 12F, FontStyle.Bold) };
             btnClose.Click += (s, e) => this.Close();
 
             pnlTop.Controls.Add(lblCat);
@@ -98,13 +98,14 @@ namespace ÜrünTakip.Views
                     if (prod != null)
                     {
                         btn.Text = prod.Name + "\n" + prod.SalePrice.ToString("N2") + " ₺";
-                        btn.BackColor = Color.LightSkyBlue;
+                        btn.BackColor = Color.FromArgb(219, 234, 254);
+                        btn.ForeColor = ThemeManager.TextPrimary;
                     }
                     else
                     {
                         btn.Text = "+ Ekle (" + (i + 1) + ")";
-                        btn.BackColor = Color.WhiteSmoke;
-                        btn.ForeColor = Color.Gray;
+                        btn.BackColor = ThemeManager.SurfaceBg;
+                        btn.ForeColor = ThemeManager.TextMuted;
                     }
 
                     btn.Click += GridBtn_Click;
