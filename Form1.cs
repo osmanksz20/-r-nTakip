@@ -721,133 +721,320 @@ namespace ÜrünTakip
             lblTotalValue.Text = _cartTotal.ToString("N2") + " ₺";
         }
 
+        // ————————————————— STOK DETAY PANELİ —————————————————
+
+        private void ShowStockDetailPanel(CartItem cartItem, int cartRowIndex)
+        {
+            Product product;
+            using (var db = new AppDbContext())
+            {
+                product = db.Products.Find(cartItem.ProductId);
+                if (product == null) return;
+            }
+
+            decimal cartQty = cartItem.Quantity;
+            decimal totalStock = product.Stock1 + product.Stock2;
+            decimal remaining = totalStock - cartQty;
+
+            Form frmStock = new Form();
+            frmStock.Text = "📦 Stok Detayı";
+            frmStock.Size = new Size(460, 620);
+            frmStock.StartPosition = FormStartPosition.CenterParent;
+            frmStock.FormBorderStyle = FormBorderStyle.FixedDialog;
+            frmStock.MaximizeBox = false;
+            frmStock.MinimizeBox = false;
+            frmStock.BackColor = ThemeManager.CardBg;
+
+            // Başlık Panel
+            Panel pnlTitle = new Panel();
+            pnlTitle.Dock = DockStyle.Top;
+            pnlTitle.Height = 60;
+            pnlTitle.BackColor = ThemeManager.Primary;
+            frmStock.Controls.Add(pnlTitle);
+
+            Label lblTitle = new Label();
+            lblTitle.Text = $"  📦  {product.Name}";
+            lblTitle.Dock = DockStyle.Fill;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.TextAlign = ContentAlignment.MiddleLeft;
+            pnlTitle.Controls.Add(lblTitle);
+
+            int y = 80;
+            int leftCol = 25;
+            int rightCol = 240;
+
+            // ── Stok 1 Satırı ──
+            Label lblS1Header = new Label();
+            lblS1Header.Text = "STOK 1";
+            lblS1Header.Location = new Point(leftCol, y);
+            lblS1Header.Size = new Size(200, 22);
+            lblS1Header.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblS1Header.ForeColor = ThemeManager.TextMuted;
+            frmStock.Controls.Add(lblS1Header);
+            y += 24;
+
+            Label lblS1Value = new Label();
+            lblS1Value.Text = $"{product.Stock1:N0} adet";
+            lblS1Value.Location = new Point(leftCol, y);
+            lblS1Value.Size = new Size(200, 32);
+            lblS1Value.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblS1Value.ForeColor = product.Stock1 > 0 ? ThemeManager.Success : ThemeManager.Danger;
+            frmStock.Controls.Add(lblS1Value);
+
+            Label lblS1Price = new Label();
+            lblS1Price.Text = $"Alış: {product.PurchasePrice:N2} ₺";
+            lblS1Price.Location = new Point(rightCol, y);
+            lblS1Price.Size = new Size(190, 32);
+            lblS1Price.Font = new Font("Segoe UI", 13F, FontStyle.Regular);
+            lblS1Price.ForeColor = ThemeManager.TextSecondary;
+            lblS1Price.TextAlign = ContentAlignment.MiddleRight;
+            frmStock.Controls.Add(lblS1Price);
+            y += 40;
+
+            // Ayırıcı çizgi
+            Panel sep1 = new Panel();
+            sep1.Location = new Point(leftCol, y);
+            sep1.Size = new Size(400, 1);
+            sep1.BackColor = ThemeManager.Border;
+            frmStock.Controls.Add(sep1);
+            y += 12;
+
+            // ── Stok 2 Satırı ──
+            Label lblS2Header = new Label();
+            lblS2Header.Text = "STOK 2";
+            lblS2Header.Location = new Point(leftCol, y);
+            lblS2Header.Size = new Size(200, 22);
+            lblS2Header.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblS2Header.ForeColor = ThemeManager.TextMuted;
+            frmStock.Controls.Add(lblS2Header);
+            y += 24;
+
+            Label lblS2Value = new Label();
+            lblS2Value.Text = $"{product.Stock2:N0} adet";
+            lblS2Value.Location = new Point(leftCol, y);
+            lblS2Value.Size = new Size(200, 32);
+            lblS2Value.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblS2Value.ForeColor = product.Stock2 > 0 ? ThemeManager.Info : ThemeManager.TextMuted;
+            frmStock.Controls.Add(lblS2Value);
+
+            Label lblS2Price = new Label();
+            lblS2Price.Text = $"Alış: {product.PurchasePrice2:N2} ₺";
+            lblS2Price.Location = new Point(rightCol, y);
+            lblS2Price.Size = new Size(190, 32);
+            lblS2Price.Font = new Font("Segoe UI", 13F, FontStyle.Regular);
+            lblS2Price.ForeColor = ThemeManager.TextSecondary;
+            lblS2Price.TextAlign = ContentAlignment.MiddleRight;
+            frmStock.Controls.Add(lblS2Price);
+            y += 40;
+
+            // Ayırıcı çizgi
+            Panel sep2 = new Panel();
+            sep2.Location = new Point(leftCol, y);
+            sep2.Size = new Size(400, 1);
+            sep2.BackColor = ThemeManager.Border;
+            frmStock.Controls.Add(sep2);
+            y += 18;
+
+            // ── Toplam Stok ──
+            Label lblTotalHeader = new Label();
+            lblTotalHeader.Text = "TOPLAM STOK";
+            lblTotalHeader.Location = new Point(leftCol, y);
+            lblTotalHeader.Size = new Size(200, 22);
+            lblTotalHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblTotalHeader.ForeColor = ThemeManager.TextMuted;
+            frmStock.Controls.Add(lblTotalHeader);
+            y += 24;
+
+            Label lblTotalValue = new Label();
+            lblTotalValue.Text = $"{totalStock:N0} adet";
+            lblTotalValue.Location = new Point(leftCol, y);
+            lblTotalValue.Size = new Size(200, 36);
+            lblTotalValue.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblTotalValue.ForeColor = ThemeManager.TotalGreen;
+            frmStock.Controls.Add(lblTotalValue);
+
+            // Satış fiyatı sağ tarafta
+            Label lblSalePrice = new Label();
+            lblSalePrice.Text = $"Satış: {product.SalePrice:N2} ₺";
+            lblSalePrice.Location = new Point(rightCol, y);
+            lblSalePrice.Size = new Size(190, 36);
+            lblSalePrice.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblSalePrice.ForeColor = ThemeManager.Primary;
+            lblSalePrice.TextAlign = ContentAlignment.MiddleRight;
+            frmStock.Controls.Add(lblSalePrice);
+            y += 44;
+
+            // ── Sepetteki Miktar ve Kalan ──
+            Panel pnlCart = new Panel();
+            pnlCart.Location = new Point(leftCol, y);
+            pnlCart.Size = new Size(400, 50);
+            pnlCart.BackColor = ThemeManager.SurfaceBg;
+            frmStock.Controls.Add(pnlCart);
+
+            Label lblCartInfo = new Label();
+            lblCartInfo.Text = $"🛒 Sepette: {cartQty:N0}     |     📦 Kalan: {remaining:N0}";
+            lblCartInfo.Dock = DockStyle.Fill;
+            lblCartInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblCartInfo.ForeColor = remaining > 0 ? ThemeManager.TextPrimary : ThemeManager.Danger;
+            lblCartInfo.TextAlign = ContentAlignment.MiddleCenter;
+            pnlCart.Controls.Add(lblCartInfo);
+            y += 60;
+
+            // ── Kritik Stok Uyarısı ──
+            if (product.CriticalStock > 0)
+            {
+                Color critColor = remaining <= product.CriticalStock ? ThemeManager.Danger : ThemeManager.Success;
+                string critIcon = remaining <= product.CriticalStock ? "⚠️" : "✅";
+
+                Label lblCritical = new Label();
+                lblCritical.Text = $"{critIcon}  Kritik Seviye: {product.CriticalStock:N0}  —  {(remaining <= product.CriticalStock ? "KRİTİK SEVİYEDE!" : "Stok yeterli")}";
+                lblCritical.Location = new Point(leftCol, y);
+                lblCritical.Size = new Size(400, 30);
+                lblCritical.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                lblCritical.ForeColor = critColor;
+                lblCritical.TextAlign = ContentAlignment.MiddleCenter;
+                frmStock.Controls.Add(lblCritical);
+                y += 35;
+            }
+
+            // ── Ayırıcı çizgi (Miktar bölümü öncesi) ──
+            Panel sep3 = new Panel();
+            sep3.Location = new Point(leftCol, y);
+            sep3.Size = new Size(400, 2);
+            sep3.BackColor = ThemeManager.Primary;
+            frmStock.Controls.Add(sep3);
+            y += 14;
+
+            // ── MİKTAR DEĞİŞTİRME PANELİ ──
+            Label lblAmountHeader = new Label();
+            lblAmountHeader.Text = "MİKTAR GÜNCELLE";
+            lblAmountHeader.Location = new Point(leftCol, y);
+            lblAmountHeader.Size = new Size(400, 22);
+            lblAmountHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblAmountHeader.ForeColor = ThemeManager.TextMuted;
+            lblAmountHeader.TextAlign = ContentAlignment.MiddleCenter;
+            frmStock.Controls.Add(lblAmountHeader);
+            y += 28;
+
+            // [-] Miktar [+] satırı
+            int controlsCenter = 210; // form genişliğinin ortası
+
+            Button btnMinus = new Button();
+            btnMinus.Text = "−";
+            btnMinus.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnMinus.Size = new Size(55, 50);
+            btnMinus.Location = new Point(controlsCenter - 100, y);
+            btnMinus.BackColor = ThemeManager.Danger;
+            btnMinus.ForeColor = Color.White;
+            btnMinus.FlatStyle = FlatStyle.Flat;
+            btnMinus.FlatAppearance.BorderSize = 0;
+            btnMinus.Cursor = Cursors.Hand;
+            frmStock.Controls.Add(btnMinus);
+
+            TextBox txtAmount = new TextBox();
+            txtAmount.Text = cartItem.Quantity.ToString("G");
+            txtAmount.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            txtAmount.Size = new Size(90, 50);
+            txtAmount.Location = new Point(controlsCenter - 40, y + 3);
+            txtAmount.TextAlign = HorizontalAlignment.Center;
+            frmStock.Controls.Add(txtAmount);
+
+            Button btnPlus = new Button();
+            btnPlus.Text = "+";
+            btnPlus.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnPlus.Size = new Size(55, 50);
+            btnPlus.Location = new Point(controlsCenter + 55, y);
+            btnPlus.BackColor = ThemeManager.Success;
+            btnPlus.ForeColor = Color.White;
+            btnPlus.FlatStyle = FlatStyle.Flat;
+            btnPlus.FlatAppearance.BorderSize = 0;
+            btnPlus.Cursor = Cursors.Hand;
+            frmStock.Controls.Add(btnPlus);
+
+            y += 60;
+
+            // GÜNCELLE ve DİREKT SİL butonları
+            Button btnOk = new Button();
+            btnOk.Text = "✅  GÜNCELLE";
+            btnOk.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnOk.Size = new Size(195, 48);
+            btnOk.Location = new Point(leftCol, y);
+            btnOk.BackColor = ThemeManager.Primary;
+            btnOk.ForeColor = Color.White;
+            btnOk.FlatStyle = FlatStyle.Flat;
+            btnOk.FlatAppearance.BorderSize = 0;
+            btnOk.Cursor = Cursors.Hand;
+            frmStock.Controls.Add(btnOk);
+
+            Button btnDelete = new Button();
+            btnDelete.Text = "🗑️  DİREKT SİL";
+            btnDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDelete.Size = new Size(195, 48);
+            btnDelete.Location = new Point(leftCol + 205, y);
+            btnDelete.BackColor = ThemeManager.Danger;
+            btnDelete.ForeColor = Color.White;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.Cursor = Cursors.Hand;
+            frmStock.Controls.Add(btnDelete);
+
+            // ── Event Handler'lar ──
+            btnMinus.Click += (s, ev) => {
+                if (decimal.TryParse(txtAmount.Text, out decimal val) && val > 0)
+                    txtAmount.Text = (val - 1).ToString("G");
+            };
+
+            btnPlus.Click += (s, ev) => {
+                if (decimal.TryParse(txtAmount.Text, out decimal val))
+                    txtAmount.Text = (val + 1).ToString("G");
+            };
+
+            txtAmount.KeyPress += (s, ev) => {
+                if (!char.IsControl(ev.KeyChar) && !char.IsDigit(ev.KeyChar) && ev.KeyChar != ',')
+                    ev.Handled = true;
+                if (ev.KeyChar == ',' && txtAmount.Text.Contains(","))
+                    ev.Handled = true;
+            };
+
+            btnDelete.Click += (s, ev) => {
+                txtAmount.Text = "0";
+                frmStock.DialogResult = DialogResult.OK;
+            };
+
+            btnOk.Click += (s, ev) => {
+                frmStock.DialogResult = DialogResult.OK;
+            };
+
+            frmStock.AcceptButton = btnOk;
+
+            if (frmStock.ShowDialog() == DialogResult.OK)
+            {
+                if (decimal.TryParse(txtAmount.Text, out decimal newQty))
+                {
+                    if (newQty <= 0)
+                    {
+                        CurrentCart.RemoveAt(cartRowIndex);
+                    }
+                    else
+                    {
+                        cartItem.Quantity = newQty;
+                        cartItem.LineTotal = cartItem.Quantity * cartItem.UnitPrice;
+                    }
+                    RefreshCartGrid();
+                }
+            }
+        }
+
         // ————————————————— GRID SİLME —————————————————
 
         private void DgvSales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            // SİL sütunu (son sütun)
-            if (e.ColumnIndex == dgvSales.Columns.Count - 1)
+            if (e.RowIndex < CurrentCart.Count)
             {
-                if (e.RowIndex < CurrentCart.Count)
-                {
-                    var item = CurrentCart[e.RowIndex];
-                    
-                    Form frmAmount = new Form();
-                    frmAmount.Text = "Ürün Miktarı Güncelle";
-                    frmAmount.Size = new Size(350, 260);
-                    frmAmount.StartPosition = FormStartPosition.CenterParent;
-                    frmAmount.FormBorderStyle = FormBorderStyle.FixedDialog;
-                    frmAmount.MaximizeBox = false;
-                    frmAmount.MinimizeBox = false;
-                    frmAmount.BackColor = ThemeManager.CardBg;
-
-                    Label lblInfo = new Label();
-                    lblInfo.Text = $"{item.ProductName} \nMevcut Miktar: {item.Quantity:N0}\nYeni Miktarı Giriniz:";
-                    lblInfo.AutoSize = false;
-                    lblInfo.Size = new Size(310, 60);
-                    lblInfo.Location = new Point(10, 10);
-                    lblInfo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-                    lblInfo.TextAlign = ContentAlignment.MiddleCenter;
-                    frmAmount.Controls.Add(lblInfo);
-
-                    TextBox txtAmount = new TextBox();
-                    txtAmount.Text = item.Quantity.ToString("G");
-                    txtAmount.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-                    txtAmount.Size = new Size(100, 40);
-                    txtAmount.Location = new Point(115, 80);
-                    txtAmount.TextAlign = HorizontalAlignment.Center;
-                    frmAmount.Controls.Add(txtAmount);
-
-                    Button btnMinus = new Button();
-                    btnMinus.Text = "-";
-                    btnMinus.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-                    btnMinus.Size = new Size(50, 44);
-                    btnMinus.Location = new Point(55, 80);
-                    btnMinus.BackColor = ThemeManager.Danger;
-                    btnMinus.ForeColor = Color.White;
-                    btnMinus.FlatStyle = FlatStyle.Flat;
-                    btnMinus.FlatAppearance.BorderSize = 0;
-                    frmAmount.Controls.Add(btnMinus);
-
-                    Button btnPlus = new Button();
-                    btnPlus.Text = "+";
-                    btnPlus.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-                    btnPlus.Size = new Size(50, 44);
-                    btnPlus.Location = new Point(225, 80);
-                    btnPlus.BackColor = ThemeManager.Success;
-                    btnPlus.ForeColor = Color.White;
-                    btnPlus.FlatStyle = FlatStyle.Flat;
-                    btnPlus.FlatAppearance.BorderSize = 0;
-                    frmAmount.Controls.Add(btnPlus);
-
-                    Button btnOk = new Button();
-                    btnOk.Text = "GÜNCELLE";
-                    btnOk.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-                    btnOk.Size = new Size(125, 45);
-                    btnOk.Location = new Point(40, 145);
-                    btnOk.BackColor = ThemeManager.Primary;
-                    btnOk.ForeColor = Color.White;
-                    btnOk.FlatStyle = FlatStyle.Flat;
-                    btnOk.FlatAppearance.BorderSize = 0;
-                    btnOk.DialogResult = DialogResult.OK;
-                    frmAmount.Controls.Add(btnOk);
-
-                    Button btnDelete = new Button();
-                    btnDelete.Text = "DİREKT SİL";
-                    btnDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-                    btnDelete.Size = new Size(125, 45);
-                    btnDelete.Location = new Point(175, 145);
-                    btnDelete.BackColor = ThemeManager.Danger;
-                    btnDelete.ForeColor = Color.White;
-                    btnDelete.FlatStyle = FlatStyle.Flat;
-                    btnDelete.FlatAppearance.BorderSize = 0;
-                    frmAmount.Controls.Add(btnDelete);
-
-                    frmAmount.AcceptButton = btnOk;
-
-                    btnDelete.Click += (s, ev) => {
-                        txtAmount.Text = "0";
-                        frmAmount.DialogResult = DialogResult.OK;
-                    };
-
-                    btnMinus.Click += (s, ev) => {
-                        if (decimal.TryParse(txtAmount.Text, out decimal val) && val > 0)
-                            txtAmount.Text = (val - 1).ToString("G");
-                    };
-                    btnPlus.Click += (s, ev) => {
-                        if (decimal.TryParse(txtAmount.Text, out decimal val))
-                            txtAmount.Text = (val + 1).ToString("G");
-                    };
-
-                    txtAmount.KeyPress += (s, ev) => {
-                        if (!char.IsControl(ev.KeyChar) && !char.IsDigit(ev.KeyChar) && ev.KeyChar != ',')
-                        {
-                            ev.Handled = true;
-                        }
-                        if (ev.KeyChar == ',' && txtAmount.Text.Contains(","))
-                        {
-                            ev.Handled = true;
-                        }
-                    };
-
-                    if (frmAmount.ShowDialog() == DialogResult.OK)
-                    {
-                        if (decimal.TryParse(txtAmount.Text, out decimal newQty))
-                        {
-                            if (newQty <= 0)
-                            {
-                                CurrentCart.RemoveAt(e.RowIndex);
-                            }
-                            else
-                            {
-                                item.Quantity = newQty;
-                                item.LineTotal = item.Quantity * item.UnitPrice;
-                            }
-                            RefreshCartGrid();
-                        }
-                    }
-                }
+                var cartItem = CurrentCart[e.RowIndex];
+                ShowStockDetailPanel(cartItem, e.RowIndex);
             }
         }
 

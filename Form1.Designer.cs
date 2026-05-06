@@ -101,15 +101,15 @@ namespace ÜrünTakip
             // 
             // tlpMain
             // 
-            this.tlpMain.ColumnCount = 2;
-            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
+            this.tlpMain.ColumnCount = 1;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMain.Controls.Add(this.pnlSidebar, 0, 0);
-            this.tlpMain.Controls.Add(this.tlpContent, 1, 0);
+            this.tlpMain.Controls.Add(this.tlpContent, 0, 1);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
             this.tlpMain.Name = "tlpMain";
-            this.tlpMain.RowCount = 1;
+            this.tlpMain.RowCount = 2;
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMain.Size = new System.Drawing.Size(1366, 768);
             this.tlpMain.TabIndex = 0;
@@ -125,12 +125,11 @@ namespace ÜrünTakip
             this.pnlSidebar.Controls.Add(this.btnAyarlar);
             this.pnlSidebar.Controls.Add(this.btnKapat);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSidebar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Margin = new System.Windows.Forms.Padding(0);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.pnlSidebar.Size = new System.Drawing.Size(260, 768);
+            this.pnlSidebar.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
+            this.pnlSidebar.Size = new System.Drawing.Size(1366, 70);
             this.pnlSidebar.TabIndex = 0;
             // 
             // btnKasa
@@ -138,13 +137,13 @@ namespace ÜrünTakip
             this.btnKasa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.btnKasa.FlatAppearance.BorderSize = 0;
             this.btnKasa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKasa.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.btnKasa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnKasa.ForeColor = System.Drawing.Color.White;
-            this.btnKasa.Location = new System.Drawing.Point(10, 20);
-            this.btnKasa.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.btnKasa.Location = new System.Drawing.Point(10, 5);
+            this.btnKasa.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnKasa.Name = "btnKasa";
-            this.btnKasa.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnKasa.Size = new System.Drawing.Size(240, 70);
+            this.btnKasa.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnKasa.Size = new System.Drawing.Size(180, 60);
             this.btnKasa.TabIndex = 0;
             this.btnKasa.Text = "💳  Kasa";
             this.btnKasa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -155,13 +154,13 @@ namespace ÜrünTakip
             this.btnStok.BackColor = System.Drawing.Color.Transparent;
             this.btnStok.FlatAppearance.BorderSize = 0;
             this.btnStok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStok.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.btnStok.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnStok.ForeColor = System.Drawing.Color.Silver;
-            this.btnStok.Location = new System.Drawing.Point(10, 100);
-            this.btnStok.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.btnStok.Location = new System.Drawing.Point(200, 5);
+            this.btnStok.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnStok.Name = "btnStok";
-            this.btnStok.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnStok.Size = new System.Drawing.Size(240, 65);
+            this.btnStok.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnStok.Size = new System.Drawing.Size(180, 60);
             this.btnStok.TabIndex = 1;
             this.btnStok.Text = "📦  Stok İşlemleri";
             this.btnStok.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -172,15 +171,15 @@ namespace ÜrünTakip
             this.btnVeresiyeDefteri.BackColor = System.Drawing.Color.Transparent;
             this.btnVeresiyeDefteri.FlatAppearance.BorderSize = 0;
             this.btnVeresiyeDefteri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVeresiyeDefteri.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.btnVeresiyeDefteri.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnVeresiyeDefteri.ForeColor = System.Drawing.Color.Silver;
-            this.btnVeresiyeDefteri.Location = new System.Drawing.Point(10, 173);
-            this.btnVeresiyeDefteri.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.btnVeresiyeDefteri.Location = new System.Drawing.Point(390, 5);
+            this.btnVeresiyeDefteri.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnVeresiyeDefteri.Name = "btnVeresiyeDefteri";
-            this.btnVeresiyeDefteri.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnVeresiyeDefteri.Size = new System.Drawing.Size(240, 65);
+            this.btnVeresiyeDefteri.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnVeresiyeDefteri.Size = new System.Drawing.Size(180, 60);
             this.btnVeresiyeDefteri.TabIndex = 2;
-            this.btnVeresiyeDefteri.Text = "📖  Veresiye Defteri";
+            this.btnVeresiyeDefteri.Text = "📖  Veresiye";
             this.btnVeresiyeDefteri.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVeresiyeDefteri.UseVisualStyleBackColor = false;
             // 
@@ -189,13 +188,13 @@ namespace ÜrünTakip
             this.btnEFatura.BackColor = System.Drawing.Color.Transparent;
             this.btnEFatura.FlatAppearance.BorderSize = 0;
             this.btnEFatura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEFatura.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.btnEFatura.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnEFatura.ForeColor = System.Drawing.Color.Silver;
-            this.btnEFatura.Location = new System.Drawing.Point(10, 246);
-            this.btnEFatura.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.btnEFatura.Location = new System.Drawing.Point(580, 5);
+            this.btnEFatura.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnEFatura.Name = "btnEFatura";
-            this.btnEFatura.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnEFatura.Size = new System.Drawing.Size(240, 65);
+            this.btnEFatura.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnEFatura.Size = new System.Drawing.Size(180, 60);
             this.btnEFatura.TabIndex = 3;
             this.btnEFatura.Text = "🧾  e-Fatura";
             this.btnEFatura.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -206,13 +205,13 @@ namespace ÜrünTakip
             this.btnRaporlar.BackColor = System.Drawing.Color.Transparent;
             this.btnRaporlar.FlatAppearance.BorderSize = 0;
             this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.btnRaporlar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnRaporlar.ForeColor = System.Drawing.Color.Silver;
-            this.btnRaporlar.Location = new System.Drawing.Point(10, 319);
-            this.btnRaporlar.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.btnRaporlar.Location = new System.Drawing.Point(770, 5);
+            this.btnRaporlar.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnRaporlar.Size = new System.Drawing.Size(240, 65);
+            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnRaporlar.Size = new System.Drawing.Size(180, 60);
             this.btnRaporlar.TabIndex = 4;
             this.btnRaporlar.Text = "📊  Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -223,13 +222,13 @@ namespace ÜrünTakip
             this.btnAyarlar.BackColor = System.Drawing.Color.Transparent;
             this.btnAyarlar.FlatAppearance.BorderSize = 0;
             this.btnAyarlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAyarlar.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.btnAyarlar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnAyarlar.ForeColor = System.Drawing.Color.Silver;
-            this.btnAyarlar.Location = new System.Drawing.Point(10, 392);
-            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(0, 0, 0, 15);
+            this.btnAyarlar.Location = new System.Drawing.Point(960, 5);
+            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnAyarlar.Name = "btnAyarlar";
-            this.btnAyarlar.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnAyarlar.Size = new System.Drawing.Size(240, 65);
+            this.btnAyarlar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnAyarlar.Size = new System.Drawing.Size(180, 60);
             this.btnAyarlar.TabIndex = 5;
             this.btnAyarlar.Text = "⚙️  Ayarlar";
             this.btnAyarlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -240,13 +239,13 @@ namespace ÜrünTakip
             this.btnKapat.BackColor = System.Drawing.Color.Transparent;
             this.btnKapat.FlatAppearance.BorderSize = 0;
             this.btnKapat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKapat.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.btnKapat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.btnKapat.ForeColor = System.Drawing.Color.LightCoral;
-            this.btnKapat.Location = new System.Drawing.Point(10, 472);
+            this.btnKapat.Location = new System.Drawing.Point(1150, 5);
             this.btnKapat.Margin = new System.Windows.Forms.Padding(0);
             this.btnKapat.Name = "btnKapat";
-            this.btnKapat.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnKapat.Size = new System.Drawing.Size(240, 65);
+            this.btnKapat.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnKapat.Size = new System.Drawing.Size(180, 60);
             this.btnKapat.TabIndex = 6;
             this.btnKapat.Text = "❌  Kapat";
             this.btnKapat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -261,7 +260,7 @@ namespace ÜrünTakip
             this.tlpContent.Controls.Add(this.flpFooter, 0, 2);
             this.tlpContent.Controls.Add(this.pnlDynamicContent, 0, 1);
             this.tlpContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpContent.Location = new System.Drawing.Point(260, 0);
+            this.tlpContent.Location = new System.Drawing.Point(0, 70);
             this.tlpContent.Margin = new System.Windows.Forms.Padding(0);
             this.tlpContent.Name = "tlpContent";
             this.tlpContent.RowCount = 3;
@@ -270,7 +269,7 @@ namespace ÜrünTakip
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpContent.Size = new System.Drawing.Size(1106, 768);
+            this.tlpContent.Size = new System.Drawing.Size(1366, 698);
             this.tlpContent.TabIndex = 1;
             // 
             // pnlHeader
@@ -283,7 +282,7 @@ namespace ÜrünTakip
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Margin = new System.Windows.Forms.Padding(0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1106, 80);
+            this.pnlHeader.Size = new System.Drawing.Size(1366, 80);
             this.pnlHeader.TabIndex = 0;
             // 
             // lblInfo
@@ -301,7 +300,7 @@ namespace ÜrünTakip
             this.lblTotalValue.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblTotalValue.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
             this.lblTotalValue.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lblTotalValue.Location = new System.Drawing.Point(606, 0);
+            this.lblTotalValue.Location = new System.Drawing.Point(866, 0);
             this.lblTotalValue.Name = "lblTotalValue";
             this.lblTotalValue.Size = new System.Drawing.Size(350, 80);
             this.lblTotalValue.TabIndex = 1;
@@ -313,7 +312,7 @@ namespace ÜrünTakip
             this.lblTotalTitle.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblTotalTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 14F, System.Drawing.FontStyle.Bold);
             this.lblTotalTitle.ForeColor = System.Drawing.Color.Gray;
-            this.lblTotalTitle.Location = new System.Drawing.Point(956, 0);
+            this.lblTotalTitle.Location = new System.Drawing.Point(1216, 0);
             this.lblTotalTitle.Name = "lblTotalTitle";
             this.lblTotalTitle.Size = new System.Drawing.Size(150, 80);
             this.lblTotalTitle.TabIndex = 2;
@@ -330,12 +329,12 @@ namespace ÜrünTakip
             this.tlpMiddle.Controls.Add(this.flpBanknotes, 1, 0);
             this.tlpMiddle.Controls.Add(this.pnlTouch, 2, 0);
             this.tlpMiddle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMiddle.Location = new System.Drawing.Point(0, 728);
+            this.tlpMiddle.Location = new System.Drawing.Point(0, 658);
             this.tlpMiddle.Margin = new System.Windows.Forms.Padding(0);
             this.tlpMiddle.Name = "tlpMiddle";
             this.tlpMiddle.RowCount = 1;
             this.tlpMiddle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMiddle.Size = new System.Drawing.Size(1106, 20);
+            this.tlpMiddle.Size = new System.Drawing.Size(1366, 20);
             this.tlpMiddle.TabIndex = 1;
             // 
             // pnlSales
@@ -352,7 +351,7 @@ namespace ÜrünTakip
             this.pnlSales.Margin = new System.Windows.Forms.Padding(10);
             this.pnlSales.Name = "pnlSales";
             this.pnlSales.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlSales.Size = new System.Drawing.Size(458, 1);
+            this.pnlSales.Size = new System.Drawing.Size(588, 1);
             this.pnlSales.TabIndex = 0;
             // 
             // dgvSales
@@ -376,7 +375,7 @@ namespace ÜrünTakip
             this.dgvSales.RowHeadersWidth = 51;
             this.dgvSales.RowTemplate.Height = 35;
             this.dgvSales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSales.Size = new System.Drawing.Size(498, 51);
+            this.dgvSales.Size = new System.Drawing.Size(628, 51);
             this.dgvSales.TabIndex = 0;
             // 
             // colTanim
@@ -465,7 +464,7 @@ namespace ÜrünTakip
             this.dgvKasaSearch.RowHeadersWidth = 51;
             this.dgvKasaSearch.RowTemplate.Height = 40;
             this.dgvKasaSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKasaSearch.Size = new System.Drawing.Size(440, 350);
+            this.dgvKasaSearch.Size = new System.Drawing.Size(570, 350);
             this.dgvKasaSearch.TabIndex = 10;
             this.dgvKasaSearch.Visible = false;
             // 
@@ -476,7 +475,7 @@ namespace ÜrünTakip
             this.flpTabs.Dock = System.Windows.Forms.DockStyle.Top;
             this.flpTabs.Location = new System.Drawing.Point(10, 10);
             this.flpTabs.Name = "flpTabs";
-            this.flpTabs.Size = new System.Drawing.Size(438, 70);
+            this.flpTabs.Size = new System.Drawing.Size(568, 70);
             this.flpTabs.TabIndex = 3;
             // 
             // btnTabKasa1
@@ -516,7 +515,7 @@ namespace ÜrünTakip
             this.flpBanknotes.Controls.Add(this.btn200TL);
             this.flpBanknotes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpBanknotes.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpBanknotes.Location = new System.Drawing.Point(481, 3);
+            this.flpBanknotes.Location = new System.Drawing.Point(611, 3);
             this.flpBanknotes.Name = "flpBanknotes";
             this.flpBanknotes.Padding = new System.Windows.Forms.Padding(10);
             this.flpBanknotes.Size = new System.Drawing.Size(144, 14);
@@ -654,10 +653,10 @@ namespace ÜrünTakip
             this.pnlTouch.Controls.Add(this.flpTouchCategories);
             this.pnlTouch.Controls.Add(this.lblSelectedProduct);
             this.pnlTouch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTouch.Location = new System.Drawing.Point(638, 10);
+            this.pnlTouch.Location = new System.Drawing.Point(768, 10);
             this.pnlTouch.Margin = new System.Windows.Forms.Padding(10);
             this.pnlTouch.Name = "pnlTouch";
-            this.pnlTouch.Size = new System.Drawing.Size(458, 1);
+            this.pnlTouch.Size = new System.Drawing.Size(588, 1);
             this.pnlTouch.TabIndex = 2;
             // 
             // tlpTouchGrid
@@ -676,7 +675,7 @@ namespace ÜrünTakip
             this.tlpTouchGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tlpTouchGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tlpTouchGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tlpTouchGrid.Size = new System.Drawing.Size(458, 0);
+            this.tlpTouchGrid.Size = new System.Drawing.Size(588, 0);
             this.tlpTouchGrid.TabIndex = 0;
             // 
             // flpTouchCategories
@@ -688,7 +687,7 @@ namespace ÜrünTakip
             this.flpTouchCategories.Dock = System.Windows.Forms.DockStyle.Top;
             this.flpTouchCategories.Location = new System.Drawing.Point(0, 0);
             this.flpTouchCategories.Name = "flpTouchCategories";
-            this.flpTouchCategories.Size = new System.Drawing.Size(458, 40);
+            this.flpTouchCategories.Size = new System.Drawing.Size(588, 40);
             this.flpTouchCategories.TabIndex = 1;
             // 
             // btnCatGenel
@@ -741,7 +740,7 @@ namespace ÜrünTakip
             this.lblSelectedProduct.ForeColor = System.Drawing.Color.White;
             this.lblSelectedProduct.Location = new System.Drawing.Point(0, -39);
             this.lblSelectedProduct.Name = "lblSelectedProduct";
-            this.lblSelectedProduct.Size = new System.Drawing.Size(458, 40);
+            this.lblSelectedProduct.Size = new System.Drawing.Size(588, 40);
             this.lblSelectedProduct.TabIndex = 2;
             this.lblSelectedProduct.Text = "  Seçili Ürün: - | Stok: -";
             this.lblSelectedProduct.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -758,10 +757,10 @@ namespace ÜrünTakip
             this.flpFooter.Controls.Add(this.chkYazarKasa);
             this.flpFooter.Controls.Add(this.btnYedekle);
             this.flpFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpFooter.Location = new System.Drawing.Point(3, 751);
+            this.flpFooter.Location = new System.Drawing.Point(3, 681);
             this.flpFooter.Name = "flpFooter";
             this.flpFooter.Padding = new System.Windows.Forms.Padding(10);
-            this.flpFooter.Size = new System.Drawing.Size(1100, 14);
+            this.flpFooter.Size = new System.Drawing.Size(1360, 14);
             this.flpFooter.TabIndex = 2;
             // 
             // btnNakit
@@ -857,7 +856,7 @@ namespace ÜrünTakip
             this.btnYedekle.FlatAppearance.BorderSize = 0;
             this.btnYedekle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnYedekle.ForeColor = System.Drawing.Color.White;
-            this.btnYedekle.Location = new System.Drawing.Point(13, 109);
+            this.btnYedekle.Location = new System.Drawing.Point(1035, 13);
             this.btnYedekle.Name = "btnYedekle";
             this.btnYedekle.Size = new System.Drawing.Size(120, 80);
             this.btnYedekle.TabIndex = 7;
@@ -873,7 +872,7 @@ namespace ÜrünTakip
             this.pnlDynamicContent.Margin = new System.Windows.Forms.Padding(0);
             this.pnlDynamicContent.Name = "pnlDynamicContent";
             this.tlpContent.SetRowSpan(this.pnlDynamicContent, 2);
-            this.pnlDynamicContent.Size = new System.Drawing.Size(1106, 648);
+            this.pnlDynamicContent.Size = new System.Drawing.Size(1366, 578);
             this.pnlDynamicContent.TabIndex = 3;
             this.pnlDynamicContent.Visible = false;
             // 
@@ -884,7 +883,7 @@ namespace ÜrünTakip
             this.lblDynamicContentTitle.ForeColor = System.Drawing.Color.LightGray;
             this.lblDynamicContentTitle.Location = new System.Drawing.Point(0, 0);
             this.lblDynamicContentTitle.Name = "lblDynamicContentTitle";
-            this.lblDynamicContentTitle.Size = new System.Drawing.Size(1106, 648);
+            this.lblDynamicContentTitle.Size = new System.Drawing.Size(1366, 578);
             this.lblDynamicContentTitle.TabIndex = 0;
             this.lblDynamicContentTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
