@@ -474,6 +474,7 @@ namespace ÜrünTakip
             this.flpTabs.Controls.Add(this.btnTabKasa1);
             this.flpTabs.Controls.Add(this.btnTabKasa2);
             this.flpTabs.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpTabs.Location = new System.Drawing.Point(10, 10);
             this.flpTabs.Name = "flpTabs";
             this.flpTabs.Size = new System.Drawing.Size(438, 70);
             this.flpTabs.TabIndex = 3;
@@ -718,10 +719,10 @@ namespace ÜrünTakip
             this.btnCatManav.Name = "btnCatManav";
             this.btnCatManav.Size = new System.Drawing.Size(100, 35);
             this.btnCatManav.TabIndex = 2;
-            this.btnCatManav.Text = "MANAV";
+            this.btnCatManav.Text = "BARKODSUZ";
             this.btnCatManav.UseVisualStyleBackColor = false;
             // 
-            // btnTouchSettings5
+            // btnTouchSettings
             // 
             this.btnTouchSettings.BackColor = System.Drawing.Color.Goldenrod;
             this.btnTouchSettings.ForeColor = System.Drawing.Color.White;
@@ -856,7 +857,7 @@ namespace ÜrünTakip
             this.btnYedekle.FlatAppearance.BorderSize = 0;
             this.btnYedekle.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnYedekle.ForeColor = System.Drawing.Color.White;
-            this.btnYedekle.Location = new System.Drawing.Point(1035, 13);
+            this.btnYedekle.Location = new System.Drawing.Point(13, 109);
             this.btnYedekle.Name = "btnYedekle";
             this.btnYedekle.Size = new System.Drawing.Size(120, 80);
             this.btnYedekle.TabIndex = 7;

@@ -42,6 +42,28 @@ namespace ÜrünTakip.Views
             cmbFilterCategory.SelectedIndexChanged += (s, e) => {
                 if (cmbFilterCategory.DataSource != null) LoadProducts(txtSearch.Text);
             };
+
+            // ── Raf Etiketi Butonu (programatik) ──
+            SetupRafEtiketiButton();
+        }
+
+        private void SetupRafEtiketiButton()
+        {
+            var btnRafEtiketi = new Button
+            {
+                Text = "🏷️ Raf Etiketi",
+                Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold),
+                Size = new Size(150, 35),
+                Location = new Point(20, 570),
+                Cursor = Cursors.Hand
+            };
+            ThemeManager.StyleButton(btnRafEtiketi, ThemeManager.Purple);
+            btnRafEtiketi.Click += (s, e) =>
+            {
+                var frm = new RafEtiketiForm();
+                frm.ShowDialog();
+            };
+            pnlForm.Controls.Add(btnRafEtiketi);
         }
 
         private void StokIslemleriUC_Load(object sender, EventArgs e)
@@ -227,6 +249,9 @@ namespace ÜrünTakip.Views
                     var p = db.Products.Find(_selectedProductId);
                     if (p != null)
                     {
+                        // Fiyat değişikliği logu (raf etiketi için)
+                        decimal oldSalePrice = p.SalePrice;
+
                         p.Barcode = txtBarcode.Text;
                         p.Name = txtProductName.Text;
                         p.CategoryId = (int)cmbCategories.SelectedValue;
@@ -242,6 +267,13 @@ namespace ÜrünTakip.Views
                         p.IsActive = chkIsActive.Checked;
                         
                         db.SaveChanges();
+
+                        // Satış fiyatı değiştiyse raf etiketi logu oluştur
+                        if (oldSalePrice != numSalePrice.Value)
+                        {
+                            RafEtiketiForm.LogPriceChange(p.Id, p.Name, p.Barcode, oldSalePrice, numSalePrice.Value);
+                        }
+
                         MessageBox.Show("Ürün Güncellendi!");
                         LoadProducts();
                         BtnClear_Click(null, null);

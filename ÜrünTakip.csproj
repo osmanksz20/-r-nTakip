@@ -108,6 +108,10 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Models\SaleItem.cs" />
+    <Compile Include="Models\PriceChangeLog.cs" />
+    <Compile Include="Views\RafEtiketiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
