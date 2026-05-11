@@ -17,9 +17,11 @@ namespace ÜrünTakip
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlSidebar = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlSidebar = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlClockPanel = new System.Windows.Forms.Panel();
             this.btnKasa = new System.Windows.Forms.Button();
             this.btnStok = new System.Windows.Forms.Button();
             this.btnVeresiyeDefteri = new System.Windows.Forms.Button();
@@ -82,6 +84,9 @@ namespace ÜrünTakip
             this.lblDynamicContentTitle = new System.Windows.Forms.Label();
             this.flpQuickActions = new System.Windows.Forms.FlowLayoutPanel();
             this.btnQuickDailyReport = new System.Windows.Forms.Button();
+            this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.lblClockTime = new System.Windows.Forms.Label();
+            this.lblClockDate = new System.Windows.Forms.Label();
             this.tlpMain.SuspendLayout();
             this.pnlSidebar.SuspendLayout();
             this.tlpContent.SuspendLayout();
@@ -117,18 +122,29 @@ namespace ÜrünTakip
             // pnlSidebar
             // 
             this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
-            this.pnlSidebar.Controls.Add(this.btnKasa);
-            this.pnlSidebar.Controls.Add(this.btnStok);
-            this.pnlSidebar.Controls.Add(this.btnVeresiyeDefteri);
-            this.pnlSidebar.Controls.Add(this.btnEFatura);
-            this.pnlSidebar.Controls.Add(this.btnRaporlar);
-            this.pnlSidebar.Controls.Add(this.btnAyarlar);
-            this.pnlSidebar.Controls.Add(this.btnKapat);
+            this.pnlSidebar.ColumnCount = 8;
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.pnlSidebar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.pnlSidebar.Controls.Add(this.btnKasa, 0, 0);
+            this.pnlSidebar.Controls.Add(this.btnStok, 1, 0);
+            this.pnlSidebar.Controls.Add(this.btnVeresiyeDefteri, 2, 0);
+            this.pnlSidebar.Controls.Add(this.btnEFatura, 3, 0);
+            this.pnlSidebar.Controls.Add(this.btnRaporlar, 4, 0);
+            this.pnlSidebar.Controls.Add(this.btnAyarlar, 5, 0);
+            this.pnlSidebar.Controls.Add(this.btnKapat, 6, 0);
+            this.pnlSidebar.Controls.Add(this.pnlClockPanel, 7, 0);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSidebar.Location = new System.Drawing.Point(0, 0);
             this.pnlSidebar.Margin = new System.Windows.Forms.Padding(0);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
+            this.pnlSidebar.RowCount = 1;
+            this.pnlSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.pnlSidebar.Size = new System.Drawing.Size(1366, 70);
             this.pnlSidebar.TabIndex = 0;
             // 
@@ -137,13 +153,12 @@ namespace ÜrünTakip
             this.btnKasa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(60)))));
             this.btnKasa.FlatAppearance.BorderSize = 0;
             this.btnKasa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKasa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnKasa.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnKasa.ForeColor = System.Drawing.Color.White;
-            this.btnKasa.Location = new System.Drawing.Point(10, 5);
-            this.btnKasa.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.btnKasa.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnKasa.Margin = new System.Windows.Forms.Padding(0);
             this.btnKasa.Name = "btnKasa";
-            this.btnKasa.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnKasa.Size = new System.Drawing.Size(180, 60);
+            this.btnKasa.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnKasa.TabIndex = 0;
             this.btnKasa.Text = "💳  Kasa";
             this.btnKasa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -154,13 +169,12 @@ namespace ÜrünTakip
             this.btnStok.BackColor = System.Drawing.Color.Transparent;
             this.btnStok.FlatAppearance.BorderSize = 0;
             this.btnStok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStok.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnStok.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnStok.ForeColor = System.Drawing.Color.Silver;
-            this.btnStok.Location = new System.Drawing.Point(200, 5);
-            this.btnStok.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.btnStok.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStok.Margin = new System.Windows.Forms.Padding(0);
             this.btnStok.Name = "btnStok";
-            this.btnStok.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnStok.Size = new System.Drawing.Size(180, 60);
+            this.btnStok.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnStok.TabIndex = 1;
             this.btnStok.Text = "📦  Stok İşlemleri";
             this.btnStok.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -171,13 +185,12 @@ namespace ÜrünTakip
             this.btnVeresiyeDefteri.BackColor = System.Drawing.Color.Transparent;
             this.btnVeresiyeDefteri.FlatAppearance.BorderSize = 0;
             this.btnVeresiyeDefteri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVeresiyeDefteri.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnVeresiyeDefteri.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnVeresiyeDefteri.ForeColor = System.Drawing.Color.Silver;
-            this.btnVeresiyeDefteri.Location = new System.Drawing.Point(390, 5);
-            this.btnVeresiyeDefteri.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.btnVeresiyeDefteri.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnVeresiyeDefteri.Margin = new System.Windows.Forms.Padding(0);
             this.btnVeresiyeDefteri.Name = "btnVeresiyeDefteri";
-            this.btnVeresiyeDefteri.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnVeresiyeDefteri.Size = new System.Drawing.Size(180, 60);
+            this.btnVeresiyeDefteri.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnVeresiyeDefteri.TabIndex = 2;
             this.btnVeresiyeDefteri.Text = "📖  Veresiye";
             this.btnVeresiyeDefteri.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -188,13 +201,12 @@ namespace ÜrünTakip
             this.btnEFatura.BackColor = System.Drawing.Color.Transparent;
             this.btnEFatura.FlatAppearance.BorderSize = 0;
             this.btnEFatura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEFatura.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnEFatura.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnEFatura.ForeColor = System.Drawing.Color.Silver;
-            this.btnEFatura.Location = new System.Drawing.Point(580, 5);
-            this.btnEFatura.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.btnEFatura.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnEFatura.Margin = new System.Windows.Forms.Padding(0);
             this.btnEFatura.Name = "btnEFatura";
-            this.btnEFatura.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnEFatura.Size = new System.Drawing.Size(180, 60);
+            this.btnEFatura.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnEFatura.TabIndex = 3;
             this.btnEFatura.Text = "🧾  e-Fatura";
             this.btnEFatura.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -205,13 +217,12 @@ namespace ÜrünTakip
             this.btnRaporlar.BackColor = System.Drawing.Color.Transparent;
             this.btnRaporlar.FlatAppearance.BorderSize = 0;
             this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnRaporlar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnRaporlar.ForeColor = System.Drawing.Color.Silver;
-            this.btnRaporlar.Location = new System.Drawing.Point(770, 5);
-            this.btnRaporlar.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRaporlar.Margin = new System.Windows.Forms.Padding(0);
             this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnRaporlar.Size = new System.Drawing.Size(180, 60);
+            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnRaporlar.TabIndex = 4;
             this.btnRaporlar.Text = "📊  Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -222,13 +233,12 @@ namespace ÜrünTakip
             this.btnAyarlar.BackColor = System.Drawing.Color.Transparent;
             this.btnAyarlar.FlatAppearance.BorderSize = 0;
             this.btnAyarlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAyarlar.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnAyarlar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnAyarlar.ForeColor = System.Drawing.Color.Silver;
-            this.btnAyarlar.Location = new System.Drawing.Point(960, 5);
-            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.btnAyarlar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAyarlar.Margin = new System.Windows.Forms.Padding(0);
             this.btnAyarlar.Name = "btnAyarlar";
-            this.btnAyarlar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnAyarlar.Size = new System.Drawing.Size(180, 60);
+            this.btnAyarlar.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnAyarlar.TabIndex = 5;
             this.btnAyarlar.Text = "⚙️  Ayarlar";
             this.btnAyarlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -239,17 +249,55 @@ namespace ÜrünTakip
             this.btnKapat.BackColor = System.Drawing.Color.Transparent;
             this.btnKapat.FlatAppearance.BorderSize = 0;
             this.btnKapat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKapat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnKapat.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnKapat.ForeColor = System.Drawing.Color.LightCoral;
-            this.btnKapat.Location = new System.Drawing.Point(1150, 5);
+            this.btnKapat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnKapat.Margin = new System.Windows.Forms.Padding(0);
             this.btnKapat.Name = "btnKapat";
-            this.btnKapat.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnKapat.Size = new System.Drawing.Size(180, 60);
+            this.btnKapat.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnKapat.TabIndex = 6;
             this.btnKapat.Text = "❌  Kapat";
             this.btnKapat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnKapat.UseVisualStyleBackColor = false;
+            // 
+            // pnlClockPanel
+            // 
+            this.pnlClockPanel.Controls.Add(this.lblClockTime);
+            this.pnlClockPanel.Controls.Add(this.lblClockDate);
+            this.pnlClockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlClockPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlClockPanel.Name = "pnlClockPanel";
+            this.pnlClockPanel.TabIndex = 9;
+            // 
+            // lblClockTime
+            // 
+            this.lblClockTime.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblClockTime.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblClockTime.ForeColor = System.Drawing.Color.White;
+            this.lblClockTime.Location = new System.Drawing.Point(0, 0);
+            this.lblClockTime.Name = "lblClockTime";
+            this.lblClockTime.Size = new System.Drawing.Size(160, 40);
+            this.lblClockTime.TabIndex = 7;
+            this.lblClockTime.Text = "00:00:00";
+            this.lblClockTime.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // lblClockDate
+            // 
+            this.lblClockDate.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblClockDate.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblClockDate.ForeColor = System.Drawing.Color.Silver;
+            this.lblClockDate.Location = new System.Drawing.Point(0, 40);
+            this.lblClockDate.Name = "lblClockDate";
+            this.lblClockDate.Size = new System.Drawing.Size(160, 30);
+            this.lblClockDate.TabIndex = 8;
+            this.lblClockDate.Text = "1 Ocak 2026";
+            this.lblClockDate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // timerClock
+            // 
+            this.timerClock.Enabled = true;
+            this.timerClock.Interval = 1000;
+            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
             // 
             // tlpContent
             // 
@@ -974,7 +1022,8 @@ namespace ÜrünTakip
 
         // Layout Containers
         private System.Windows.Forms.TableLayoutPanel tlpMain;
-        private System.Windows.Forms.FlowLayoutPanel pnlSidebar;
+        private System.Windows.Forms.TableLayoutPanel pnlSidebar;
+        private System.Windows.Forms.Panel pnlClockPanel;
         private System.Windows.Forms.TableLayoutPanel tlpContent;
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.TableLayoutPanel tlpMiddle;
@@ -991,6 +1040,9 @@ namespace ÜrünTakip
         private System.Windows.Forms.Button btnRaporlar;
         private System.Windows.Forms.Button btnAyarlar;
         private System.Windows.Forms.Button btnKapat;
+        private System.Windows.Forms.Label lblClockTime;
+        private System.Windows.Forms.Label lblClockDate;
+        private System.Windows.Forms.Timer timerClock;
 
         // Header Controls
         private System.Windows.Forms.Label lblInfo;

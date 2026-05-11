@@ -59,6 +59,9 @@ namespace ÜrünTakip
             this.KeyDown += Form1_KeyDown;
 
             SetupShortcuts();
+            
+            // Başlangıçta saati ayarla
+            timerClock_Tick(null, null);
         }
 
         private void ApplyTheme()
@@ -1443,6 +1446,11 @@ namespace ÜrünTakip
             {
                 MessageBox.Show($"Yedekleme başlatılamadı:\n{ex.Message}\n\npg_dump bulunamadı. PostgreSQL kurulu olduğundan emin olun.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void timerClock_Tick(object sender, EventArgs e)
+        {
+            lblClockTime.Text = DateTime.Now.ToString("HH:mm:ss");
+            lblClockDate.Text = DateTime.Now.ToString("dd MMMM yyyy");
         }
     }
 
