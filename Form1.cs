@@ -88,7 +88,7 @@ namespace ÜrünTakip
             lblTotalValue.ForeColor = ThemeManager.TotalGreen;
 
             // ── Satış Paneli ──
-            pnlSales.BackColor = ThemeManager.ContentBg;
+            pnlSales.BackColor = Color.FromArgb(230, 240, 255);
 
             // ── Banknot Paneli ──
             flpBanknotes.BackColor = ThemeManager.SurfaceBg;
@@ -1260,7 +1260,7 @@ namespace ÜrünTakip
                 }
                 catch (Exception ex) { MessageBox.Show("Hata: " + ex.Message); }
             }
-        }
+      }
 
         private void ClearCart()
         {
@@ -1348,11 +1348,11 @@ namespace ÜrünTakip
             // Buton görsellerini güncelle
             btnTabKasa1.BackColor = (_activeKasaIndex == 0) ? ThemeManager.Primary : ThemeManager.SurfaceBg;
             btnTabKasa1.ForeColor = (_activeKasaIndex == 0) ? Color.White : ThemeManager.TextPrimary;
-            btnTabKasa1.Font = new Font("Segoe UI", 12F, (_activeKasaIndex == 0) ? FontStyle.Bold : FontStyle.Regular);
+            btnTabKasa1.Font = new Font("Segoe UI", 10F, (_activeKasaIndex == 0) ? FontStyle.Bold : FontStyle.Regular);
 
             btnTabKasa2.BackColor = (_activeKasaIndex == 1) ? ThemeManager.Primary : ThemeManager.SurfaceBg;
             btnTabKasa2.ForeColor = (_activeKasaIndex == 1) ? Color.White : ThemeManager.TextPrimary;
-            btnTabKasa2.Font = new Font("Segoe UI", 12F, (_activeKasaIndex == 1) ? FontStyle.Bold : FontStyle.Regular);
+            btnTabKasa2.Font = new Font("Segoe UI", 10F, (_activeKasaIndex == 1) ? FontStyle.Bold : FontStyle.Regular);
 
             RefreshCartGrid();
             txtBarcode.Focus();
