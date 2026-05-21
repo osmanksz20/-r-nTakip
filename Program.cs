@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ÜrünTakip
+{
+    internal static class Program
+    {
+        /// <summary>
+        /// Uygulamanın ana girdi noktası.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            // Npgsql 6.0+ için yerel saat sorunlarını gideren eski tip çalışma modu
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Veritabanı bağlantı kontrolü ve Otomatik Tablo Düzenleme
+            try
+            {
+                using (var db = new ÜrünTakip.Data.AppDbContext())
+                {
+                    // Bağlantıyı test et
+                    if (!db.Database.CanConnect())
+                    {
+                        MessageBox.Show("Veritabanına bağlanılamıyor!\n\nLütfen şunları kontrol edin:\n1. PostgreSQL servisinin çalıştığından emin olun.\n2. Veritabanı şifresinin '123456' olduğunu doğrulayın.\n3. 'UrunTakipDB' veritabanının mevcut olduğundan emin olun.", 
+                            "Veritabanı Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Veritabanı foreign key (ürün silme) constraint'ini otomatik düzeltme
+                    Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRaw(db.Database, @"
+                        ALTER TABLE ""SaleItems"" ALTER COLUMN ""ProductId"" DROP NOT NULL;
+
+                        DO $$
+                        DECLARE
+                            fk_name TEXT;
+                        BEGIN
+                            SELECT tc.constraint_name INTO fk_name
+                            FROM information_schema.table_constraints tc
+                            JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name
+                            WHERE tc.table_name = 'SaleItems' AND tc.constraint_type = 'FOREIGN KEY' AND kcu.column_name = 'ProductId'
+                            LIMIT 1;
+
+                            IF fk_name IS NOT NULL THEN
+                                EXECUTE format('ALTER TABLE ""SaleItems"" DROP CONSTRAINT %I', fk_name);
+                                EXECUTE format('ALTER TABLE ""SaleItems"" ADD CONSTRAINT %I FOREIGN KEY (""ProductId"") REFERENCES ""Products""(""Id"") ON DELETE SET NULL', fk_name);
+                            END IF;
+
+                            -- RegisterId sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Sales' AND column_name='RegisterId') THEN
+                                ALTER TABLE ""Sales"" ADD COLUMN ""RegisterId"" INTEGER NOT NULL DEFAULT 0;
+                            END IF;
+
+                            -- CriticalStock sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Products' AND column_name='CriticalStock') THEN
+                                ALTER TABLE ""Products"" ADD COLUMN ""CriticalStock"" NUMERIC NOT NULL DEFAULT 0.0;
+                            END IF;
+
+                            -- PosCategory sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Products' AND column_name='PosCategory') THEN
+                                ALTER TABLE ""Products"" ADD COLUMN ""PosCategory"" TEXT NULL;
+                            END IF;
+
+                            -- PosPosition sütunu yoksa ekle
+                            IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='Products' AND column_name='PosPosition') THEN
+                                ALTER TABLE ""Products"" ADD COLUMN ""PosPosition"" INTEGER NULL;
+                            END IF;
+                        END $$;
+                    ");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Veritabanı işlemleri sırasında bir hata oluştu:\n\n{ex.Message}\n\nLütfen PostgreSQL servisinin durumunu kontrol edin.", 
+                    "Veritabanı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Application.Run(new Form1());
+        }
+    }
+}

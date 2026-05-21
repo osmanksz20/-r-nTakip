@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1DA169C8-B54C-4334-84A5-D96580CA3502}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ÜrünTakip</RootNamespace>
+    <AssemblyName>ÜrünTakip</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <RuntimeIdentifier>win</RuntimeIdentifier>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\20260414112023_AddDualPurchasePrice.cs" />
+    <Compile Include="Migrations\20260414112023_AddDualPurchasePrice.Designer.cs">
+      <DependentUpon>20260414112023_AddDualPurchasePrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20260414112201_AddPurchasePrice2AndStocks.cs" />
+    <Compile Include="Migrations\20260414112201_AddPurchasePrice2AndStocks.Designer.cs">
+      <DependentUpon>20260414112201_AddPurchasePrice2AndStocks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StokIslemleriUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\StokIslemleriUC.Designer.cs">
+      <DependentUpon>StokIslemleriUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VeresiyeDefterUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\VeresiyeDefterUC.Designer.cs">
+      <DependentUpon>VeresiyeDefterUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EFaturaUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EFaturaUC.Designer.cs">
+      <DependentUpon>EFaturaUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RaporlarUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\RaporlarUC.Designer.cs">
+      <DependentUpon>RaporlarUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AyarlarUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AyarlarUC.Designer.cs">
+      <DependentUpon>AyarlarUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KisayolAyarlariForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UrunSecimForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\NoSpinnerNumeric.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\AppDbContext.cs" />
+    <Compile Include="Migrations\20260413083443_InitialCreate.cs" />
+    <Compile Include="Migrations\20260413083443_InitialCreate.Designer.cs">
+      <DependentUpon>20260413083443_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AppDbContextModelSnapshot.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Sale.cs" />
+    <Compile Include="Models\SaleItem.cs" />
+    <Compile Include="Models\PriceChangeLog.cs" />
+    <Compile Include="Views\RafEtiketiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="ThemeManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\AyarlarUC.resx">
+      <DependentUpon>AyarlarUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\StokIslemleriUC.resx">
+      <DependentUpon>StokIslemleriUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>3.1.32</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <Version>3.1.32</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <Version>3.1.32</Version>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL">
+      <Version>3.1.18</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
