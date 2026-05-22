@@ -15,18 +15,17 @@ namespace ÜrünTakip
 {
     public partial class Form1 : Form
     {
-        // UserControl instances
+
         private VeresiyeDefterUC veresiyeUC;
         private EFaturaUC efaturaUC;
         private AyarlarUC ayarlarUC;
 
-        // Ayrı pencere olarak açılan formlar
+
         private Form _stokForm;
         private Form _raporlarForm;
 
-        // Sepet verileri (Kasa ekranı - Çoklu Kasa Desteği)
         private List<List<CartItem>> _carts = new List<List<CartItem>> { new List<CartItem>(), new List<CartItem>() };
-        private int _activeKasaIndex = 0; // 0=Kasa 1, 1=Kasa 2
+        private int _activeKasaIndex = 0;
         private decimal _cartTotal { get { return CurrentCart.Sum(x => x.LineTotal); } }
         private List<CartItem> CurrentCart => _carts[_activeKasaIndex];
         private Button btnCloseSearch;
@@ -38,7 +37,7 @@ namespace ÜrünTakip
             InitializeComponent();
             ApplyTheme();
 
-            // UserControl'leri oluştur ve dinamik panele ekle (Stok ve Raporlar ayrı pencere açılır)
+
             veresiyeUC = new VeresiyeDefterUC() { Dock = DockStyle.Fill, Visible = false };
             efaturaUC = new EFaturaUC() { Dock = DockStyle.Fill, Visible = false };
             ayarlarUC = new AyarlarUC() { Dock = DockStyle.Fill, Visible = false };
@@ -51,22 +50,22 @@ namespace ÜrünTakip
             LoadTouchGridProducts();
             UpdateCartDisplay();
 
-            // Personel listesini yükle
+
             RefreshPersonnelList();
 
-            // Klavye kısayolları
+
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
 
             SetupShortcuts();
             
-            // Başlangıçta saati ayarla
+
             timerClock_Tick(null, null);
         }
 
         private void ApplyTheme()
         {
-            // ── Sidebar ──
+
             pnlSidebar.BackColor = ThemeManager.SidebarBg;
             foreach (Control c in pnlSidebar.Controls)
             {
@@ -84,16 +83,16 @@ namespace ÜrünTakip
             btnKasa.ForeColor = ThemeManager.SidebarActiveText;
             btnKapat.ForeColor = ThemeManager.SidebarCloseText;
 
-            // ── Header ──
+
             pnlHeader.BackColor = ThemeManager.HeaderBg;
             lblInfo.ForeColor = ThemeManager.TextSecondary;
             lblTotalTitle.ForeColor = ThemeManager.TextMuted;
             lblTotalValue.ForeColor = ThemeManager.TotalGreen;
 
-            // ── Satış Paneli ──
+
             pnlSales.BackColor = Color.FromArgb(230, 240, 255);
 
-            // ── Banknot Paneli ──
+
             flpBanknotes.BackColor = ThemeManager.SurfaceBg;
             lblAlinan.ForeColor = ThemeManager.TextPrimary;
             lblParaUstu.ForeColor = ThemeManager.TextPrimary;
@@ -104,7 +103,7 @@ namespace ÜrünTakip
             ThemeManager.StyleButton(btn100TL, ThemeManager.Banknote100);
             ThemeManager.StyleButton(btn200TL, ThemeManager.Banknote200);
 
-            // ── Dokunmatik Panel ──
+
             pnlTouch.BackColor = ThemeManager.CardBg;
             lblSelectedProduct.BackColor = ThemeManager.FooterBg;
             lblSelectedProduct.ForeColor = Color.White;
@@ -117,7 +116,7 @@ namespace ÜrünTakip
             btnTouchSettings.BackColor = ThemeManager.Amber;
             btnTouchSettings.ForeColor = Color.White;
 
-            // ── Footer (Ödeme Butonları) ──
+
             flpFooter.BackColor = ThemeManager.FooterBg;
             ThemeManager.StyleButton(btnNakit, ThemeManager.Success);
             ThemeManager.StyleButton(btnKrediKarti, ThemeManager.Primary);
@@ -132,14 +131,14 @@ namespace ÜrünTakip
             chkYazarKasa.ForeColor = Color.White;
             chkYazarKasa.FlatStyle = FlatStyle.Flat;
 
-            // ── Dynamic Content ──
+
             pnlDynamicContent.BackColor = ThemeManager.ContentBg;
 
-            // ── DataGridView'ler ──
+
             ThemeManager.StyleDataGridView(dgvSales);
             ThemeManager.StyleDataGridView(dgvKasaSearch);
 
-            // ── Kasa Tab Butonları ──
+
             btnTabKasa1.FlatStyle = FlatStyle.Flat;
             btnTabKasa1.FlatAppearance.BorderColor = ThemeManager.Border;
             btnTabKasa1.FlatAppearance.BorderSize = 1;
@@ -205,7 +204,7 @@ namespace ÜrünTakip
 
         private void SetupCustomEvents()
         {
-            // Arama kapatma butonu oluştur
+
             btnCloseSearch = new Button();
             btnCloseSearch.Text = "❌ Kapat";
             btnCloseSearch.BackColor = ThemeManager.Danger;
@@ -224,7 +223,7 @@ namespace ÜrünTakip
                 txtKasaSearch.Clear();
             };
 
-            // Dış alana tıklayınca kapatma (Global Form tıklamaları)
+
             EventHandler closeGridClick = (s, e) => {
                 if (dgvKasaSearch.Visible && !dgvKasaSearch.Bounds.Contains(this.PointToClient(Cursor.Position)))
                 {
@@ -242,14 +241,14 @@ namespace ÜrünTakip
             dgvSales.Click += closeGridClick;
             pnlTouch.Click += closeGridClick;
 
-            // Kapat
+
             btnKapat.Click += (s, e) =>
             {
                 if (MessageBox.Show("Uygulamayı kapatmak istiyor musunuz?", "Çıkış", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     Application.Exit();
             };
 
-            // Sidebar tab geçişleri
+
             btnKasa.Click += delegate { SayfaDegistir("Kasa"); };
             btnStok.Click += delegate { SayfaDegistir("Stok İşlemleri"); };
             btnVeresiyeDefteri.Click += delegate { SayfaDegistir("Veresiye Defteri"); };
@@ -257,12 +256,12 @@ namespace ÜrünTakip
             btnRaporlar.Click += delegate { SayfaDegistir("Raporlar"); };
             btnAyarlar.Click += delegate { SayfaDegistir("Ayarlar"); };
 
-            // Kasa (Tab) Geçişleri
+
             btnTabKasa1.Click += (s, e) => SwitchKasa(0);
             btnTabKasa2.Click += (s, e) => SwitchKasa(1);
-            SwitchKasa(0); // Başlangıçta Kasa 1 aktif
+            SwitchKasa(0);
 
-            // Barkod ile ürün ekleme (Enter tuşu)
+
             txtBarcode.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -272,11 +271,11 @@ namespace ÜrünTakip
                     txtBarcode.Clear();
                 }
             };
-            // Barkod alanına tıklayınca default yazıyı temizle
+
             txtBarcode.GotFocus += (s, e) => { if (txtBarcode.Text == "Barkod Okutunuz...") txtBarcode.Clear(); };
             txtBarcode.LostFocus += (s, e) => { if (string.IsNullOrWhiteSpace(txtBarcode.Text)) txtBarcode.Text = "Barkod Okutunuz..."; };
 
-            // Kasa arama kutucuğu
+
             txtKasaSearch.GotFocus += (s, e) => { if (txtKasaSearch.Text == "Ürün Ara...") txtKasaSearch.Clear(); };
             txtKasaSearch.LostFocus += (s, e) => { 
                 if (string.IsNullOrWhiteSpace(txtKasaSearch.Text)) { 
@@ -318,15 +317,15 @@ namespace ÜrünTakip
                         
                     if (results.Count > 0)
                     {
-                        dgvKasaSearch.Parent = this; // Panel kısıtlamasından kurtulmak için en dışa al
+                        dgvKasaSearch.Parent = this;
                         dgvKasaSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left; 
                         Point pt = txtKasaSearch.PointToScreen(Point.Empty);
                         Point formPt = this.PointToClient(pt);
                         dgvKasaSearch.Location = new Point(formPt.X, formPt.Y + txtKasaSearch.Height + 15);
-                        dgvKasaSearch.Width = 980; // Yatayda devasa boyut
+                        dgvKasaSearch.Width = 980;
                         dgvKasaSearch.Height = 450;
                         
-                        dgvKasaSearch.DataSource = null; // Kolon çakışmalarını sıfırla
+                        dgvKasaSearch.DataSource = null;
                         dgvKasaSearch.DataSource = results;
                         if (dgvKasaSearch.Columns.Contains("Id")) dgvKasaSearch.Columns["Id"].Visible = false;
                         if (dgvKasaSearch.Columns.Contains("Ürün")) dgvKasaSearch.Columns["Ürün"].FillWeight = 250;
@@ -386,10 +385,10 @@ namespace ÜrünTakip
 
             txtKasaSearch.Text = "Ürün Ara...";
 
-            // DataGrid satır silme butonu
+
             dgvSales.CellClick += DgvSales_CellClick;
 
-            // Banknot tuşları - Alınan paraya ekle
+
             btn5TL.Click += (s, e) => AddBanknote(5);
             btn10TL.Click += (s, e) => AddBanknote(10);
             btn20TL.Click += (s, e) => AddBanknote(20);
@@ -397,7 +396,7 @@ namespace ÜrünTakip
             btn100TL.Click += (s, e) => AddBanknote(100);
             btn200TL.Click += (s, e) => AddBanknote(200);
 
-            // Alınan para elle yazıldığında para üstü hesapla
+
             txtAlinan.TextChanged += AlinanTextChanged;
             btnClearAlinan.Click += (s, e) => {
                 txtAlinan.TextChanged -= AlinanTextChanged;
@@ -407,7 +406,7 @@ namespace ÜrünTakip
                 txtAlinan.TextChanged += AlinanTextChanged;
             };
 
-            // Satış butonları
+
             btnNakit.Click += (s, e) => CompleteSale("Nakit");
             btnKrediKarti.Click += (s, e) => CompleteSale("Kart");
             btnNakitKart.Click += (s, e) => CompleteSaleNakitKart();
@@ -415,22 +414,22 @@ namespace ÜrünTakip
             btnVeresiye.Click += (s, e) => CompleteSaleVeresiye();
             btnDiger.Click += (s, e) => CompleteSale("Diğer");
 
-            // Dokunmatik Kategori Butonları
+
             btnCatGenel.Click += (s, e) => SetTouchCategory("GENEL", btnCatGenel);
             btnCatTekel.Click += (s, e) => SetTouchCategory("TEKEL", btnCatTekel);
             btnCatManav.Click += (s, e) => SetTouchCategory("MANAV", btnCatManav);
             
-            // Kısayol Ayarları
+
             if (btnTouchSettings != null)
             {
                 btnTouchSettings.Click += (s, e) => {
                     var frm = new KisayolAyarlariForm();
                     frm.ShowDialog();
-                    LoadTouchGridProducts(); // Ayarlar bitince yenile
+                    LoadTouchGridProducts();
                 };
             }
 
-            // Yedekleme butonu
+
             btnYedekle.Click += (s, e) => BackupDatabase();
         }
 
@@ -438,7 +437,7 @@ namespace ÜrünTakip
         {
             _activeTouchCategory = category;
             
-            // Renkleri sıfırla
+
             btnCatGenel.BackColor = ThemeManager.TouchCatInactive;
             btnCatTekel.BackColor = ThemeManager.TouchCatInactive;
             btnCatManav.BackColor = ThemeManager.TouchCatInactive;
@@ -446,7 +445,7 @@ namespace ÜrünTakip
             btnCatTekel.ForeColor = ThemeManager.TextPrimary;
             btnCatManav.ForeColor = ThemeManager.TextPrimary;
 
-            // Aktif butonu vurgula
+
             activeBtn.BackColor = ThemeManager.TouchCatActive;
             activeBtn.ForeColor = Color.White;
 
@@ -458,7 +457,7 @@ namespace ÜrünTakip
             CalculateChange();
         }
 
-        // ————————————————— SAYFA GEÇİŞLERİ —————————————————
+
 
         private void HideAllUC()
         {
@@ -468,10 +467,10 @@ namespace ÜrünTakip
             lblDynamicContentTitle.Visible = false;
         }
 
-        /// <summary>Stok veya Raporlar için ayrı modeless pencere açar. Zaten açıksa öne getirir.</summary>
+
         private void OpenAsWindow(string title, Func<UserControl> createUC, ref Form formField)
         {
-            // Eğer pencere zaten açıksa öne getir
+
             if (formField != null && !formField.IsDisposed)
             {
                 formField.WindowState = FormWindowState.Normal;
@@ -499,8 +498,7 @@ namespace ÜrünTakip
 
             frm.Controls.Add(uc);
 
-            // Pencere kapandığında referansı temizle
-            Form localRef = frm; // closure için
+            Form localRef = frm;
             frm.FormClosed += (s, e) =>
             {
                 if (_stokForm == localRef) _stokForm = null;
@@ -508,12 +506,12 @@ namespace ÜrünTakip
             };
 
             formField = frm;
-            frm.Show(); // Modeless — ana uygulama ile aynı anda kullanılabilir
+            frm.Show();
         }
 
         private void SayfaDegistir(string sayfaAdi)
         {
-            // Stok ve Raporlar ayrı pencere olarak açılır
+
             if (sayfaAdi == "Stok İşlemleri")
             {
                 OpenAsWindow("📦 Stok İşlemleri", () => {
@@ -562,7 +560,7 @@ namespace ÜrünTakip
             }
         }
 
-        // ————————————————— DOKUNMATİK ÜRÜN GRID —————————————————
+
 
         private void LoadTouchGridProducts()
         {
@@ -571,18 +569,18 @@ namespace ÜrünTakip
             {
                 using (var db = new AppDbContext())
                 {
-                    // Seçili kategoriye ve pozisyona göre ürünleri getir (sadece 20 pozisyon)
+
                     var products = db.Products
                                      .Where(p => p.IsActive && p.PosCategory == _activeTouchCategory && p.PosPosition != null)
                                      .ToList();
 
-                    // 20 pozisyonluk dizi oluştur
+
                     Product[] gridProducts = new Product[20];
                     foreach(var p in products)
                     {
                         if (p.PosPosition >= 1 && p.PosPosition <= 20)
                         {
-                            // Aynı pozisyonda birden fazla ürün varsa ilkini alır
+
                             if (gridProducts[p.PosPosition.Value - 1] == null)
                                 gridProducts[p.PosPosition.Value - 1] = p;
                         }
@@ -642,7 +640,7 @@ namespace ÜrünTakip
             AddProductById(productId);
         }
 
-        // ————————————————— SEPETE ÜRÜN EKLEME —————————————————
+
 
         private void AddProductByBarcode(string barcode)
         {
@@ -671,7 +669,7 @@ namespace ÜrünTakip
 
         private void AddToCart(Product product)
         {
-            // Eğer aynı ürün zaten sepette varsa miktarını artır
+
             var existing = CurrentCart.FirstOrDefault(c => c.ProductId == product.Id);
             if (existing != null)
             {
@@ -696,7 +694,7 @@ namespace ÜrünTakip
             
             decimal totalStock = product.Stock1 + product.Stock2 - currentCartQty;
             decimal remainingStok1 = product.Stock1 - currentCartQty;
-            if (remainingStok1 < 0) remainingStok1 = 0; // Görsel olarak o anki sepet düşümü
+            if (remainingStok1 < 0) remainingStok1 = 0;
             
             lblSelectedProduct.Text = $"  Seçili: {product.Name} | Kalan Stok: {totalStock:N0} (Stok1: {remainingStok1:N0} , {product.PurchasePrice:N2}₺)";
             
@@ -724,7 +722,7 @@ namespace ÜrünTakip
             lblTotalValue.Text = _cartTotal.ToString("N2") + " ₺";
         }
 
-        // ————————————————— STOK DETAY PANELİ —————————————————
+
 
         private void ShowStockDetailPanel(CartItem cartItem, int cartRowIndex)
         {
@@ -748,7 +746,7 @@ namespace ÜrünTakip
             frmStock.MinimizeBox = false;
             frmStock.BackColor = ThemeManager.CardBg;
 
-            // Başlık Panel
+
             Panel pnlTitle = new Panel();
             pnlTitle.Dock = DockStyle.Top;
             pnlTitle.Height = 60;
@@ -767,7 +765,7 @@ namespace ÜrünTakip
             int leftCol = 25;
             int rightCol = 240;
 
-            // ── Stok 1 Satırı ──
+
             Label lblS1Header = new Label();
             lblS1Header.Text = "STOK 1";
             lblS1Header.Location = new Point(leftCol, y);
@@ -803,7 +801,7 @@ namespace ÜrünTakip
             frmStock.Controls.Add(sep1);
             y += 12;
 
-            // ── Stok 2 Satırı ──
+
             Label lblS2Header = new Label();
             lblS2Header.Text = "STOK 2";
             lblS2Header.Location = new Point(leftCol, y);
@@ -839,7 +837,7 @@ namespace ÜrünTakip
             frmStock.Controls.Add(sep2);
             y += 18;
 
-            // ── Toplam Stok ──
+
             Label lblTotalHeader = new Label();
             lblTotalHeader.Text = "TOPLAM STOK";
             lblTotalHeader.Location = new Point(leftCol, y);
@@ -857,7 +855,7 @@ namespace ÜrünTakip
             lblTotalValue.ForeColor = ThemeManager.TotalGreen;
             frmStock.Controls.Add(lblTotalValue);
 
-            // Satış fiyatı sağ tarafta
+
             Label lblSalePrice = new Label();
             lblSalePrice.Text = $"Satış: {product.SalePrice:N2} ₺";
             lblSalePrice.Location = new Point(rightCol, y);
@@ -868,7 +866,7 @@ namespace ÜrünTakip
             frmStock.Controls.Add(lblSalePrice);
             y += 44;
 
-            // ── Sepetteki Miktar ve Kalan ──
+
             Panel pnlCart = new Panel();
             pnlCart.Location = new Point(leftCol, y);
             pnlCart.Size = new Size(400, 50);
@@ -884,7 +882,7 @@ namespace ÜrünTakip
             pnlCart.Controls.Add(lblCartInfo);
             y += 60;
 
-            // ── Kritik Stok Uyarısı ──
+
             if (product.CriticalStock > 0)
             {
                 Color critColor = remaining <= product.CriticalStock ? ThemeManager.Danger : ThemeManager.Success;
@@ -901,7 +899,7 @@ namespace ÜrünTakip
                 y += 35;
             }
 
-            // ── Ayırıcı çizgi (Miktar bölümü öncesi) ──
+
             Panel sep3 = new Panel();
             sep3.Location = new Point(leftCol, y);
             sep3.Size = new Size(400, 2);
@@ -909,7 +907,7 @@ namespace ÜrünTakip
             frmStock.Controls.Add(sep3);
             y += 14;
 
-            // ── MİKTAR DEĞİŞTİRME PANELİ ──
+
             Label lblAmountHeader = new Label();
             lblAmountHeader.Text = "MİKTAR GÜNCELLE";
             lblAmountHeader.Location = new Point(leftCol, y);
@@ -920,7 +918,7 @@ namespace ÜrünTakip
             frmStock.Controls.Add(lblAmountHeader);
             y += 28;
 
-            // [-] Miktar [+] satırı
+
             int controlsCenter = 210; // form genişliğinin ortası
 
             Button btnMinus = new Button();
@@ -957,7 +955,7 @@ namespace ÜrünTakip
 
             y += 60;
 
-            // GÜNCELLE ve DİREKT SİL butonları
+
             Button btnOk = new Button();
             btnOk.Text = "✅  GÜNCELLE";
             btnOk.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -982,7 +980,7 @@ namespace ÜrünTakip
             btnDelete.Cursor = Cursors.Hand;
             frmStock.Controls.Add(btnDelete);
 
-            // ── Event Handler'lar ──
+
             btnMinus.Click += (s, ev) => {
                 if (decimal.TryParse(txtAmount.Text, out decimal val) && val > 0)
                     txtAmount.Text = (val - 1).ToString("G");
@@ -1029,7 +1027,7 @@ namespace ÜrünTakip
             }
         }
 
-        // ————————————————— GRID SİLME —————————————————
+
 
         private void DgvSales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1041,7 +1039,7 @@ namespace ÜrünTakip
             }
         }
 
-        // ————————————————— BANKNOT & PARA ÜSTÜ —————————————————
+
 
         private void AddBanknote(int amount)
         {
@@ -1060,15 +1058,15 @@ namespace ÜrünTakip
             txtParaUstu.ForeColor = change >= 0 ? ThemeManager.TotalGreen : ThemeManager.Danger;
         }
 
-        // ————————————————— SATIŞ TAMAMLAMA —————————————————
 
-        /// <summary>FIFO stok düşme: Önce Stock1, sonra Stock2 kullanılır</summary>
+
+
         private decimal DeductStockFIFO(Product product, decimal quantity)
         {
             decimal remaining = quantity;
             decimal totalCost = 0;
 
-            // Önce Stock1'den düş
+
             if (product.Stock1 > 0 && remaining > 0)
             {
                 decimal fromStock1 = Math.Min(remaining, product.Stock1);
@@ -1077,7 +1075,7 @@ namespace ÜrünTakip
                 remaining -= fromStock1;
             }
 
-            // Stock1 yetmediyse Stock2'den düş
+
             if (remaining > 0 && product.Stock2 > 0)
             {
                 decimal fromStock2 = Math.Min(remaining, product.Stock2);
@@ -1086,29 +1084,28 @@ namespace ÜrünTakip
                 remaining -= fromStock2;
             }
 
-            // Her iki stok da yeterli değilse kalan negatife düşsün (Stock1'de)
+
             if (remaining > 0)
             {
                 product.Stock1 -= remaining;
                 totalCost += remaining * product.PurchasePrice;
             }
 
-            // Müşteri Talebi: Alış fiyatı 1'in stoğu sıfırlandığında,
-            // alış fiyatı 2'nin fiyatı ve stoğu birinciye geçsin, ikincisi boşalsın.
+
             if (product.Stock1 <= 0 && product.Stock2 > 0)
             {
                 product.Stock1 += product.Stock2;
                 product.PurchasePrice = product.PurchasePrice2;
                 
-                // İkinci alış fiyatını ve stoğunu sıfırla
+
                 product.Stock2 = 0;
                 product.PurchasePrice2 = 0;
             }
 
-            // Toplam stoku güncelle
+
             product.CurrentStock = product.Stock1 + product.Stock2;
 
-            // Ağırlıklı ortalama maliyet fiyatı
+
             return quantity > 0 ? totalCost / quantity : 0;
         }
 
@@ -1120,14 +1117,14 @@ namespace ÜrünTakip
             {
                 using (var db = new AppDbContext())
                 {
-                    // KDV toplamı hesapla
+
                     decimal vatTotal = 0;
                     foreach (var item in CurrentCart)
                     {
                         vatTotal += item.LineTotal * (item.VatRate / 100m);
                     }
 
-                    // Satış kaydı oluştur
+
                     var sale = new Sale
                     {
                         SaleDate = DateTime.Now,
@@ -1140,7 +1137,7 @@ namespace ÜrünTakip
                     db.Sales.Add(sale);
                     db.SaveChanges();
 
-                    // Satış detay satırlarını kaydet ve stok düş (FIFO)
+
                     foreach (var item in CurrentCart)
                     {
                         var product = db.Products.Find(item.ProductId);
@@ -1164,7 +1161,7 @@ namespace ÜrünTakip
                     }
                     db.SaveChanges();
 
-                    // Fiş göster
+
                     if (chkFisVer.Checked)
                     {
                         ShowReceipt(sale, CurrentCart);
@@ -1173,7 +1170,7 @@ namespace ÜrünTakip
                     MessageBox.Show($"Satış tamamlandı!\nToplam: {_cartTotal:C2}\nÖdeme: {paymentType}", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                // Sepeti temizle
+
                 ClearCart();
                 LoadTouchGridProducts();
             }
@@ -1187,7 +1184,7 @@ namespace ÜrünTakip
         {
             if (CurrentCart.Count == 0) { MessageBox.Show("Sepet boş!"); return; }
 
-            // Müşteri seçtir
+
             Form selectForm = new Form() { Width = 400, Height = 350, Text = "Müşteri Seçin", StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog };
             ListBox lb = new ListBox() { Left = 10, Top = 10, Width = 365, Height = 240, Font = new Font("Segoe UI", 12F) };
             Button ok = new Button() { Text = "SEÇ", Left = 250, Top = 260, Width = 125, Height = 40, DialogResult = DialogResult.OK, BackColor = Color.MediumSeaGreen, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
@@ -1251,7 +1248,7 @@ namespace ÜrünTakip
                             });
                         }
 
-                        // Müşteri borcunu güncelle
+
                         var customer = db.Customers.Find(customerId);
                         if (customer != null) customer.TotalDebt += _cartTotal;
 
@@ -1269,7 +1266,7 @@ namespace ÜrünTakip
         {
             CurrentCart.Clear();
             RefreshCartGrid();
-            // TextChanged event'ini geçici olarak devre dışı bırak, yoksa sıfırlamada kendini tekrar hesaplar
+            // TextChanged event'ini geçici olarak devre dışı bırak
             txtAlinan.TextChanged -= AlinanTextChanged;
             txtAlinan.Text = "0,00";
             txtParaUstu.Text = "0,00";
@@ -1348,7 +1345,7 @@ namespace ÜrünTakip
         {
             _activeKasaIndex = index;
             
-            // Buton görsellerini güncelle
+
             btnTabKasa1.BackColor = (_activeKasaIndex == 0) ? ThemeManager.Primary : ThemeManager.SurfaceBg;
             btnTabKasa1.ForeColor = (_activeKasaIndex == 0) ? Color.White : ThemeManager.TextPrimary;
             btnTabKasa1.Font = new Font("Segoe UI", 10F, (_activeKasaIndex == 0) ? FontStyle.Bold : FontStyle.Regular);
@@ -1361,12 +1358,12 @@ namespace ÜrünTakip
             txtBarcode.Focus();
         }
 
-        // ——————————————————— VERİTABANI YEDEKLEME ———————————————————
 
-        /// <summary>PostgreSQL kurulum dizinlerinden pg_dump.exe yolunu otomatik bulur</summary>
+
+
         private string FindPgDump()
         {
-            // Bilinen PostgreSQL kurulum dizinlerini tara
+
             string[] searchRoots = new string[]
             {
                 @"C:\Program Files\PostgreSQL",
@@ -1377,7 +1374,7 @@ namespace ÜrünTakip
             {
                 if (Directory.Exists(root))
                 {
-                    // Versiyon klasörlerini büyükten küçüğe sırala (en yeni versiyon önce)
+
                     var versionDirs = Directory.GetDirectories(root)
                         .OrderByDescending(d => d)
                         .ToArray();
@@ -1391,7 +1388,7 @@ namespace ÜrünTakip
                 }
             }
 
-            // Bulunamazsa PATH'teki pg_dump'ı dene
+
             return "pg_dump";
         }
 
@@ -1401,14 +1398,14 @@ namespace ÜrünTakip
             {
                 string backupFolder = AyarlarUC.GetBackupPath();
 
-                // Klasör yoksa oluştur
+
                 if (!Directory.Exists(backupFolder))
                     Directory.CreateDirectory(backupFolder);
 
                 string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".backup";
                 string fullPath = Path.Combine(backupFolder, fileName);
 
-                // Aynı isimde dosya varsa zaman ekle
+
                 if (File.Exists(fullPath))
                 {
                     fileName = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".backup";
@@ -1417,7 +1414,7 @@ namespace ÜrünTakip
 
                 string pgDumpExe = FindPgDump();
 
-                // pg_dump ile yedekleme
+
                 ProcessStartInfo psi = new ProcessStartInfo();
                 psi.FileName = pgDumpExe;
                 psi.Arguments = $"-h localhost -p 5432 -U postgres -F c -b -v -f \"{fullPath}\" UrunTakipDB";
@@ -1454,7 +1451,7 @@ namespace ÜrünTakip
         }
     }
 
-    /// <summary>Sepetteki bir ürün satırını temsil eder (geçici, DB'ye yazılmadan önce)</summary>
+
     public class CartItem
     {
         public int ProductId { get; set; }
